@@ -1,0 +1,42 @@
+{
+  "name": "muse-vue-ant-design-dashboard",
+  "version": "1.0.0",
+  "description": "A user-friendly, open source and beautiful dashboard based on Ant Design Vue.",
+  "main": "src/main.js",
+  "homepage": "https://demos.creative-tim.com/muse-ant-design-dashboard/",
+  "repository": "https://github.com/creativetimofficial/muse-ant-design-dashboard",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve --open",
+    "build": "vue-cli-service build",
+    "dev": "npm run serve"
+  },
+  "dependencies": {
+    "ant-design-vue": "1.7.6",
+    "axios": "^0.21.1",
+    "bootstrap": "^5.2.3",
+    "chart.js": "3.4.1",
+    "core-js": "3.15.2",
+    "jsbarcode": "^3.11.5",
+    "vee-validate": "^2.2.15",
+    "vue": "2.6.14",
+    "vue-barcode": "^1.3.0",
+    "vue-barcode-scanner": "^0.8.1",
+    "vue-country-dropdown": "^2.0.8",
+    "vue-github-buttons": "^3.1.0",
+    "vue-i18n": "^8.28.2",
+    "vue-router": "3.5.2",
+    "vue2-transitions": "^0.3.0",
+    "vuetable-2": "^2.0.0-beta.4",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "4.5.13",
+    "@vue/cli-plugin-router": "4.5.13",
+    "@vue/cli-service": "4.5.13",
+    "node-sass": "6.0.1",
+    "sass-loader": "^10",
+    "vue-template-compiler": "2.6.14"
+  }
+}

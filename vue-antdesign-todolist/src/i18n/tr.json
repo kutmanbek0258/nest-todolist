@@ -1,0 +1,107 @@
+{
+  "sign_in": {
+    "title": "Kayıt olmak",
+    "text_message": "Oturum açmak için e-postanızı ve şifrenizi girin",
+    "email_placeholder": "E-posta",
+    "password_placeholder": "Parola",
+    "remember_me_switch": "Beni Hatırla",
+    "forgot_password": "Parolanızı mı unuttunuz",
+    "sign_in_button": "KAYIT OLMAK",
+    "have_not_account": "Hesabınız yok mu? ",
+    "sign_up": "Üye olmak"
+  },
+  "sing_up": {
+    "title": "Üye olmak",
+    "text_message": "Use these awesome forms to login or create new account in your project for free.",
+    "register_with": "Kayıt ol",
+    "name_placeholder": "İsim",
+    "email_placeholder": "E-posta",
+    "password_placeholder": "Parola",
+    "agreement_terms": "katılıyorum ",
+    "terms": "Şartlar ve koşullar",
+    "sing_up_button": "ÜYE OLMAK",
+    "have_account": "Zaten hesabınız var mı?",
+    "sign_in": "Kayıt olmak"
+  },
+  "sidebar_dashboard": {
+    "dashboard": "Gösterge Paneli",
+    "products": "Ürün",
+    "receipts": "Gelirler",
+    "postings": "İlanlar",
+    "reports": "Raporlar",
+    "profile": "Profil"
+  },
+  "product_list": {
+    "title": "Ürünler tablosu",
+    "create_new_product": "YENİ ÜRÜN OLUŞTUR",
+    "search_placeholder": "Buraya yaz",
+    "column_title_name": "İSİM",
+    "column_title_description": "DESCRIPTION",
+    "column_title_barcode": "BARCODE",
+    "column_title_system_code": "SYSTEM CODE",
+    "column_title_created_date": "CREATED DATE",
+    "edit_button": "DÜZENLE",
+    "delete_button": "SİLMEK",
+    "report_button": "RAPORLAMAK",
+    "delete_dialog_title": "ÜRÜNÜ SİLDİĞİNİZE EMİN MİSİNİZ?"
+  },
+  "create_product": {
+    "title": "ürün oluştur",
+    "text_message": "ürün oluştur",
+    "product_name": "İsim",
+    "product_description": "Açıklama",
+    "product_system_code": "sistem kodu",
+    "product_manufacturer": "Üretici firma",
+    "product_barcode": "barkod",
+    "create_product_button": "CREATE PRODUCT",
+    "back_to_products": "ürünlere geri dön",
+    "back": "geri"
+  },
+  "product_report": {
+    "title": "Ürün raporu",
+    "receipts_total_amount": "Makbuzlar toplam tutarı",
+    "postings_total_amount": "İlanların toplam tutarı",
+    "final_quantity": "Nihai miktar",
+    "quantity_in_cell": "Hücredeki ürün miktarı",
+    "receipts_history": "Ürün giriş geçmişi",
+    "postings_history": "Ürün ilanları geçmişi",
+    "back_to_products": "ürünlere geri dön",
+    "back": "geri"
+  },
+  "receipt_list": {
+    "title": "Ürün giriş tablosu",
+    "create_new_receipt": "Yeni makbuz oluştur",
+    "edit_button": "DÜZENLE",
+    "delete_button": "SİLMEK",
+    "delete_dialog_title": "FİŞİ SİLDİĞİNDEN EMİN MİSİN?"
+  },
+  "create_receipt": {
+    "title": "Yeni ürün girişi",
+    "text_message": "Yeni ürün girişi oluştur",
+    "product": "Ürün",
+    "select_product_button": "Ürünü seç",
+    "quantity": "Miktar",
+    "cell_number": "Hücre numarası",
+    "receipt_button": "FİŞLİ ÜRÜN",
+    "back_to_receipts": "Makbuzlara geri dön",
+    "back": "geri"
+  },
+  "posting_list": {
+    "title": "Ürün ilanları tablosu",
+    "create_new_posting": "Yeni ilan oluştur",
+    "edit_button": "DÜZENLE",
+    "delete_button": "SİLMEK",
+    "delete_dialog_title": "GÖNDERİYİ SİLDİĞİNİZE EMİN MİSİNİZ?"
+  },
+  "create_posting": {
+    "title": "Yeni ürün ilanı",
+    "text_message": "Yeni ürün ilanı oluştur",
+    "product": "Ürün",
+    "select_product_button": "Ürünü seç",
+    "quantity": "Miktar",
+    "cell_number": "Hücre numarası",
+    "posting_button": "ÜRÜN GÖNDERİMİ",
+    "back_to_postings": "İlanlara geri dön",
+    "back": "geri"
+  }
+}
