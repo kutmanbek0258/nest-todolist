@@ -12,7 +12,7 @@ import { addHours } from 'date-fns';
 import * as bcrypt from 'bcrypt';
 import { CreateForgotPasswordDto } from './dto/create-forgot-password.dto';
 import { CreateUserDto } from './dto/create-user.dto';
-import { VerifyUuidDto } from './dto/verify-uuid.dto';
+import { VerifyEmailDto } from './dto/verify-email.dto';
 import { RefreshAccessTokenDto } from './dto/refresh-access-token.dto';
 import { NmailerService } from 'src/nmailer/nmailer.service';
 import { MoreThan, Repository } from 'typeorm';
@@ -48,7 +48,7 @@ export class UserService {
   // ┬  ┬┌─┐┬─┐┬┌─┐┬ ┬  ┌─┐┌┬┐┌─┐┬┬
   // └┐┌┘├┤ ├┬┘│├┤ └┬┘  ├┤ │││├─┤││
   //  └┘ └─┘┴└─┴└   ┴   └─┘┴ ┴┴ ┴┴┴─┘
-  async verifyEmail(req: Request, verifyUuidDto: VerifyUuidDto) {
+  async verifyEmail(req: Request, verifyUuidDto: VerifyEmailDto) {
     const user = await this.findByVerification(verifyUuidDto.verification);
     await this.setUserAsVerified(user);
     return {
@@ -113,7 +113,7 @@ export class UserService {
   // ┌─┐┌─┐┬─┐┌─┐┌─┐┌┬┐  ┌─┐┌─┐┌─┐┌─┐┬ ┬┌─┐┬─┐┌┬┐  ┬  ┬┌─┐┬─┐┬┌─┐┬ ┬
   // ├┤ │ │├┬┘│ ┬│ │ │   ├─┘├─┤└─┐└─┐││││ │├┬┘ ││  └┐┌┘├┤ ├┬┘│├┤ └┬┘
   // └  └─┘┴└─└─┘└─┘ ┴   ┴  ┴ ┴└─┘└─┘└┴┘└─┘┴└──┴┘   └┘ └─┘┴└─┴└   ┴
-  async forgotPasswordVerify(req: Request, verifyUuidDto: VerifyUuidDto) {
+  async forgotPasswordVerify(req: Request, verifyUuidDto: VerifyEmailDto) {
     const forgotPassword = await this.findForgotPasswordByUuid(verifyUuidDto);
     await this.setForgotPasswordFirstUsed(req, forgotPassword);
     return {
@@ -267,7 +267,7 @@ export class UserService {
   }
 
   private async findForgotPasswordByUuid(
-    verifyUuidDto: VerifyUuidDto,
+    verifyUuidDto: VerifyEmailDto,
   ): Promise<ForgotPassword> {
     const forgotPassword = await this.forgotPasswordRepository.findOne({
       where: {

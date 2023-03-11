@@ -1,0 +1,3 @@
+insert into public.forgot_password (id, email, verification, firstUsed, finalUsed, expires, ip, browser, country, ipChanged, browserChanged, countryChanged)
+values  (2, 'kutman.kochkorbay@etibakir.com.tr', 874115, true, true, '2023-03-10 23:36:17.833000', '::1', 'XX', 'XX', '::1', 'XX', 'XX'),
+        (4, 'kutman.kochkorbay@etibakir.com.tr', 353456, true, true, '2023-03-10 23:42:01.607000', '::1', 'XX', 'XX', '::1', 'XX', 'XX');
