@@ -1,0 +1,347 @@
+{
+	"info": {
+		"_postman_id": "30b445fd-070f-4ef6-be11-e0b9e5fccf7f",
+		"name": "nest-postgres-typeorm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13605726"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User registration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullName\":\"Kutman Smanov\",\r\n    \"email\":\"kutman.kochkorbay@etibakir.com.tr\",\r\n    \"password\":\"$manov\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/user",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User email verification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"verification\":367181\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/user/verify-email",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"verify-email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"kutman.kochkorbay@etibakir.com.tr\",\r\n    \"password\":\"$manov\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/user/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User refresh access token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "c08f960c8df018a5f707eb90fd1f25644b6d637f4b0fce5f83a951a6aaa742546d2528b6a7df76a21d97a1bea93e53ff7a5b8e4e71485fdfcdbcfa8e4d8401fc836986c28ef9a46eb4d2d4d16f16b6893701a0c3f6984e837cdf958e6c28433d8a5ff211daf45e2a3c5fdd736cf792fae530aca96f6fe8982a9e65dffdd060e0812160a884e2ab52f085d44329e16fb0f5237de1f4596e5a5ddc0ff937d9f7c54dcbff2023e64f67c4ce5dffb9818b9821908693fc244be51946455b423959f1debc60739acade0c2ef27b2a278a2c1a7b843885bcacf953445d4ee10ebaef87f606256f5a5bfe3dcaf3fe8e28d86d",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshToken\":\"a174f78a-578f-445d-8fa9-c075db65cdec\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/user/refresh-access-token",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"refresh-access-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User forgot password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"kutman.kochkorbay@etibakir.com.tr\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/user/forgot-password",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User forgot password verify",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "e1ce84a56bf374d7278085bb249298ef44236a7bfae7e21f88c7098e91c1b6853b3e5cbdb0860a99eb684828d715e2d07d54b98fd676c03c01cb25b591aee4587a94397882038120c01b21406042d5d8c117da0df5750b45b4f98f614858bd834aebc67dd51d8d3afb4585ff19fd397f9eb1c081ba13a970a6e6208ff69adc7ca22df8b010d0073e14ad2f2c9c2b18da76f7983743e565c1e56fa00f88e74d524c95858c94dd542a3601d815b7d22e31dfada3c910545d2136b08df1097de3af1dc75bce33ff8c80916aea5bbdc31407e6f076135b9d1ebed88abc629478c1bb7c56c32e93353c3511740fdf5c131f",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"verification\":807166\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/user/forgot-password-verify",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"forgot-password-verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User reset password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "e1ce84a56bf374d7278085bb249298ef44236a7bfae7e21f88c7098e91c1b6853b3e5cbdb0860a99eb684828d715e2d07d54b98fd676c03c01cb25b591aee4587a94397882038120c01b21406042d5d8c117da0df5750b45b4f98f614858bd834aebc67dd51d8d3afb4585ff19fd397f9eb1c081ba13a970a6e6208ff69adc7ca22df8b010d0073e14ad2f2c9c2b18da76f7983743e565c1e56fa00f88e74d524c95858c94dd542a3601d815b7d22e31dfada3c910545d2136b08df1097de3af1dc75bce33ff8c80916aea5bbdc31407e6f076135b9d1ebed88abc629478c1bb7c56c32e93353c3511740fdf5c131f",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"kutman.kochkorbay@etibakir.com.tr\",\r\n    \"password\":\"$manov\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/user/reset-password",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Todolist",
+			"item": [
+				{
+					"name": "localhost:8080/todo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "84f0a8501683ef3cb06626f891f0ff1c430a4a6fcbe8446f3f17c07657874f2ad9dbc7d86df3d253de0a423eba0ef68d352b0b202004ed159186ea3658d3213b8571f3a1e36bfaf550664a8de37faaa2e88bc1d5febfb3d3bca9b9d884f1f190157d7d7ee89aba7e5a28fb2f1b3fec524bc79e2a76104835ac054008db92605d31646a1b6c91d222887105e81b53a4096da127e84230ec4db1b6ed4a75255f3cac78729e92b40ae766b6269ff4b9b9584297306105d27658eb3810904d8be181cff83680ef5aba327955bb59a3c24880d8acd51d4cdc8b5e3ccce589dbf88b812607bd1af8c82fd6e2dc692aa704d7",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test\",\n    \"description\": \"test description\",\n    \"owner\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/todo",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/todo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/todo",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/todo/1",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test\",\n    \"description\": \"test description\",\n    \"owner\": 3,\n    \"done\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/todo/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/todo/2",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/todo/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
