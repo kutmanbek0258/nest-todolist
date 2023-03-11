@@ -16,7 +16,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { VerifyUuidDto } from './dto/verify-uuid.dto';
+import { VerifyEmailDto } from './dto/verify-email.dto';
 import { UserService } from './user.service';
 import { AuthGuard, PassportModule } from '@nestjs/passport';
 import { RefreshAccessTokenDto } from './dto/refresh-access-token.dto';
@@ -38,7 +38,7 @@ export class UserController {
 
   @Post('verify-email')
   @HttpCode(HttpStatus.OK)
-  async verifyEmail(@Req() req: Request, @Body() verifyUuidDto: VerifyUuidDto) {
+  async verifyEmail(@Req() req: Request, @Body() verifyUuidDto: VerifyEmailDto) {
     return await this.userService.verifyEmail(req, verifyUuidDto);
   }
 
@@ -69,7 +69,7 @@ export class UserController {
   @HttpCode(HttpStatus.OK)
   async forgotPasswordVerify(
     @Req() req: Request,
-    @Body() verifyUuidDto: VerifyUuidDto,
+    @Body() verifyUuidDto: VerifyEmailDto,
   ) {
     return await this.userService.forgotPasswordVerify(req, verifyUuidDto);
   }

@@ -7,20 +7,28 @@ import { NmailerModule } from './nmailer/nmailer.module';
 import { AppLoggerMiddleware } from './middleware/http-logger.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TodoModule } from './todo/todo.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { DefaultData } from './migrations/default-data';
 
 @Module({
   controllers: [AppController],
   providers: [AppService],
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'sMANovKutman',
-      database: 'nest-todolist',
-      entities: [__dirname + '/../**/*.entity.js'],
-      synchronize: true,
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get('POSTGRES_HOST'),
+        port: +configService.get<number>('POSTGRES_PORT'),
+        username: configService.get('POSTGRES_USER'),
+        password: configService.get('POSTGRES_PASSWORD'),
+        database: configService.get('POSTGRES_DATABASE'),
+        synchronize: true,
+        autoLoadEntities: true,
+        migrations: [DefaultData],
+      }),
+      inject: [ConfigService],
     }),
     UserModule,
     AuthModule,

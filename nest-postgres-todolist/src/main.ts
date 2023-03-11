@@ -21,7 +21,7 @@ async function bootstrap() {
 
   const swaggerOptions = new DocumentBuilder()
     .setTitle('API')
-    .setDescription('Sumsar retail API')
+    .setDescription('Todo list app API')
     .setVersion('1.0')
     .addTag('API')
     .build();

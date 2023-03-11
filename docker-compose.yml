@@ -24,7 +24,7 @@ services:
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - "/home/kutman/docker_apps/postgres/data:/var/lib/postgresql/data"
+      - "/home/kutman/docker_apps/data/postgres:/var/lib/postgresql/data"
     ports:
       - 5432:5432
     network_mode: "host"
