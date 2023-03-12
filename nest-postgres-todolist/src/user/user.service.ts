@@ -323,7 +323,7 @@ export class UserService {
         verified: true,
       },
     });
-    user.password = resetPasswordDto.password;
+    user.password = await bcrypt.hash(resetPasswordDto.password, 10);
     await this.userRepository.save(user);
   }
 }
