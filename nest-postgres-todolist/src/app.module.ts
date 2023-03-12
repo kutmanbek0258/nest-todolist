@@ -8,7 +8,7 @@ import { AppLoggerMiddleware } from './middleware/http-logger.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TodoModule } from './todo/todo.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { DefaultData } from './migrations/default-data';
+import { DataSource } from './data-source';
 
 @Module({
   controllers: [AppController],
@@ -26,7 +26,7 @@ import { DefaultData } from './migrations/default-data';
         database: configService.get('POSTGRES_DATABASE'),
         synchronize: true,
         autoLoadEntities: true,
-        migrations: [DefaultData],
+        migrations: [DataSource],
       }),
       inject: [ConfigService],
     }),

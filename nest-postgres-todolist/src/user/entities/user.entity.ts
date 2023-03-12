@@ -77,7 +77,8 @@
 //   });
 
 import {
-  BeforeInsert, BeforeUpdate,
+  BeforeInsert,
+  BeforeUpdate,
   Column,
   Entity,
   OneToMany,
