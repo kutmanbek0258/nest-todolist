@@ -24,6 +24,12 @@ async function bootstrap() {
     .setDescription('Todo list app API')
     .setVersion('1.0')
     .addTag('API')
+    // .addBearerAuth({
+    //   type: 'http',
+    //   scheme: 'bearer',
+    //   bearerFormat: 'JWT',
+    //   in: 'header',
+    // })
     .build();
 
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerOptions, {

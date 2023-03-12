@@ -1,9 +1,14 @@
-import { PartialType } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { CreateTodoDto } from './create-todo.dto';
 import { IsBoolean, IsOptional } from 'class-validator';
 import { Transform } from 'class-transformer';
 
 export class UpdateTodoDto extends PartialType(CreateTodoDto) {
+  @ApiProperty({
+    description: 'Todo task done status',
+    type: Boolean,
+    example: true,
+  })
   @IsOptional()
   @IsBoolean()
   @Transform(({ value }) =>

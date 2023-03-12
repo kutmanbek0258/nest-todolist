@@ -1,4 +1,4 @@
-import { Roles } from './../auth/decorators/roles.decorator';
+import { Roles } from '../auth/decorators/roles.decorator';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { CreateForgotPasswordDto } from './dto/create-forgot-password.dto';
 import { Request } from 'express';
@@ -12,13 +12,11 @@ import {
   Req,
   HttpCode,
   HttpStatus,
-  Param,
-  Logger,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
 import { UserService } from './user.service';
-import { AuthGuard, PassportModule } from '@nestjs/passport';
+import { AuthGuard } from '@nestjs/passport';
 import { RefreshAccessTokenDto } from './dto/refresh-access-token.dto';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 
