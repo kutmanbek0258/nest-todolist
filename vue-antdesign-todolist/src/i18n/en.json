@@ -114,5 +114,18 @@
     "create_button": "CREATE EQUIPMENT",
     "back_to_equipments": "Back to equipments",
     "back": "back"
+  },
+
+  "create_todo": {
+    "title": "Create todo",
+    "text_message": "Create todo",
+    "product_name": "Name",
+    "product_description": "Description",
+    "product_system_code": "System code",
+    "product_manufacturer": "Manufacturer",
+    "product_barcode": "Barcode",
+    "create_product_button": "CREATE TODO",
+    "back_to_products": "Back to todos",
+    "back": "back"
   }
 }
