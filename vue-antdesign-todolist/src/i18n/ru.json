@@ -25,83 +25,27 @@
   },
   "sidebar_dashboard": {
     "dashboard": "Панель управления",
-    "products": "Товары",
+    "todos": "Todos",
     "receipts": "Прием",
     "postings": "Отправка",
     "reports": "Отчеты",
     "profile": "Профиль"
   },
-  "product_list": {
-    "title": "Таблица товаров",
-    "create_new_product": "СОЗДАТЬ НОВЫЙ ТОВАР",
-    "search_placeholder": "Пишите сюда для поиска",
-    "column_title_name": "NAME",
-    "column_title_description": "DESCRIPTION",
-    "column_title_barcode": "BARCODE",
-    "column_title_system_code": "SYSTEM CODE",
-    "column_title_created_date": "CREATED DATE",
-    "edit_button": "ИЗМЕНИТЬ",
-    "delete_button": "УДАЛИТЬ",
-    "report_button": "ОТЧЕТ",
-    "delete_dialog_title": "ВЫ УВЕРЕНЫ В УДАЛЕНИИ ЭТОГО ТОВАРА?"
+  "create_todo": {
+    "title": "Create todo",
+    "text_message": "Create todo",
+    "name": "Name",
+    "description": "Description",
+    "create_button": "CREATE TODO",
+    "back_to_todos": "Back to todos",
+    "back": "back"
   },
-  "create_product": {
-    "title": "Создать товар",
-    "text_message": "Создвть товар",
-    "product_name": "Название",
-    "product_description": "Описание",
-    "product_system_code": "Код в системе",
-    "product_manufacturer": "Произодитель",
-    "product_barcode": "Штрих код",
-    "create_product_button": "СОЗДАТЬ ТОВАР",
-    "back_to_products": "Назад к списку товаров",
-    "back": "назад"
-  },
-  "product_report": {
-    "title": "Отчет о товаре",
-    "receipts_total_amount": "Общая сумма поступлений",
-    "postings_total_amount": "Общая сумма отправок",
-    "final_quantity": "Окончательное количество",
-    "quantity_in_cell": "Количество товара в ячейке",
-    "receipts_history": "История поступления товара",
-    "postings_history": "История отправлений товара",
-    "back_to_products": "Назад к списку товаров",
-    "back": "назад"
-  },
-  "receipt_list": {
-    "title": "Таблица поступления товаров",
-    "create_new_receipt": "Создать новое поступление",
-    "edit_button": "ИЗМЕНИТЬ",
-    "delete_button": "УДАЛИТЬ",
-    "delete_dialog_title": "ВЫ УВЕРЕНЫ В УДАЛЕНИИ ЭТОГО ПОСТУПЛЕНИЯ?"
-  },
-  "create_receipt": {
-    "title": "Новое поступление товара",
-    "text_message": "Создать новое поступление товара",
-    "product": "Товар",
-    "select_product_button": "Выбрать товар",
-    "quantity": "Количество",
-    "cell_number": "Номер ячейки",
-    "receipt_button": "ПРИНИМАТЬ ТОВАР",
-    "back_to_receipts": "Назад к списку поступлений",
-    "back": "назад"
-  },
-  "posting_list": {
-    "title": "Таблица отправок товаров",
-    "create_new_posting": "Создать новую отправку",
-    "edit_button": "ИЗМЕНИТЬ",
-    "delete_button": "УДАЛИТЬ",
-    "delete_dialog_title": "ВЫ УВЕРЕНЫ В УДАЛЕНИИ ЭТУ ОТПРАВКУ?"
-  },
-  "create_posting": {
-    "title": "Новая отправка товара",
-    "text_message": "Создать новую отправку товара",
-    "product": "Товар",
-    "select_product_button": "Выбрать товар",
-    "quantity": "Количество",
-    "cell_number": "Номер ячейки",
-    "posting_button": "ОТПРАВИТЬ ТОВАР",
-    "back_to_postings": "Назад к списку отправок",
-    "back": "назад"
+
+  "todo_list": {
+    "title": "Todos table",
+    "create_new_posting": "Create new todo",
+    "edit_button": "EDIT",
+    "delete_button": "DELETE",
+    "delete_dialog_title": "ARE YOU SURE DELETE TODO?"
   }
 }
