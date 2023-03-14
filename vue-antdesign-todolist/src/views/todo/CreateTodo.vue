@@ -10,8 +10,8 @@
 
       <!-- Sign In Form Column -->
       <a-col :span="24" :md="12" :lg="{span: 12, offset: 0}" :xl="{span: 6, offset: 0}" class="col-form">
-        <h1 class="mb-15">{{ $t('create_posting.title') }}</h1>
-        <h5 class="font-regular text-muted">{{ $t('create_posting.text_message') }}</h5>
+        <h1 class="mb-15">{{ $t('create_todo.title') }}</h1>
+        <h5 class="font-regular text-muted">{{ $t('create_todo.text_message') }}</h5>
 
         <!-- Sign In Form -->
         <a-form
@@ -20,53 +20,39 @@
             @submit.prevent="handleSubmit"
             :hideRequiredMark="true"
         >
-          <a-form-item class="mb-10" :label="$t('create_posting.product')" :colon="false">
-            <a-button type="primary" @click="showModal">{{ $t('create_posting.select_product_button') }}</a-button>
-            <div class="author-info">
-              {{this.selectedProductName}}
-            </div>
-          </a-form-item>
-          <a-form-item class="mb-5" :label="$t('create_posting.quantity')" :colon="false">
+          <a-form-item class="mb-5" :label="$t('create_todo.name')" :colon="false">
             <a-input
                 v-decorator="[
-						'quantity',
-						{ rules: [{ required: true, message: 'Please input product quantity' }] },
+						'name',
+						{ rules: [{ required: true, message: 'Please input todo name' }] },
 						]"
-                type="number"
-                :placeholder="$t('create_posting.quantity')"
-                v-model="quantity"/>
+                type="text"
+                :placeholder="$t('create_todo.name')"
+                v-model="name"/>
           </a-form-item>
-          <a-form-item class="mb-5" :label="$t('create_posting.cell_number')" :colon="false">
+          <a-form-item class="mb-5" :label="$t('create_todo.description')" :colon="false">
             <a-input
                 v-decorator="[
-						'cell_number',
+						'description',
 						{ rules: [{ required: true, message: 'Please input product cell number' }] },
 						]"
                 type="text"
-                :placeholder="$t('create_posting.cell_number')"
-                v-model="cell_number"/>
+                :placeholder="$t('create_todo.description')"
+                v-model="description"/>
           </a-form-item>
           <a-form-item>
             <a-button type="primary" block html-type="submit" class="login-form-button">
-              {{ $t('create_posting.posting_button') }}
+              {{ $t('create_todo.create_button') }}
             </a-button>
           </a-form-item>
         </a-form>
         <!-- / Sign In Form -->
 
-        <p class="font-semibold text-muted">{{ $t('create_posting.back_to_postings') }} <router-link to="/postings" class="font-bold text-dark">
-          {{ $t('create_posting.back') }}</router-link></p>
+        <p class="font-semibold text-muted">{{ $t('create_todo.back_to_todos') }} <router-link to="/postings" class="font-bold text-dark">
+          {{ $t('create_todo.back') }}</router-link></p>
       </a-col>
 
     </a-row>
-
-    <a-modal v-model:visible="dialogVisible" title="Select product" @ok="handleOk" @cancel="handleOk" @close="handleOk">
-      <CardProductTable
-          :data="products.allProducts"
-          :columns="productsTableColumns"
-      >
-      </CardProductTable>
-    </a-modal>
 
 	</div>
 </template>
@@ -97,31 +83,30 @@
 
     computed: {
       ...mapState('auth', ['user']),
-      ...mapState('posting', ['posting']),
-      ...mapState('product', ['products', 'selectedProductId', 'selectedProductName', 'current', 'pageSize', 'dialogVisible'])
+      ...mapState('todo', ['todo']),
     },
 
 		data() {
       return {
         // Binded model property for "Sign In Form" switch button for "Remember Me" .
-        productName: 'SELECT PRODUCT',
-        quantity: '',
-        cell_number: '',
+        name: '',
+        description: '',
         visible: false,
-        productsTableColumns,
       }
 		},
 
     methods: {
       ...mapActions('todo', ['createTodo']),
       handleSubmit() {
-        const user = this.user.id;
+        const owner = this.user.id;
         const {
-            quantity,
-            cell_number,
+          name,
+          description,
         } = this;
-        if (product && quantity && cell_number) {
-          this.createTodo({ user, product, quantity, cell_number });
+        if (name && description && owner) {
+          this.createTodo({ name, description, owner });
+        }else {
+          console.log("error");
         }
       },
 

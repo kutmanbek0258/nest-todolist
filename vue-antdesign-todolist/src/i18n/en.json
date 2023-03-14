@@ -25,107 +25,28 @@
   },
   "sidebar_dashboard": {
     "dashboard": "Dashboard",
-    "products": "Products",
+    "todos": "Todos",
     "receipts": "Receipts",
     "postings": "Postings",
     "reports": "Reports",
     "profile": "Profile"
   },
-  "product_list": {
-    "title": "Products table",
-    "create_new_product": "CREATE NEW PRODUCT",
-    "search_placeholder": "Type here",
-    "column_title_name": "NAME",
-    "column_title_description": "DESCRIPTION",
-    "column_title_barcode": "BARCODE",
-    "column_title_system_code": "SYSTEM CODE",
-    "column_title_created_date": "CREATED DATE",
-    "edit_button": "EDIT",
-    "delete_button": "DELETE",
-    "report_button": "REPORT",
-    "delete_dialog_title": "ARE YOU SURE DELETE PRODUCT?"
-  },
-  "create_product": {
-    "title": "Create product",
-    "text_message": "Create product",
-    "product_name": "Name",
-    "product_description": "Description",
-    "product_system_code": "System code",
-    "product_manufacturer": "Manufacturer",
-    "product_barcode": "Barcode",
-    "create_product_button": "CREATE PRODUCT",
-    "back_to_products": "Back to products",
-    "back": "back"
-  },
-  "product_report": {
-    "title": "Product report",
-    "receipts_total_amount": "Receipts total amount",
-    "postings_total_amount": "Postings total amount",
-    "final_quantity": "Final quantity",
-    "quantity_in_cell": "Product quantity in cell",
-    "receipts_history": "Product receipts history",
-    "postings_history": "Product postings history",
-    "back_to_products": "Back to products",
-    "back": "back"
-  },
-  "receipt_list": {
-    "title": "Product receipts table",
-    "create_new_receipt": "Create new receipt",
-    "edit_button": "EDIT",
-    "delete_button": "DELETE",
-    "delete_dialog_title": "ARE YOU SURE DELETE RECEIPT?"
-  },
-  "create_receipt": {
-    "title": "New product receipt",
-    "text_message": "Create new product receipt",
-    "product": "Product",
-    "select_product_button": "Select product",
-    "quantity": "Quantity",
-    "cell_number": "Cell number",
-    "receipt_button": "RECEIPT PRODUCT",
-    "back_to_receipts": "Back to receipts",
-    "back": "back"
-  },
-  "posting_list": {
-    "title": "Product postings table",
-    "create_new_posting": "Create new posting",
-    "edit_button": "EDIT",
-    "delete_button": "DELETE",
-    "delete_dialog_title": "ARE YOU SURE DELETE POSTING?"
-  },
-  "create_posting": {
-    "title": "New product posting",
-    "text_message": "Create new product posting",
-    "product": "Product",
-    "select_product_button": "Select product",
-    "quantity": "Quantity",
-    "cell_number": "Cell number",
-    "posting_button": "POSTING PRODUCT",
-    "back_to_postings": "Back to postings",
-    "back": "back"
-  },
-  "create_equipment": {
-    "title": "New equipment",
-    "text_message": "Create new equipment",
-    "equipment": "Equipment",
-    "name": "Name",
-    "description": "Description",
-    "type": "Type",
-    "create_button": "CREATE EQUIPMENT",
-    "back_to_equipments": "Back to equipments",
-    "back": "back"
-  },
 
   "create_todo": {
     "title": "Create todo",
     "text_message": "Create todo",
-    "product_name": "Name",
-    "product_description": "Description",
-    "product_system_code": "System code",
-    "product_manufacturer": "Manufacturer",
-    "product_barcode": "Barcode",
-    "create_product_button": "CREATE TODO",
-    "back_to_products": "Back to todos",
+    "name": "Name",
+    "description": "Description",
+    "create_button": "CREATE TODO",
+    "back_to_todos": "Back to todos",
     "back": "back"
+  },
+
+  "todo_list": {
+    "title": "Todos table",
+    "create_new_posting": "Create new todo",
+    "edit_button": "EDIT",
+    "delete_button": "DELETE",
+    "delete_dialog_title": "ARE YOU SURE DELETE TODO?"
   }
 }
