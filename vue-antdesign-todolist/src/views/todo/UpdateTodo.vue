@@ -38,6 +38,11 @@
                 placeholder="Description"
                 v-model="todo.description"/>
           </a-form-item>
+
+          <a-form-item class="mb-5" label="Done" :colon="false">
+            <a-switch v-model:checked="todo.done" />
+          </a-form-item>
+
           <a-form-item>
             <a-button type="primary" block html-type="submit" class="login-form-button">
               UPDATE TODO

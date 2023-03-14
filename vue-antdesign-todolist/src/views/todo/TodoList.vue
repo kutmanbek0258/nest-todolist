@@ -46,6 +46,13 @@
 			dataIndex: 'description',
 			scopedSlots: { customRender: 'description' },
 		},
+
+    {
+      title: 'DONE',
+      dataIndex: 'done',
+      scopedSlots: { customRender: 'done' },
+    },
+
 		{
 			title: 'CREATED DATE',
 			dataIndex: 'createdAt',
