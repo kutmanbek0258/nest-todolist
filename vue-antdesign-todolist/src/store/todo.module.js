@@ -13,9 +13,9 @@ const actions = {
   createTodo({dispatch, commit}, {name, description, owner}){
     TodoService.createTodo({name, description, owner}).then(
       todo => {
-        commit('createTodoSuccess', todo);
+        commit('createTodoSuccess', todo.data);
         dispatch('alert/success', 'Todo created success!', {root:true});
-        router.push('/todos');
+        router.push('/todo-list');
       }
     ).catch(error => {
       commit('createTodoFailure');
@@ -26,7 +26,7 @@ const actions = {
   getAllTodos({dispatch, commit}){
     TodoService.getAllTodos().then(
       todos => {
-        commit('getAllTodosSuccess', todos);
+        commit('getAllTodosSuccess', todos.data);
       }
     ).catch(error => {
       commit('getAllTodosFailure');
@@ -37,7 +37,7 @@ const actions = {
   getTodoById({dispatch, commit}, {id}){
     TodoService.getTodoById({id}).then(
       todo => {
-        commit('getTodoByIdSuccess', todo);
+        commit('getTodoByIdSuccess', todo.data);
       }
     ).catch(error => {
       commit('getTodoByIdFailure');
@@ -45,12 +45,13 @@ const actions = {
     })
   },
 
-  updateTodo({dispatch, commit}, {id, name, description, owner, status}){
-    TodoService.updateTodo({id, name, description, owner, status}).then(
+  updateTodo({dispatch, commit}, {id, name, description, done}){
+    console.log("called");
+    TodoService.updateTodo({id, name, description, done}).then(
       todo => {
-        commit('updateTodoSuccess', todo);
+        commit('updateTodoSuccess', todo.data);
         dispatch('alert/success', "Todo updates success!", {root: true});
-        router.push('/todos');
+        router.push('/todo-list');
       }
     ).catch(error => {
       commit('updateTodoFailure');
@@ -62,7 +63,8 @@ const actions = {
     TodoService.deleteTodo({id}).then(
       todo => {
         commit('deleteTodoSuccess', todo);
-        dispatch('alert/success', "Todo deleted success");
+        dispatch('alert/success', "Todo deleted success", {root: true});
+        router.go(0);
       }
     ).catch(error => {
       commit('deleteTodoFailure');
@@ -80,11 +82,11 @@ const mutations = {
     state.todo = null;
   },
 
-  getAllTodosFailure(state, todos){
+  getAllTodosSuccess(state, todos){
     state.todos = todos
   },
 
-  getAllTodosSuccess(state){
+  getAllTodosFailure(state){
     state.todos = null;
   },
 

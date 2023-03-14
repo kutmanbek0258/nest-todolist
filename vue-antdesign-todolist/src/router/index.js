@@ -89,6 +89,30 @@ let routes = [
 		},
 		component: () => import('../views/auth/Reset-Password'),
 	},
+	{
+		path: '/create-todo',
+		name: 'create-todo',
+		meta: {
+			layoutClass: 'layout-create-todo',
+		},
+		component: () => import('../views/todo/CreateTodo'),
+	},
+
+	{
+		path: '/todo-list',
+		name: 'todo-list',
+		layout: "dashboard",
+		component: () => import('../views/todo/TodoList'),
+	},
+
+	{
+		path: '/update-todo/:id',
+		name: 'update-todo',
+		meta: {
+			layoutClass: 'layout-update-todo',
+		},
+		component: () => import('../views/todo/UpdateTodo'),
+	},
 ]
 
 // Adding layout property from each route to the meta

@@ -1,6 +1,6 @@
 import api from './api';
 
-class TodoSerivce{
+class TodoSerivce {
   createTodo({name, description, owner}){
     return api.post('/todo', {
       name,
@@ -17,12 +17,11 @@ class TodoSerivce{
     return api.get('/todo/' + id);
   }
 
-  updateTodo({id, name, description, owner, status}){
+  updateTodo({id, name, description, done}){
     return api.patch('/todo/' + id, {
       name,
       description,
-      owner,
-      status
+      done
     })
   }
 
@@ -30,3 +29,5 @@ class TodoSerivce{
     return api.delete('/todo/' + id);
   }
 }
+
+export default new TodoSerivce();
