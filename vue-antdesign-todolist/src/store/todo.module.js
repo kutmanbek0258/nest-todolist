@@ -46,7 +46,6 @@ const actions = {
   },
 
   updateTodo({dispatch, commit}, {id, name, description, done}){
-    console.log("called");
     TodoService.updateTodo({id, name, description, done}).then(
       todo => {
         commit('updateTodoSuccess', todo.data);

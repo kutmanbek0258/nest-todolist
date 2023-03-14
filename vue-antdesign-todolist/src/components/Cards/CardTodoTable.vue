@@ -30,11 +30,15 @@
 				</div>
 			</template>
 
-			<template slot="todo_description" slot-scope="description">
+			<template slot="description" slot-scope="description">
 				<div class="author-info">
 					<h6 class="m-0">{{ description }}</h6>
 				</div>
 			</template>
+
+      <template slot="done" slot-scope="done">
+        {{done}}
+      </template>
 
       <template slot="editBtn" slot-scope="row">
         <a-button v-on:click="openLink('/update-todo/' + row.id)" :data-id="row.id"  class="btn-edit">
