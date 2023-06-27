@@ -26,9 +26,9 @@
   "sidebar_dashboard": {
     "dashboard": "Dashboard",
     "todos": "Todos",
-    "receipts": "Receipts",
-    "postings": "Postings",
-    "reports": "Reports",
+    "sales": "Sales",
+    "depot": "Depot",
+    "marketing": "Marketing",
     "profile": "Profile"
   },
 

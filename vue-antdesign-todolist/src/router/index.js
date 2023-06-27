@@ -23,27 +23,15 @@ let routes = [
 		// which is lazy-loaded when the route is visited.
 		component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
 	},
-	{
-		path: '/layout',
-		name: 'Layout',
-		layout: "dashboard",
-		component: () => import('../views/Layout.vue'),
-	},
-	{
-		path: '/billing',
-		name: 'Billing',
-		layout: "dashboard",
-		component: () => import('../views/Billing.vue'),
-	},
-	{
-		path: '/Profile',
-		name: 'Profile',
-		layout: "dashboard",
-		meta: {
-			layoutClass: 'layout-profile',
-		},
-		component: () => import('../views/Profile.vue'),
-	},
+	// {
+	// 	path: '/Profile',
+	// 	name: 'Profile',
+	// 	layout: "dashboard",
+	// 	meta: {
+	// 		layoutClass: 'layout-profile',
+	// 	},
+	// 	component: () => import('../views/Profile.vue'),
+	// },
 	{
 		path: '/sign-in',
 		name: 'Sign-In',
@@ -112,6 +100,25 @@ let routes = [
 			layoutClass: 'layout-update-todo',
 		},
 		component: () => import('../views/todo/UpdateTodo'),
+	},
+
+	{
+		path: '/marketing',
+		name: 'marketing',
+		layout: "dashboard",
+		component: () => import('../views/marketing/Marketing'),
+	},
+	{
+		path: '/sales',
+		name: 'sales',
+		layout: "dashboard",
+		component: () => import('../views/sales/Sales'),
+	},
+	{
+		path: '/depot',
+		name: 'depot',
+		layout: "dashboard",
+		component: () => import('../views/depot/Depot'),
 	},
 ]
 
