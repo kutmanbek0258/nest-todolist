@@ -23,27 +23,15 @@ let routes = [
 		// which is lazy-loaded when the route is visited.
 		component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
 	},
-	{
-		path: '/layout',
-		name: 'Layout',
-		layout: "dashboard",
-		component: () => import('../views/Layout.vue'),
-	},
-	{
-		path: '/billing',
-		name: 'Billing',
-		layout: "dashboard",
-		component: () => import('../views/Billing.vue'),
-	},
-	{
-		path: '/Profile',
-		name: 'Profile',
-		layout: "dashboard",
-		meta: {
-			layoutClass: 'layout-profile',
-		},
-		component: () => import('../views/Profile.vue'),
-	},
+	// {
+	// 	path: '/Profile',
+	// 	name: 'Profile',
+	// 	layout: "dashboard",
+	// 	meta: {
+	// 		layoutClass: 'layout-profile',
+	// 	},
+	// 	component: () => import('../views/Profile.vue'),
+	// },
 	{
 		path: '/sign-in',
 		name: 'Sign-In',
@@ -88,6 +76,55 @@ let routes = [
 			layoutClass: 'layout-reset-password',
 		},
 		component: () => import('../views/auth/Reset-Password'),
+	},
+	{
+		path: '/create-todo',
+		name: 'create-todo',
+		meta: {
+			layoutClass: 'layout-create-todo',
+		},
+		component: () => import('../views/todo/CreateTodo'),
+	},
+
+	{
+		path: '/references/todo-list',
+		name: 'todo-list',
+		layout: "dashboard",
+		component: () => import('../views/todo/TodoList'),
+	},
+
+	{
+		path: '/update-todo/:id',
+		name: 'update-todo',
+		meta: {
+			layoutClass: 'layout-update-todo',
+		},
+		component: () => import('../views/todo/UpdateTodo'),
+	},
+
+	{
+		path: '/marketing',
+		name: 'marketing',
+		layout: "dashboard",
+		component: () => import('../views/marketing/Marketing'),
+	},
+	{
+		path: '/sales',
+		name: 'sales',
+		layout: "dashboard",
+		component: () => import('../views/sales/Sales'),
+	},
+	{
+		path: '/depot',
+		name: 'depot',
+		layout: "dashboard",
+		component: () => import('../views/depot/Depot'),
+	},
+	{
+		path: '/references',
+		name: 'references',
+		layout: "dashboard",
+		component: () => import('../views/references/References'),
 	},
 ]
 

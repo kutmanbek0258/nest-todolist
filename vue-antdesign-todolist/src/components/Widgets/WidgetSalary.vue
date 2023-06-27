@@ -1,12 +1,12 @@
 <template>
 
 	<!-- Salary Card -->
-	<a-card :bordered="false" class="widget-2 h-full">
+	<a-card :bordered="false" class="widget-2 h-full" v-on:click="openLink(content.link)">
 		<a-statistic :value="value" :prefix="prefix">
 			<template #title>
 				<div class="icon" v-html="icon"></div>
-				<h6>{{ title }}</h6>
-				<p>{{ content }}</p>
+				<h6>{{ $t(title) }}</h6>
+				<p>{{ $t(content.body) }}</p>
 			</template>
 		</a-statistic>
 	</a-card>
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+
+import router from "../../router";
 
 	export default ({
 		props: {
@@ -35,14 +37,22 @@
 				default: "",
 			},
 			content: {
-				type: String,
-				default: "",
+				type: Object,
+				default: {},
 			},
 		},
 		data() {
 			return {
 			}
 		},
+
+    methods: {
+      openLink(link){
+        console.log(link)
+        router.push(link);
+      },
+    }
+
 	})
 
 </script>

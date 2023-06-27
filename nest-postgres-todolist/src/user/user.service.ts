@@ -68,6 +68,7 @@ export class UserService {
     await this.checkPassword(loginUserDto.password, user);
     await this.passwordsAreMatch(user);
     return {
+      id: user.id,
       fullName: user.fullName,
       email: user.email,
       accessToken: await this.authService.createAccessToken(user.id),
