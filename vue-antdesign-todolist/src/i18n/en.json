@@ -29,7 +29,39 @@
     "sales": "Sales",
     "depot": "Depot",
     "marketing": "Marketing",
+    "references": "References",
     "profile": "Profile"
+  },
+
+  "sales": {
+    "pos": "POS",
+    "open_shift": "Open shift",
+    "close_shift": "Close shift",
+    "daily_sales": "Daily sales"
+  },
+
+  "marketing": {
+    "prices": "Prices",
+    "promotions": "Promotions"
+  },
+
+  "depot": {
+    "receipt": "Receipts",
+    "write_off": "Write off",
+    "recount": "Recount"
+  },
+
+  "reference": {
+    "company": "Companies",
+    "shop": "Shops",
+    "pos": "Points of sale",
+    "cash_register": "Cash registers",
+    "seller": "Sellers",
+    "salesman": "Salesmen",
+    "person": "Persons",
+    "product": "Products",
+    "product_group": "Product groups",
+    "price_template": "Price templates"
   },
 
   "create_todo": {

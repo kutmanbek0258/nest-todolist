@@ -87,7 +87,7 @@ let routes = [
 	},
 
 	{
-		path: '/todo-list',
+		path: '/references/todo-list',
 		name: 'todo-list',
 		layout: "dashboard",
 		component: () => import('../views/todo/TodoList'),
@@ -119,6 +119,12 @@ let routes = [
 		name: 'depot',
 		layout: "dashboard",
 		component: () => import('../views/depot/Depot'),
+	},
+	{
+		path: '/references',
+		name: 'references',
+		layout: "dashboard",
+		component: () => import('../views/references/References'),
 	},
 ]
 
