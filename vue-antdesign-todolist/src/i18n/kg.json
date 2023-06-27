@@ -25,83 +25,27 @@
   },
   "sidebar_dashboard": {
     "dashboard": "Куралдар тактасы",
-    "products": "Продукциялар",
+    "todos": "Todos",
     "receipts": "Кируулор",
     "postings": "Чыгуулар",
     "reports": "Отчеттор",
     "profile": "Профиль"
   },
-  "product_list": {
-    "title": "Продукциялардын таблицасы",
-    "create_new_product": "ЖАҢЫ ПРОДУКЦИЯ ЖАРАТ",
-    "search_placeholder": "Бул жерге териңиз",
-    "column_title_name": "NAME",
-    "column_title_description": "DESCRIPTION",
-    "column_title_barcode": "BARCODE",
-    "column_title_system_code": "SYSTEM CODE",
-    "column_title_created_date": "CREATED DATE",
-    "edit_button": "ОЗГОРТУУ",
-    "delete_button": "ОЧУРУУ",
-    "report_button": "ОТЧЕТ",
-    "delete_dialog_title": "ӨНҮМДҮ ЧЫНЫП ЖОК КЫЛАСЫЗБЫ?"
+  "create_todo": {
+    "title": "Create todo",
+    "text_message": "Create todo",
+    "name": "Name",
+    "description": "Description",
+    "create_button": "CREATE TODO",
+    "back_to_todos": "Back to todos",
+    "back": "back"
   },
-  "create_product": {
-    "title": "Продукт түзүү",
-    "text_message": "Продукт түзүү",
-    "product_name": "аты",
-    "product_description": "Кошумча маалымат",
-    "product_system_code": "Система коду",
-    "product_manufacturer": "Өндүрүүчү",
-    "product_barcode": "Штрихкод",
-    "create_product_button": "ӨНҮМДҮ ТҮЗҮҮ",
-    "back_to_products": "Товарларга кайтуу",
-    "back": "артка"
-  },
-  "product_report": {
-    "title": "Продукт отчету",
-    "receipts_total_amount": "Кируулордун жалпы суммасы",
-    "postings_total_amount": "Чыгуулардын жалпы суммасы",
-    "final_quantity": "Акыркы суммасы",
-    "quantity_in_cell": "Клеткадагы продукциянын саны",
-    "receipts_history": "Продукт кируу тарыхы",
-    "postings_history": "Продукт чыгуу тарыхы",
-    "back_to_products": "Товарларга кайтуу",
-    "back": "артка"
-  },
-  "receipt_list": {
-    "title": "Продукцияны кабыл алуу таблицасы",
-    "create_new_receipt": "Жаңы кабыл алуу түзүү",
-    "edit_button": "түзөтүү",
-    "delete_button": "жок кылуу",
-    "delete_dialog_title": "Дүмүрчөктү ЧЫНЫП ЖОК КЫЛАСЫЗБЫ?"
-  },
-  "create_receipt": {
-    "title": "Жаңы продуктту кабыл алуу",
-    "text_message": "Жаңы продукт дүмүрчөгүн түзүү",
-    "product": "Продукт",
-    "select_product_button": "Продукт тандаңыз",
-    "quantity": "Саны",
-    "cell_number": "Клетка номери",
-    "receipt_button": "ПРОДУКЦИЯНЫ КАБЫЛ АЛУУ",
-    "back_to_receipts": "Квитанцияларга кайтуу",
-    "back": "артка"
-  },
-  "posting_list": {
-    "title": "Продукт чыгуу таблицасы",
-    "create_new_posting": "Жаңы чыгуу түзүү",
-    "edit_button": "түзөтүү",
-    "delete_button": "жок кылуу",
-    "delete_dialog_title": "ПОСТТАРДЫ ЧЫНЫП ЖОК КЫЛЫП ЖАТАСЫЗБЫ?"
-  },
-  "create_posting": {
-    "title": "Жаңы продукт чыгуусун тузуу",
-    "text_message": "Жаңы продукт чыгуусун тузуу",
-    "product": "Продукт",
-    "select_product_button": "Продукт тандаңыз",
-    "quantity": "Саны",
-    "cell_number": "Клетка номери",
-    "posting_button": "ЧЫГУУНУ ТУЗУУ",
-    "back_to_postings": "Чыгууларга кайтуу",
-    "back": "артка"
+
+  "todo_list": {
+    "title": "Todos table",
+    "create_new_posting": "Create new todo",
+    "edit_button": "EDIT",
+    "delete_button": "DELETE",
+    "delete_dialog_title": "ARE YOU SURE DELETE TODO?"
   }
 }
