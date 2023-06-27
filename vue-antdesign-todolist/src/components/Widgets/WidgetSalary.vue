@@ -5,8 +5,8 @@
 		<a-statistic :value="value" :prefix="prefix">
 			<template #title>
 				<div class="icon" v-html="icon"></div>
-				<h6>{{ title }}</h6>
-				<p>{{ content.body }}</p>
+				<h6>{{ $t(title) }}</h6>
+				<p>{{ $t(content.body) }}</p>
 			</template>
 		</a-statistic>
 	</a-card>
