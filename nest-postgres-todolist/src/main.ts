@@ -7,7 +7,6 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { UserModule } from './user/user.module';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
 import { AppLogger } from './logger/logger.service';
-import { TodoModule } from './todo/todo.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -24,16 +23,16 @@ async function bootstrap() {
     .setDescription('Todo list app API')
     .setVersion('1.0')
     .addTag('API')
-    // .addBearerAuth({
-    //   type: 'http',
-    //   scheme: 'bearer',
-    //   bearerFormat: 'JWT',
-    //   in: 'header',
-    // })
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      in: 'header',
+    })
     .build();
 
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerOptions, {
-    include: [UserModule, TodoModule],
+    include: [UserModule],
   });
 
   SwaggerModule.setup('api', app, swaggerDocument);
