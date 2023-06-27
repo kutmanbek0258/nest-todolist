@@ -1,8 +1,3 @@
-import { Roles } from '../auth/decorators/roles.decorator';
-import { ResetPasswordDto } from './dto/reset-password.dto';
-import { CreateForgotPasswordDto } from './dto/create-forgot-password.dto';
-import { Request } from 'express';
-import { LoginUserDto } from './dto/login-user.dto';
 import {
   Controller,
   Get,
@@ -13,12 +8,17 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { VerifyEmailDto } from './dto/verify-email.dto';
+import { Request } from 'express';
 import { UserService } from './user.service';
 import { AuthGuard } from '@nestjs/passport';
 import { RefreshAccessTokenDto } from './dto/refresh-access-token.dto';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { CreateUserDto } from './dto/create-user.dto';
+import { VerifyEmailDto } from './dto/verify-email.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
+import { CreateForgotPasswordDto } from './dto/create-forgot-password.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Controller('user')
 @UseGuards(RolesGuard)
@@ -36,7 +36,10 @@ export class UserController {
 
   @Post('verify-email')
   @HttpCode(HttpStatus.OK)
-  async verifyEmail(@Req() req: Request, @Body() verifyUuidDto: VerifyEmailDto) {
+  async verifyEmail(
+    @Req() req: Request,
+    @Body() verifyUuidDto: VerifyEmailDto,
+  ) {
     return await this.userService.verifyEmail(req, verifyUuidDto);
   }
 

@@ -1,18 +1,15 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
+
 import { UserModule } from './user/user.module';
 import { NmailerModule } from './nmailer/nmailer.module';
 import { AppLoggerMiddleware } from './middleware/http-logger.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TodoModule } from './todo/todo.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DataSource } from './data-source';
+import { ReferencesModule } from './references/references.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  controllers: [AppController],
-  providers: [AppService],
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
@@ -33,7 +30,7 @@ import { DataSource } from './data-source';
     UserModule,
     AuthModule,
     NmailerModule,
-    TodoModule,
+    ReferencesModule,
   ],
 })
 export class AppModule {

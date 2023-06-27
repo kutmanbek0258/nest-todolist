@@ -1,7 +1,3 @@
-import { ResetPasswordDto } from './dto/reset-password.dto';
-import { Request } from 'express';
-import { AuthService } from '../auth/auth.service';
-import { LoginUserDto } from './dto/login-user.dto';
 import {
   Injectable,
   BadRequestException,
@@ -10,11 +6,15 @@ import {
 } from '@nestjs/common';
 import { addHours } from 'date-fns';
 import * as bcrypt from 'bcrypt';
+import { Request } from 'express';
+import { AuthService } from '../auth/auth.service';
+import { ResetPasswordDto } from './dto/reset-password.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 import { CreateForgotPasswordDto } from './dto/create-forgot-password.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
 import { RefreshAccessTokenDto } from './dto/refresh-access-token.dto';
-import { NmailerService } from 'src/nmailer/nmailer.service';
+import { NMailerService } from 'src/nmailer/n-mailer.service';
 import { MoreThan, Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { ForgotPassword } from './entities/forgot-password.entity';
@@ -31,7 +31,7 @@ export class UserService {
     @InjectRepository(ForgotPassword)
     private readonly forgotPasswordRepository: Repository<ForgotPassword>,
     private readonly authService: AuthService,
-    private readonly nmailerService: NmailerService,
+    private readonly nMailerService: NMailerService,
   ) {}
 
   // ┌─┐┬─┐┌─┐┌─┐┌┬┐┌─┐  ┬ ┬┌─┐┌─┐┬─┐
@@ -164,7 +164,7 @@ export class UserService {
   }
 
   private buildRegistrationInfo(user): any {
-    this.nmailerService.sendMail(user.email, String(user.verification));
+    this.nMailerService.sendMail(user.email, String(user.verification));
     const userRegistrationInfo = {
       fullName: user.fullName,
       email: user.email,
@@ -259,7 +259,7 @@ export class UserService {
       browser: this.authService.getBrowserInfo(req),
       country: this.authService.getCountry(req),
     });
-    this.nmailerService.sendMail(
+    this.nMailerService.sendMail(
       forgotPassword.email,
       forgotPassword.verification.toString(),
     );
