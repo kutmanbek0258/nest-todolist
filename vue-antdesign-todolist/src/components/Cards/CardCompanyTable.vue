@@ -98,11 +98,11 @@
       },
 
       onChange(current) {
-        this.getAllCompanies({take: this.pageSize, skip: (current) * this.pageSize})
+        this.getAllCompanies({current, pageSize: this.pageSize});
       },
 
       onShowSizeChange(current, pageSize) {
-        this.getAllCompanies({take: pageSize, skip: (current) * pageSize})
+        this.getAllCompanies({current, pageSize});
       },
 
     },

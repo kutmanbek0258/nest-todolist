@@ -74,7 +74,7 @@
 		},
 
     created(){
-      this.getAllCompanies({take: this.pageSize, skip: (this.current - 1) * this.pageSize});
+      this.getAllCompanies({current: this.current, pageSize: this.pageSize});
     },
 
     methods: {
