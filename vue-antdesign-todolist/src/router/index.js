@@ -18,20 +18,8 @@ let routes = [
 		path: '/dashboard',
 		name: 'Dashboard',
 		layout: "dashboard",
-		// route level code-splitting
-		// this generates a separate chunk (about.[hash].js) for this route
-		// which is lazy-loaded when the route is visited.
 		component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
 	},
-	// {
-	// 	path: '/Profile',
-	// 	name: 'Profile',
-	// 	layout: "dashboard",
-	// 	meta: {
-	// 		layoutClass: 'layout-profile',
-	// 	},
-	// 	component: () => import('../views/Profile.vue'),
-	// },
 	{
 		path: '/sign-in',
 		name: 'Sign-In',
@@ -77,30 +65,6 @@ let routes = [
 		},
 		component: () => import('../views/auth/Reset-Password'),
 	},
-	{
-		path: '/create-todo',
-		name: 'create-todo',
-		meta: {
-			layoutClass: 'layout-create-todo',
-		},
-		component: () => import('../views/todo/CreateTodo'),
-	},
-
-	{
-		path: '/references/todo-list',
-		name: 'todo-list',
-		layout: "dashboard",
-		component: () => import('../views/todo/TodoList'),
-	},
-
-	{
-		path: '/update-todo/:id',
-		name: 'update-todo',
-		meta: {
-			layoutClass: 'layout-update-todo',
-		},
-		component: () => import('../views/todo/UpdateTodo'),
-	},
 
 	{
 		path: '/marketing',
@@ -125,6 +89,24 @@ let routes = [
 		name: 'references',
 		layout: "dashboard",
 		component: () => import('../views/references/References'),
+	},
+	{
+		path: '/references/company',
+		name: 'company',
+		layout: "dashboard",
+		component: () => import('../views/references/company/CompanyList'),
+	},
+	{
+		path: '/references/create-company',
+		name: 'company',
+		layout: "dashboard",
+		component: () => import('../views/references/company/CreateCompany'),
+	},
+	{
+		path: '/references/update-company/:id',
+		name: 'company',
+		layout: "dashboard",
+		component: () => import('../views/references/company/UpdateCompany'),
 	},
 ]
 
