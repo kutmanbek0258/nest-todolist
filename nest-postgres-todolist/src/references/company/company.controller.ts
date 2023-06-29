@@ -21,7 +21,7 @@ export class CompanyController {
     return this.companyService.create(createCompanyDto);
   }
 
-  @Get()
+  @Post('/get-all')
   findAll(@Body() findAllDto: FindAllDto) {
     return this.companyService.findAll(findAllDto);
   }

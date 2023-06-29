@@ -49,7 +49,7 @@ const salaries = [
     title: "reference.company",
     content: {
       body: "Create and edit companies",
-      link: "/references/todo-list"
+      link: "/references/company"
     },
   },
   {

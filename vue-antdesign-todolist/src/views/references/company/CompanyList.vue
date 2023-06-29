@@ -12,13 +12,13 @@
 			<!-- Authors Table Column -->
 			<a-col :span="24" class="mb-24">
 
-				<!-- Authors Table Card -->
-				<CardAuthorTable
-					:data="todos"
-					:columns="todoTableColumns"
+<!--				 Authors Table Card -->
+				<CardCompanyTable
+					:data="companies"
+					:columns="companyTableColumns"
 				>
-        </CardAuthorTable>
-				<!-- / Authors Table Card -->
+        </CardCompanyTable>
+<!--				 / Authors Table Card -->
 
 			</a-col>
 			<!-- / Authors Table Column -->
@@ -33,9 +33,9 @@
 
   import {mapActions, mapState} from "vuex";
 
-	import CardTodoTable from '../../components/Cards/CardTodoTable' ;
+	import CardCompanyTable from '../../../components/Cards/CardCompanyTable' ;
 
-	const todoTableColumns = [
+	const companyTableColumns = [
 		{
 			title: 'NAME',
 			dataIndex: 'name',
@@ -46,23 +46,6 @@
 			dataIndex: 'description',
 			scopedSlots: { customRender: 'description' },
 		},
-
-    {
-      title: 'DONE',
-      dataIndex: 'done',
-      scopedSlots: { customRender: 'done' },
-    },
-
-		{
-			title: 'CREATED DATE',
-			dataIndex: 'createdAt',
-			class: 'createdAt',
-		},
-    {
-      title: 'UPDATED DATE',
-      dataIndex: 'updatedAt',
-      class: 'updatedAt',
-    },
     {
       title: '',
       scopedSlots: { customRender: 'editBtn' },
@@ -78,24 +61,24 @@
 	export default ({
 
     computed: {
-      ...mapState('todo', ['todos', 'current', 'pageSize']),
+      ...mapState('company', ['companies', 'current', 'pageSize']),
     },
 
 		components: {
-			CardAuthorTable: CardTodoTable,
+      CardCompanyTable,
 		},
 		data() {
 			return {
-        todoTableColumns: todoTableColumns,
+        companyTableColumns,
 			}
 		},
 
     created(){
-      this.getAllTodos(); //({current: this.current, pageSize: this.pageSize});
+      this.getAllCompanies({take: this.pageSize, skip: (this.current - 1) * this.pageSize});
     },
 
     methods: {
-      ...mapActions('todo', ['getAllTodos']),
+      ...mapActions('company', ['getAllCompanies']),
     },
 	})
 
