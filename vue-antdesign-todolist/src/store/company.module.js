@@ -24,12 +24,14 @@ const actions = {
     })
   },
 
-  getAllCompanies({dispatch, commit}, {take, skip}){
-    console.log(take, skip);
+  getAllCompanies({dispatch, commit}, {current, pageSize}){
+    const take = pageSize;
+    const skip = (current === 0) ? 0 : pageSize * (current - 1);
     CompanyService.getAllCompanies({take, skip}).then(
       companies => {
-        console.log(companies.data)
-        commit('getAllCompaniesSuccess', companies.data.companies);
+        commit('currentSet', current);
+        commit('pageSizeSet', pageSize);
+        commit('getAllCompaniesSuccess', companies.data);
       }
     ).catch(error => {
       commit('getAllCompaniesFailure');
@@ -86,7 +88,7 @@ const mutations = {
   },
 
   getAllCompaniesSuccess(state, companies){
-    state.companies = companies;
+    state.companies = companies.companies;
     state.totalCount = companies.total;
   },
 
@@ -116,6 +118,14 @@ const mutations = {
 
   deleteCompanyFailure(state){
     state.company = null;
+  },
+
+  currentSet(state, current){
+    state.current = current;
+  },
+
+  pageSizeSet(state, pageSize){
+    state.pageSize = pageSize;
   }
 }
 
