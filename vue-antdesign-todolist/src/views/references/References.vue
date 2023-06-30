@@ -93,7 +93,7 @@ const salaries = [
     title: "reference.person",
     content: {
       body: "Persons",
-      link: "/person"
+      link: "/references/person"
     },
   },
   {

@@ -1,6 +1,5 @@
 import CompanyService from '../services/company.serivce';
 import router from '../router';
-import {log10} from "chart.js/helpers";
 
 const state = {
   company: null,
