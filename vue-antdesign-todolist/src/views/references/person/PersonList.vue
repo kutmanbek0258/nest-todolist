@@ -38,8 +38,8 @@
 	const personTableColumns = [
 		{
 			title: 'FULL NAME',
-			dataIndex: 'fullName',
-			scopedSlots: { customRender: 'fullName' },
+			dataIndex: 'full_name',
+			scopedSlots: { customRender: 'full_name' },
 		},
 		{
 			title: 'email',

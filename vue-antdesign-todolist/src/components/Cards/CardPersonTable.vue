@@ -22,14 +22,6 @@
         :pagination="false"
         bordered>
 
-			<template slot="fullName" slot-scope="name">
-				<div class="table-avatar-info">
-					<div class="avatar-info">
-						<h6>{{ fullName }}</h6>
-					</div>
-				</div>
-			</template>
-
       <template slot="editBtn" slot-scope="row">
         <a-button v-on:click="openLink('/references/update-person/' + row.id)" :data-id="row.id"  class="btn-edit">
           Edit
