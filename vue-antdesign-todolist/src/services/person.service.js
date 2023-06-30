@@ -3,7 +3,7 @@ import api from './api';
 class PersonService{
     createPerson({fullName, phone, email, address}){
         return api.post('/person', {
-            fullName,
+            full_name: fullName,
             phone,
             email,
             address
@@ -23,7 +23,7 @@ class PersonService{
 
     updatePerson({id, fullName, phone, email, address}){
         return api.patch('/person/' + id, {
-            fullName,
+            full_name: fullName,
             phone,
             email,
             address

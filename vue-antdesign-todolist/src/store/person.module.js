@@ -1,4 +1,5 @@
 import PersonService from '../services/person.service';
+import router from '../router';
 
 const state = {
     person: null,
@@ -13,6 +14,7 @@ const actions = {
         PersonService.createPerson({fullName, phone, email, address}).then(
             person => {
                 commit('createPersonSuccess', person.data);
+                router.push('/references/person');
                 dispatch('alert/success', 'Person created success!', {root: true});
             }
         ).catch(error => {
@@ -39,7 +41,7 @@ const actions = {
     getPersonById({dispatch, commit}, {id}){
         PersonService.getPersonById({id}).then(
             person => {
-                commit('getPersonByIdSuccess', person);
+                commit('getPersonByIdSuccess', person.data);
             }
         ).catch(error => {
             commit('getPersonByIdFailure');
@@ -51,6 +53,7 @@ const actions = {
         PersonService.updatePerson({id, fullName, phone, email, address}).then(
             person => {
                 commit('updatePersonSuccess', person);
+                router.push('/references/person');
                 dispatch('alert/success', 'Person updated success!', {root: true})
             }
         ).catch(error => {
@@ -62,7 +65,8 @@ const actions = {
     deletePerson({dispatch, commit}, {id}){
         PersonService.deletePerson({id}).then(
             person => {
-                commit('deletePersonSuccess', person);
+                commit('deletePersonSuccess', person.data);
+                router.go(0);
                 dispatch('alert/success', 'Person deleted success!', {root: true});
             }
         ).catch(error => {
@@ -83,7 +87,7 @@ const mutations = {
 
     getAllPersonsSuccess(state, persons){
         state.persons = persons.persons;
-        state.totalCount = persons.totalCount;
+        state.totalCount = persons.total;
     },
 
     getAllPersonsFailure(state){
