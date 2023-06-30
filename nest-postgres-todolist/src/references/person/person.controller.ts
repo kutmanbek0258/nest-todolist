@@ -21,7 +21,7 @@ export class PersonController {
     return this.personService.create(createPersonDto);
   }
 
-  @Get()
+  @Post('/get-all')
   findAll(@Body() findAllDto: FindAllDto) {
     return this.personService.findAll(findAllDto);
   }
