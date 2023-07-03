@@ -21,7 +21,7 @@ export class ProductGroupController {
     return this.productGroupService.create(createProductGroupDto);
   }
 
-  @Get()
+  @Post('/get-all')
   findAll(@Body() findAllDto: FindAllDto) {
     return this.productGroupService.findAll(findAllDto);
   }

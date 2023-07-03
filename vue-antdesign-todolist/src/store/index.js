@@ -5,6 +5,7 @@ import { alertModule } from './alert.module';
 import { authModule } from './auth.module';
 import { companyModule } from "./company.module";
 import { personModule } from './person.module';
+import { productGroupModule } from './product-group.module';
 
 Vue.use(Vuex);
 
@@ -13,6 +14,7 @@ export const store = new Vuex.Store({
         alert: alertModule,
         auth: authModule,
         company: companyModule,
-        person: personModule
+        person: personModule,
+        productGroup: productGroupModule,
     }
 });

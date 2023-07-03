@@ -90,6 +90,7 @@ let routes = [
 		layout: "dashboard",
 		component: () => import('../views/references/References'),
 	},
+
 	{
 		path: '/references/company',
 		name: 'company',
@@ -108,6 +109,7 @@ let routes = [
 		layout: "dashboard",
 		component: () => import('../views/references/company/UpdateCompany'),
 	},
+
 	{
 		path: '/references/person',
 		name: 'person',
@@ -125,6 +127,25 @@ let routes = [
 		name: 'person',
 		layout: "dashboard",
 		component: () => import('../views/references/person/UpdatePerson'),
+	},
+
+	{
+		path: '/references/product-group',
+		name: 'product-group',
+		layout: "dashboard",
+		component: () => import('../views/references/product-group/ProductGroupList'),
+	},
+	{
+		path: '/references/update-product-group/:id',
+		name: 'update product-group',
+		layout: "dashboard",
+		component: () => import('../views/references/product-group/UpdateProductGroup'),
+	},
+	{
+		path: '/references/create-product-group',
+		name: 'create product-group',
+		layout: "dashboard",
+		component: () => import('../views/references/product-group/CreateProductGroup'),
 	},
 ]
 
