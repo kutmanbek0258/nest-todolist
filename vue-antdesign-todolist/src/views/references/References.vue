@@ -137,7 +137,7 @@ const salaries = [
     title: "reference.product_group",
     content: {
       body: "Product groups",
-      link: "/product-group"
+      link: "/references/product-group"
     },
   },
   {
