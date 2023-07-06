@@ -5,12 +5,12 @@
 		<template #title>
 			<a-row type="flex" align="middle">
 				<a-col :span="24" :md="12">
-					<h5 class="font-semibold m-0">Persons</h5>
+					<h5 class="font-semibold m-0">Price templates</h5>
 				</a-col>
         <a-col :span="24" :md="12" style="display: flex; align-items: center; justify-content: flex-end">
           <a-radio-group v-model="authorsHeaderBtns" size="small">
-            <a-button type="primary" v-on:click="openLink('/references/create-person')">
-              {{ $t('create_person.title') }}
+            <a-button type="primary" v-on:click="openLink('/references/create-price-template')">
+              New price template
             </a-button>
           </a-radio-group>
         </a-col>
@@ -23,7 +23,7 @@
         bordered>
 
       <template slot="editBtn" slot-scope="row">
-        <a-button v-on:click="openLink('/references/update-person/' + row.id)" :data-id="row.id"  class="btn-edit">
+        <a-button v-on:click="openLink('/references/update-price-template/' + row.id)" :data-id="row.id"  class="btn-edit">
           Edit
         </a-button>
       </template>
@@ -75,26 +75,26 @@
 		},
 
     computed: {
-		  ...mapState('person', ['current', 'pageSize', 'totalCount'])
+		  ...mapState('priceTemplate', ['current', 'pageSize', 'totalCount'])
     },
 
     methods: {
-      ...mapActions('person', ['getAllPersons', 'deletePerson']),
+      ...mapActions('priceTemplate', ['getAllPriceTemplates', 'deletePriceTemplate']),
 
       openLink(link){
         router.push(link);
       },
 
       handleDelete(id){
-        this.deletePerson({id});
+        this.deletePriceTemplate({id});
       },
 
       onChange(current) {
-        this.getAllPersons({current, pageSize: this.pageSize});
+        this.getAllPriceTemplates({current, pageSize: this.pageSize});
       },
 
       onShowSizeChange(current, pageSize) {
-        this.getAllPersons({current, pageSize});
+        this.getAllPriceTemplates({current, pageSize});
       },
 
     },

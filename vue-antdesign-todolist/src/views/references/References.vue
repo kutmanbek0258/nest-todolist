@@ -148,7 +148,7 @@ const salaries = [
     title: "reference.price_template",
     content: {
       body: "Price templates",
-      link: "/price-template"
+      link: "/references/price-template"
     },
   },
 ] ;

@@ -21,7 +21,7 @@ export class PriceTemplateController {
     return this.priceTemplateService.create(createPriceTemplateDto);
   }
 
-  @Get()
+  @Post('/get-all')
   findAll(@Body() findAllDto: FindAllDto) {
     return this.priceTemplateService.findAll(findAllDto);
   }
