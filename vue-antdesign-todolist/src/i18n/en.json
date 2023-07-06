@@ -80,5 +80,8 @@
     "edit_button": "EDIT",
     "delete_button": "DELETE",
     "delete_dialog_title": "ARE YOU SURE DELETE TODO?"
+  },
+  "create_person": {
+    "title": "Create person test"
   }
 }

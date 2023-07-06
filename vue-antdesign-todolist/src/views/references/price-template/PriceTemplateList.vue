@@ -13,11 +13,11 @@
 			<a-col :span="24" class="mb-24">
 
 <!--				 Authors Table Card -->
-				<CardProductGroupTable
-					:data="productGroups"
-					:columns="productGroupTableColumns"
+				<CardPriceTemplateTable
+					:data="priceTemplates"
+					:columns="priceTemplateTableColumns"
 				>
-        </CardProductGroupTable>
+        </CardPriceTemplateTable>
 <!--				 / Authors Table Card -->
 
 			</a-col>
@@ -33,9 +33,9 @@
 
   import {mapActions, mapState} from "vuex";
 
-	import CardProductGroupTable from '../../../components/Cards/CardProductGroupTable' ;
+	import CardPriceTemplateTable from '../../../components/Cards/CardPriceTemplateTable' ;
 
-	const productGroupTableColumns = [
+	const priceTemplateTableColumns = [
 		{
 			title: 'NAME',
 			dataIndex: 'name',
@@ -61,24 +61,24 @@
 	export default ({
 
     computed: {
-      ...mapState('productGroup', ['productGroups', 'current', 'pageSize']),
+      ...mapState('priceTemplate', ['priceTemplates', 'current', 'pageSize']),
     },
 
 		components: {
-      CardProductGroupTable,
+      CardPriceTemplateTable,
 		},
 		data() {
 			return {
-        productGroupTableColumns,
+        priceTemplateTableColumns,
 			}
 		},
 
     created(){
-      this.getAllProductGroups({current: this.current, pageSize: this.pageSize});
+      this.getAllPriceTemplates({current: this.current, pageSize: this.pageSize});
     },
 
     methods: {
-      ...mapActions('productGroup', ['getAllProductGroups']),
+      ...mapActions('priceTemplate', ['getAllPriceTemplates']),
     },
 	})
 

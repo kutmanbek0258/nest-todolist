@@ -10,8 +10,8 @@
 
       <!-- Sign In Form Column -->
       <a-col :span="24" :md="12" :lg="{span: 12, offset: 0}" :xl="{span: 6, offset: 0}" class="col-form">
-        <h1 class="mb-15">Create product-group</h1>
-        <h5 class="font-regular text-muted">create product-group</h5>
+        <h1 class="mb-15">Create price-template</h1>
+        <h5 class="font-regular text-muted">create price-template</h5>
 
         <!-- Sign In Form -->
         <a-form
@@ -42,15 +42,26 @@
                 v-model="description"/>
           </a-form-item>
 
+          <a-form-item class="mb-5" label="formula" :colon="false">
+            <a-input
+                v-decorator="[
+						'formula',
+						{ rules: [{ required: true, message: 'Please input formula' }] },
+						]"
+                type="text"
+                placeholder="formula"
+                v-model="formula"/>
+          </a-form-item>
+
           <a-form-item>
             <a-button type="primary" block html-type="submit" class="login-form-button">
-              Create product-group
+              Create price-template
             </a-button>
           </a-form-item>
         </a-form>
         <!-- / Sign In Form -->
 
-        <p class="font-semibold text-muted">Back to groups <router-link to="/references/product-group" class="font-bold text-dark">
+        <p class="font-semibold text-muted">Back to templates <router-link to="/references/price-template" class="font-bold text-dark">
           back</router-link></p>
       </a-col>
 
@@ -66,25 +77,27 @@
 	export default ({
 
     computed: {
-      ...mapState('productGroup', ['productGroup']),
+      ...mapState('priceTemplate', ['priceTemplate']),
     },
 
 		data() {
       return {
         name: '',
         description: '',
+        formula: '',
       }
 		},
 
     methods: {
-      ...mapActions('productGroup', ['createProductGroup']),
+      ...mapActions('priceTemplate', ['createPriceTemplate']),
       handleSubmit() {
         const {
             name,
             description,
+            formula,
         } = this;
-        if (name && description) {
-          this.createProductGroup({ name, description });
+        if (name && description && formula) {
+          this.createPriceTemplate({ name, description, formula });
         }
       },
 

@@ -24,12 +24,13 @@
     "sign_in": "Войти"
   },
   "sidebar_dashboard": {
-    "dashboard": "Панель управления",
+    "dashboard": "Dashboard",
     "todos": "Todos",
-    "receipts": "Прием",
-    "postings": "Отправка",
-    "reports": "Отчеты",
-    "profile": "Профиль"
+    "sales": "Sales",
+    "depot": "Depot",
+    "marketing": "Marketing",
+    "references": "References",
+    "profile": "Profile"
   },
   "create_todo": {
     "title": "Create todo",
@@ -47,5 +48,8 @@
     "edit_button": "EDIT",
     "delete_button": "DELETE",
     "delete_dialog_title": "ARE YOU SURE DELETE TODO?"
+  },
+  "create_person": {
+    "title": "Sozdat polzovatelya test"
   }
 }

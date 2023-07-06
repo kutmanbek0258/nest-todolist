@@ -9,8 +9,8 @@
     <a-row type="flex" :gutter="[24,24]" justify="space-around" align="middle">
 
       <a-col :span="24" :md="12" :lg="{span: 12, offset: 0}" :xl="{span: 6, offset: 0}" class="col-form">
-        <h1 class="mb-15">Update product group</h1>
-        <h5 class="font-regular text-muted">Update product</h5>
+        <h1 class="mb-15">Update price-template</h1>
+        <h5 class="font-regular text-muted">Update price-template</h5>
 
         <a-form
             id="components-form-demo-normal-login"
@@ -26,7 +26,7 @@
 						]"
                 placeholder="Name"
                 type="text"
-                v-model="productGroup.name"
+                v-model="priceTemplate.name"
             />
           </a-form-item>
 
@@ -41,16 +41,27 @@
 						]"
                   type="text"
                   placeholder="description"
-                  v-model="productGroup.description"/>
+                  v-model="priceTemplate.description"/>
+            </a-form-item>
+
+            <a-form-item class="mb-5" label="formula" :colon="false">
+              <a-input
+                  v-decorator="[
+						'formula',
+						{ rules: [{ required: true, message: 'Please input product Description' }] },
+						]"
+                  type="text"
+                  placeholder="formula"
+                  v-model="priceTemplate.formula"/>
             </a-form-item>
 
             <a-button type="primary" block html-type="submit" class="login-form-button">
-              EDIT PRODUCT GROUP
+              UPDATE PRICE TEMPLATE
             </a-button>
           </a-form-item>
         </a-form>
 
-        <p class="font-semibold text-muted">Back to groups <router-link to="/references/product-group" class="font-bold text-dark">back</router-link></p>
+        <p class="font-semibold text-muted">Back to templates <router-link to="/references/price-template" class="font-bold text-dark">back</router-link></p>
       </a-col>
 
     </a-row>
@@ -65,7 +76,7 @@
 	export default ({
 
     computed: {
-      ...mapState('productGroup', ['productGroup'])
+      ...mapState('priceTemplate', ['priceTemplate'])
     },
 
 		data() {
@@ -76,20 +87,21 @@
 
     created(){
       this.id = this.$route.params.id;
-      this.getProductGroupById({"id":this.id});
+      this.getPriceTemplateById({"id":this.id});
     },
 
     methods: {
-      ...mapActions('productGroup', ['getProductGroupById','updateProductGroup']),
+      ...mapActions('priceTemplate', ['getPriceTemplateById','updatePriceTemplate']),
 
       handleSubmit() {
         const id = this.id;
         const {
             name,
             description,
-        } = this.productGroup;
-        if (id && name && description) {
-          this.updateProductGroup({ id, name, description});
+            formula,
+        } = this.priceTemplate;
+        if (id && name && description && formula) {
+          this.updatePriceTemplate({ id, name, description, formula});
         }
       },
     },

@@ -1,6 +1,6 @@
 import api from './api';
 
-class PriceTemplateModule{
+class PriceTemplateService{
     createPriceTemplate({name, description, formula}){
         return api.post('/price-template', {
             name,
@@ -32,3 +32,5 @@ class PriceTemplateModule{
         return api.delete('/price-template/' + id);
     }
 }
+
+export default new PriceTemplateService();

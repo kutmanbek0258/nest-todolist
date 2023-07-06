@@ -147,6 +147,25 @@ let routes = [
 		layout: "dashboard",
 		component: () => import('../views/references/product-group/CreateProductGroup'),
 	},
+
+	{
+		path: '/references/price-template',
+		name: 'price-template',
+		layout: "dashboard",
+		component: () => import('../views/references/price-template/PriceTemplateList'),
+	},
+	{
+		path: '/references/create-price-template',
+		name: 'price-template',
+		layout: "dashboard",
+		component: () => import('../views/references/price-template/CreatePriceTemplate'),
+	},
+	{
+		path: '/references/update-price-template/:id',
+		name: 'price-template',
+		layout: "dashboard",
+		component: () => import('../views/references/price-template/UpdatePriceTeplate'),
+	},
 ]
 
 // Adding layout property from each route to the meta

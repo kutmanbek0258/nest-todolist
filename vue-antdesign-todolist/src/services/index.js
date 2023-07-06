@@ -4,3 +4,4 @@ export * from './todo.serivce';
 export * from './company.serivce';
 export * from './person.service';
 export * from './product-group.service';
+export * from './price-template.service';
