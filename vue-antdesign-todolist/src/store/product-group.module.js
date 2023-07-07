@@ -7,6 +7,9 @@ const state = {
     current: 0,
     pageSize: 10,
     totalCount: 0,
+    dialogVisible: false,
+    selectedProductGroupId: null,
+    selectedProductGroupName: '',
 }
 
 const actions = {
@@ -28,7 +31,6 @@ const actions = {
         const skip = (current === 0) ? 0 : pageSize * (current - 1);
         ProductGroupService.getAllProductGroup({take, skip}).then(
             productGroups => {
-                console.log(productGroups.data);
                 commit('setCurrent', current);
                 commit('setPageSize', pageSize);
                 commit('getAllProductGroupsSuccess', productGroups.data);
@@ -74,6 +76,20 @@ const actions = {
             commit('deleteProductGroupFailure');
             dispatch('alert/error', error.response.data.message, {root: true});
         })
+    },
+
+    handleSelectProductGroup({dispatch, commit}, {id, name}){
+        const selectedData = { id, name };
+        commit('setSelectProductGroup', selectedData);
+    },
+
+    handleCloseSelection({dispatch, commit}){
+        const selectedData = { id: null, name: 'name' };
+        commit('setSelectProductGroup', selectedData);
+    },
+
+    setDialogVisibility({dispatch, commit}, {visibility}) {
+        commit('setDialogVisibility', visibility);
     }
 }
 
@@ -125,6 +141,15 @@ const mutations = {
 
     setPageSize(state, pageSize) {
         state.pageSize = pageSize;
+    },
+
+    setDialogVisibility(state, visibility){
+        state.dialogVisible = visibility;
+    },
+
+    setSelectProductGroup(state, selectedData){
+        state.selectedProductGroupId = selectedData.id;
+        state.selectedProductGroupName = selectedData.name;
     }
 }
 
