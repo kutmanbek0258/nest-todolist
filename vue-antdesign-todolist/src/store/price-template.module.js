@@ -6,7 +6,12 @@ const state = {
     priceTemplates: null,
     current: 1,
     pageSize: 10,
-    totalCount: 0
+    totalCount: 0,
+    dialogVisiblePriceTemplate: false,
+    selectedPriceTemplate: {
+        id: null,
+        name: ''
+    },
 }
 
 const actions = {
@@ -73,7 +78,21 @@ const actions = {
             commit('setPriceTemplate', null);
             dispatch('alert/error', error.response.data.message, {root: true});
         })
-    }
+    },
+
+    handleSelectPriceTemplate({dispatch, commit}, {id, name}){
+        const selectedPriceTemplate = { id, name };
+        commit('setSelectedPriceTemplate', selectedPriceTemplate);
+    },
+
+    handleCloseSelectionPriceTemplate({dispatch, commit}){
+        const selectedPriceTemplate = { id: null, name: '' };
+        commit('setSelectedPriceTemplate', selectedPriceTemplate);
+    },
+
+    setDialogVisibilityPriceTemplate({dispatch, commit}, {visibility}){
+        commit('setPriceTemplateDialogVisibility', visibility);
+    },
 }
 
 const mutations = {
@@ -92,6 +111,14 @@ const mutations = {
 
     setPageSize(state, pageSize){
         state.pageSize = pageSize;
+    },
+
+    setPriceTemplateDialogVisibility(state, visibility){
+        state.dialogVisiblePriceTemplate = visibility;
+    },
+
+    setSelectedPriceTemplate(state, selectedPriceTemplate){
+        state.selectedPriceTemplate = selectedPriceTemplate;
     }
 }
 
