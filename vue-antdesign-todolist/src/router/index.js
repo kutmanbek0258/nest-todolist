@@ -164,7 +164,7 @@ let routes = [
 		path: '/references/update-price-template/:id',
 		name: 'price-template',
 		layout: "dashboard",
-		component: () => import('../views/references/price-template/UpdatePriceTeplate'),
+		component: () => import('../views/references/price-template/UpdatePriceTemplate'),
 	},
 
 	{
@@ -178,6 +178,12 @@ let routes = [
 		name: 'product',
 		layout: "dashboard",
 		component: () => import('../views/references/product/CreateProduct'),
+	},
+	{
+		path: '/references/update-product/:id',
+		name: 'product',
+		layout: "dashboard",
+		component: () => import('../views/references/product/UpdateProduct'),
 	},
 ]
 

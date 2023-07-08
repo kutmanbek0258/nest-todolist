@@ -82,7 +82,7 @@ export class ProductService {
     if (productGroup && priceTemplate) {
       product.group = productGroup;
       product.price_template = priceTemplate;
-      return await this.productRepository.update({ id: id }, updateProductDto);
+      return await this.productRepository.update({ id: id }, product);
     } else {
       throw new ForbiddenException();
     }

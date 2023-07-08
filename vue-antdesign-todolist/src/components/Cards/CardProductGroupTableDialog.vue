@@ -17,8 +17,8 @@
 			</a-row>
 		</template>
 		<a-table
-        :columns="columns"
-        :data-source="data"
+        :columns="productGroupTableColumns"
+        :data-source="productGroups"
         :pagination="false"
         bordered>
 
@@ -48,32 +48,45 @@
   import router from '../../router';
   import {mapActions, mapState} from "vuex";
 
+  const productGroupTableColumns = [
+    {
+      title: 'NAME',
+      dataIndex: 'name',
+      scopedSlots: { customRender: 'name' },
+    },
+    {
+      title: 'description',
+      dataIndex: 'description',
+      scopedSlots: { customRender: 'description' },
+    },
+    {
+      title: '',
+      scopedSlots: { customRender: 'selectBtn' },
+      width: 50,
+    },
+  ];
+
 	export default ({
-		props: {
-			data: {
-				type: Array,
-				default: () => [],
-			},
-			columns: {
-				type: Array,
-				default: () => [],
-			},
-		},
 		data() {
 			return {
 				// Active button for the "Authors" table's card header radio button group.
+        productGroupTableColumns,
 				authorsHeaderBtns: 'all',
         searchLoading: false,
         keyword: '',
       }
 		},
 
+    created() {
+		  this.getAllProductGroups({current: this.current, pageSize: this.pageSize});
+    },
+
     computed: {
-		  ...mapState('productGroup', ['current', 'pageSize', 'totalCount'])
+		  ...mapState('productGroup', ['productGroups', 'current', 'pageSize', 'totalCount'])
     },
 
     methods: {
-      ...mapActions('productGroup', ['getAllProductGroups', 'handleSelectProductGroup', 'setDialogVisibility']),
+      ...mapActions('productGroup', ['getAllProductGroups', 'handleSelectProductGroup', 'setDialogVisibilityProductGroup']),
 
       openLink(link){
         router.push(link);
@@ -82,7 +95,7 @@
       handleSelectProductGroupItem(id, name){
         this.handleSelectProductGroup({id, name});
         const visibility = false;
-        this.setDialogVisibility({visibility});
+        this.setDialogVisibilityProductGroup({visibility});
       },
 
       onChange(current) {
