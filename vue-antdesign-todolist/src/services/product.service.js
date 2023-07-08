@@ -13,8 +13,9 @@ class ProductService{
 
     getAllProducts({take, skip}){
         return api.post('/product/get-all', {
-            take, skip
-        });
+            take,
+            skip,
+        })
     }
 
     getProductById({id}){
@@ -32,7 +33,7 @@ class ProductService{
     }
 
     deleteProduct({id}){
-        return api.delete('/product/' + id);
+
     }
 }
 

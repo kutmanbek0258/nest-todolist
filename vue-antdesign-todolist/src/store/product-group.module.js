@@ -7,9 +7,11 @@ const state = {
     current: 0,
     pageSize: 10,
     totalCount: 0,
-    dialogVisible: false,
-    selectedProductGroupId: null,
-    selectedProductGroupName: '',
+    dialogVisibleProductGroup: false,
+    selectedProductGroup: {
+        id: null,
+        name: '',
+    }
 }
 
 const actions = {
@@ -79,16 +81,16 @@ const actions = {
     },
 
     handleSelectProductGroup({dispatch, commit}, {id, name}){
-        const selectedData = { id, name };
+        const selectedProductGroup = { id, name };
+        commit('setSelectProductGroup', selectedProductGroup);
+    },
+
+    handleCloseSelectionProductGroup({dispatch, commit}){
+        const selectedData = { id: null, name: '' };
         commit('setSelectProductGroup', selectedData);
     },
 
-    handleCloseSelection({dispatch, commit}){
-        const selectedData = { id: null, name: 'name' };
-        commit('setSelectProductGroup', selectedData);
-    },
-
-    setDialogVisibility({dispatch, commit}, {visibility}) {
+    setDialogVisibilityProductGroup({dispatch, commit}, {visibility}) {
         commit('setDialogVisibility', visibility);
     }
 }
@@ -144,12 +146,12 @@ const mutations = {
     },
 
     setDialogVisibility(state, visibility){
-        state.dialogVisible = visibility;
+        state.dialogVisibleProductGroup = visibility;
     },
 
-    setSelectProductGroup(state, selectedData){
-        state.selectedProductGroupId = selectedData.id;
-        state.selectedProductGroupName = selectedData.name;
+    setSelectProductGroup(state, selectedProductGroup){
+        state.selectedProductGroup.id = selectedProductGroup.id;
+        state.selectedProductGroup.name = selectedProductGroup.name;
     }
 }
 
