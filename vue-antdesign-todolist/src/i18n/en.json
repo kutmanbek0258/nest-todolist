@@ -56,7 +56,7 @@
     "shop": "Shops",
     "pos": "Points of sale",
     "cash_register": "Cash registers",
-    "seller": "Sellers",
+    "supplier": "Supplier",
     "salesman": "Salesmen",
     "person": "Persons",
     "product": "Products",
@@ -64,23 +64,6 @@
     "price_template": "Price templates"
   },
 
-  "create_todo": {
-    "title": "Create todo",
-    "text_message": "Create todo",
-    "name": "Name",
-    "description": "Description",
-    "create_button": "CREATE TODO",
-    "back_to_todos": "Back to todos",
-    "back": "back"
-  },
-
-  "todo_list": {
-    "title": "Todos table",
-    "create_new_posting": "Create new todo",
-    "edit_button": "EDIT",
-    "delete_button": "DELETE",
-    "delete_dialog_title": "ARE YOU SURE DELETE TODO?"
-  },
   "create_person": {
     "title": "Create person test"
   }

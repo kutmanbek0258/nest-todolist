@@ -21,7 +21,7 @@ export class SupplierController {
     return this.supplierService.create(createSupplierDto);
   }
 
-  @Get()
+  @Post('/get-all')
   findAll(@Body() findAllDto: FindAllDto) {
     return this.supplierService.findAll(findAllDto);
   }

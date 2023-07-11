@@ -32,24 +32,39 @@
     "references": "References",
     "profile": "Profile"
   },
-  "create_todo": {
-    "title": "Create todo",
-    "text_message": "Create todo",
-    "name": "Name",
-    "description": "Description",
-    "create_button": "CREATE TODO",
-    "back_to_todos": "Back to todos",
-    "back": "back"
+
+  "sales": {
+    "pos": "POS",
+    "open_shift": "Open shift",
+    "close_shift": "Close shift",
+    "daily_sales": "Daily sales"
   },
 
-  "todo_list": {
-    "title": "Todos table",
-    "create_new_posting": "Create new todo",
-    "edit_button": "EDIT",
-    "delete_button": "DELETE",
-    "delete_dialog_title": "ARE YOU SURE DELETE TODO?"
+  "marketing": {
+    "prices": "Prices",
+    "promotions": "Promotions"
   },
+
+  "depot": {
+    "receipt": "Receipts",
+    "write_off": "Write off",
+    "recount": "Recount"
+  },
+
+  "reference": {
+    "company": "Companies",
+    "shop": "Shops",
+    "pos": "Points of sale",
+    "cash_register": "Cash registers",
+    "supplier": "Supplier",
+    "salesman": "Salesmen",
+    "person": "Persons",
+    "product": "Products",
+    "product_group": "Product groups",
+    "price_template": "Price templates"
+  },
+
   "create_person": {
-    "title": "Sozdat polzovatelya test"
+    "title": "Create person test"
   }
 }

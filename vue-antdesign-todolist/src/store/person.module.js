@@ -7,6 +7,11 @@ const state = {
     current: 1,
     pageSize: 10,
     totalCount: 0,
+    dialogVisiblePerson: false,
+    selectedPerson: {
+        id: null,
+        name: ''
+    }
 }
 
 const actions = {
@@ -73,6 +78,21 @@ const actions = {
             commit('deletePersonFailure');
             dispatch('alert/error', error.response.data.message, {root: true});
         })
+    },
+
+    setDialogVisibilityPerson({dispatch, commit}, {visibility}) {
+        commit('setDialogVisibility', visibility);
+    },
+
+    handleSelectPerson({dispatch, commit}, {id, name}){
+        const selectedPerson = { id, name };
+        console.log(selectedPerson);
+        commit('setSelectedPerson', selectedPerson);
+    },
+
+    handleCloseSelectionPerson({dispatch, commit}){
+        const selectedPerson = {id: null, name: ''};
+        commit('setSelectedPerson', selectedPerson);
     }
 }
 
@@ -124,7 +144,15 @@ const mutations = {
 
     setPageSize(state, pageSize){
         state.pageSize = pageSize;
-    }
+    },
+
+    setDialogVisibility(state, visibility) {
+        state.dialogVisiblePerson = visibility;
+    },
+
+    setSelectedPerson(state, person){
+        state.selectedPerson = person;
+    },
 }
 
 export const personModule = {
