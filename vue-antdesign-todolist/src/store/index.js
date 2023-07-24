@@ -9,6 +9,7 @@ import { productGroupModule } from './product-group.module';
 import { priceTemplateModule } from './price-template.module';
 import { productModule } from './product.module';
 import { supplierModule } from './supplier.module';
+import { salesmanModule } from './salesman.module';
 
 Vue.use(Vuex);
 
@@ -22,5 +23,6 @@ export const store = new Vuex.Store({
         priceTemplate: priceTemplateModule,
         product: productModule,
         supplier: supplierModule,
+        salesman: salesmanModule,
     }
 });
