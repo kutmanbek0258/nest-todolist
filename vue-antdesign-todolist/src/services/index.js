@@ -8,3 +8,4 @@ export * from './price-template.service';
 export * from './product.service';
 export * from './product.service';
 export * from './supplier.service';
+export * from './supplier.service';

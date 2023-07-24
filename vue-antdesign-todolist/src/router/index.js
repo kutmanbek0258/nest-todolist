@@ -198,6 +198,12 @@ let routes = [
 		layout: "dashboard",
 		component: () => import('../views/references/supplier/CreateSupplier'),
 	},
+	{
+		path: '/references/update-supplier/:id',
+		name: 'supplier',
+		layout: "dashboard",
+		component: () => import('../views/references/supplier/UpdateSupplier'),
+	},
 ]
 
 // Adding layout property from each route to the meta

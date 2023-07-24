@@ -7,6 +7,11 @@ const state = {
   current: 1,
   pageSize: 10,
   totalCount: 0,
+  dialogVisibleCompany: false,
+  selectedCompany: {
+    id: null,
+    name: '',
+  }
 }
 
 const actions = {
@@ -70,16 +75,32 @@ const actions = {
           router.go(0);
         }
     ).catch(error => {
-      commit('updateCompanyFailure');
+      commit('deleteCompanyFailure');
       dispatch('alert/error', error.response.data.message, {root: true})
     })
+  },
+
+  setDialogVisibilityCompany({dispatch, commit}, {visibility}) {
+    commit('setDialogVisibility', visibility);
+  },
+
+  handleSelectCompany({dispatch, commit}, {id, name}) {
+    const selectedCompany = { id: id, name: name };
+    const visibility = false;
+    commit('setSelectedCompany', selectedCompany);
+    commit('setDialogVisibility', visibility);
+  },
+
+  handleCloseSelectionCompany({dispatch, commit}){
+    const selectedCompany = { id: null, name: '' };
+    commit('setSelectedCompany', selectedCompany);
   }
 
 }
 
 const mutations = {
   createCompanySuccess(state, company){
-    state.company = company
+    state.company = company;
   },
 
   createCompanyFailure(state){
@@ -125,7 +146,15 @@ const mutations = {
 
   pageSizeSet(state, pageSize){
     state.pageSize = pageSize;
-  }
+  },
+
+  setDialogVisibility(state, visibility){
+    state.dialogVisibleCompany = visibility;
+  },
+
+  setSelectedCompany(state, selectedCompany){
+    state.selectedCompany = selectedCompany;
+  },
 }
 
 export const companyModule = {

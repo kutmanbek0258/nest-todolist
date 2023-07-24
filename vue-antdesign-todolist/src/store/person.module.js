@@ -86,7 +86,6 @@ const actions = {
 
     handleSelectPerson({dispatch, commit}, {id, name}){
         const selectedPerson = { id, name };
-        console.log(selectedPerson);
         commit('setSelectedPerson', selectedPerson);
     },
 
