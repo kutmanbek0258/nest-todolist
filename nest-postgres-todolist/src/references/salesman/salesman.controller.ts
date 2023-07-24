@@ -21,7 +21,7 @@ export class SalesmanController {
     return this.salesmanService.create(createSalesmanDto);
   }
 
-  @Get()
+  @Post('/get-all')
   findAll(@Body() findAllDto: FindAllDto) {
     return this.salesmanService.findAll(findAllDto);
   }

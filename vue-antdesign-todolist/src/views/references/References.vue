@@ -115,7 +115,7 @@ const salaries = [
     title: "reference.salesman",
     content: {
       body: "Salesmen",
-      link: "/salesman"
+      link: "/references/salesman"
     },
   },
   {
