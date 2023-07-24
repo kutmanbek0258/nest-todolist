@@ -1,17 +1,17 @@
-import SupplierService from "../services/supplier.service";
-import router from "../router";
+import SupplierService from '../services/supplier.service';
+import router from '../router';
 
 const state = {
     supplier: null,
     suppliers: null,
-    current: 0,
+    current: 1,
     pageSize: 10,
     totalCount: 0,
 };
 
 const actions = {
-    createSupplier({dispatch, commit}, {companyID, personID}){
-        SupplierService.createSupplier({companyID, personID}).then(
+    createSupplier({dispatch, commit}, {personID, companyID}){
+        SupplierService.createSupplier({personID, companyID}).then(
             supplier => {
                 commit('setSupplier', supplier.data);
                 router.push('/references/supplier');
@@ -28,15 +28,14 @@ const actions = {
         const skip = (current === 0) ? 0 : pageSize * (current - 1);
         SupplierService.getAllSuppliers({take, skip}).then(
             suppliers => {
-                console.log(suppliers.data.suppliers);
                 commit('setSuppliers', suppliers.data);
             }
         ).catch(error => {
-            const nullData = {
+            const suppliers = {
                 suppliers: null,
                 total: 0,
             }
-            commit('setSuppliers', nullData);
+            commit('setSuppliers', suppliers);
             dispatch('alert/error', error.response.data.message, {root: true});
         })
     },
@@ -44,7 +43,7 @@ const actions = {
     getSupplierById({dispatch, commit}, {id}){
         SupplierService.getSupplierById({id}).then(
             supplier => {
-                commit('setSupplier', supplier.data);
+                commit('setSupplier', supplier.data[0]);
             }
         ).catch(error => {
             commit('setSupplier', null);
@@ -52,8 +51,8 @@ const actions = {
         })
     },
 
-    updateSupplier({dispatch, commit}, {id, companyID, personID}){
-        SupplierService.updateSupplier({id, companyID, personID}).then(
+    updateSupplier({dispatch, commit}, {id, personID, companyID}){
+        SupplierService.updateSupplier({id, personID, companyID}).then(
             supplier => {
                 commit('setSupplier', supplier.data);
                 router.push('/references/supplier');
@@ -70,12 +69,13 @@ const actions = {
             supplier => {
                 commit('setSupplier', supplier.data);
                 router.go(0);
+                dispatch('alert/success', 'Supplier deleted success!', {root: true});
             }
         ).catch(error => {
             commit('setSupplier', null);
             dispatch('alert/error', error.response.data.message, {root: true});
         })
-    },
+    }
 };
 
 const mutations = {

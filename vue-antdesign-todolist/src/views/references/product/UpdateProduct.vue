@@ -56,14 +56,24 @@
           <a-form-item class="mb-10" label="product-group" :colon="false">
             <a-button type="primary" @click="showModalProductGroup">SELECT PRODUCT GROUP</a-button>
             <div class="author-info">
+              old:
               {{ this.product.pgname }}
+            </div>
+            <div class="author-info">
+              new:
+              {{ this.selectedProductGroup.name }}
             </div>
           </a-form-item>
 
           <a-form-item class="mb-10" label="price-template" :colon="false">
             <a-button type="primary" @click="showModalPriceTemplate">SELECT PRICE TEMPLATE</a-button>
             <div class="author-info">
+              old:
               {{ this.product.ptname }}
+            </div>
+            <div class="author-info">
+              new:
+              {{ this.selectedPriceTemplate.name }}
             </div>
           </a-form-item>
 

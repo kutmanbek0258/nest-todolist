@@ -69,8 +69,6 @@
 			return {
 				// Active button for the "Authors" table's card header radio button group.
 				authorsHeaderBtns: 'all',
-        searchLoading: false,
-        keyword: '',
       }
 		},
 

@@ -1,10 +1,10 @@
 import api from './api';
 
 class SupplierService{
-    createSupplier({companyID, personID}){
+    createSupplier({personID, companyID}){
         return api.post('/supplier', {
-            companyID,
             personID,
+            companyID,
         })
     }
 
@@ -19,10 +19,10 @@ class SupplierService{
         return api.get('/supplier/' + id);
     }
 
-    updateSupplier({id, companyID, personID}){
+    updateSupplier({id, personID, companyID}){
         return api.patch('/supplier/' + id, {
-            companyID,
             personID,
+            companyID,
         })
     }
 
