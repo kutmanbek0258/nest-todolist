@@ -66,6 +66,16 @@ const salaries = [
   {
     value: 1231,
     prefix: "items:",
+    icon: `<svg fill="#ffffff" viewBox="-134.4 -134.4 908.80 908.80" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M504 352H136.4c-4.4 0-8 3.6-8 8l-.1 48c0 4.4 3.6 8 8 8H504c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zm0 96H136.1c-4.4 0-8 3.6-8 8l-.1 48c0 4.4 3.6 8 8 8h368c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zm0-192H136.6c-4.4 0-8 3.6-8 8l-.1 48c0 4.4 3.6 8 8 8H504c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zm106.5-139L338.4 3.7a48.15 48.15 0 0 0-36.9 0L29.5 117C11.7 124.5 0 141.9 0 161.3V504c0 4.4 3.6 8 8 8h80c4.4 0 8-3.6 8-8V256c0-17.6 14.6-32 32.6-32h382.8c18 0 32.6 14.4 32.6 32v248c0 4.4 3.6 8 8 8h80c4.4 0 8-3.6 8-8V161.3c0-19.4-11.7-36.8-29.5-44.3z"></path></g></svg>`,
+    title: "reference.depot",
+    content: {
+      body: "Depot",
+      link: "/references/depot"
+    },
+  },
+  {
+    value: 1231,
+    prefix: "items:",
     icon: `
       <svg fill="#ffffff" height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-102.4 -102.4 716.80 716.80" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M511.851,404.608c-0.085-2.475-0.513-4.928-1.451-7.253c-0.192-0.448-0.491-0.81-0.704-1.258 c-0.597-1.216-1.13-2.453-1.962-3.563L448,312.896V90.88C448,40.768,407.232,0,357.099,0H154.901C104.768,0,64,40.768,64,90.88 v222.016L4.267,392.533c-0.832,1.109-1.366,2.347-1.963,3.563c-0.214,0.448-0.512,0.81-0.682,1.258 c-0.96,2.325-1.386,4.779-1.472,7.253c-0.022,0.256-0.15,0.47-0.15,0.726v85.333C0,502.443,9.536,512,21.333,512h469.333 c11.797,0,21.333-9.557,21.333-21.333v-85.333C512,405.077,511.872,404.864,511.851,404.608z M149.333,85.333h213.333v85.333 H149.333V85.333z M362.667,213.333V256H320v-42.667H362.667z M277.333,213.333V256h-42.667v-42.667H277.333z M149.333,213.333H192 V256h-42.667V213.333z M64,384l32-42.667h320L448,384H64z"></path> </g> </g> </g></svg>`,
     title: "reference.pos",
