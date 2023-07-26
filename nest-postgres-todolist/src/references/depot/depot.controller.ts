@@ -21,7 +21,7 @@ export class DepotController {
     return this.depotService.create(createDepotDto);
   }
 
-  @Get()
+  @Post('/get-all')
   findAll(@Body() findAllDto: FindAllDto) {
     return this.depotService.findAll(findAllDto);
   }
