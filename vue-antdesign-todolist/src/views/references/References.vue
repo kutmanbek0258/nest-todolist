@@ -60,7 +60,7 @@ const salaries = [
     title: "reference.shop",
     content: {
       body: "Shops",
-      link: "/shop"
+      link: "/references/shop"
     },
   },
   {

@@ -54,7 +54,7 @@ export class ShopService {
     return await this.shopRepository.query(
       `SELECT shop.name, shop.description, shop.address,
                c.id AS companyID, c.name AS companyName,
-               p.id AS mangerID, p.full_name AS managerName,
+               p.id AS managerID, p.full_name AS managerName,
                d.id AS depotID, d.name AS depotName
         FROM shop
         INNER JOIN company c on shop."companyId" = c.id
@@ -68,25 +68,27 @@ export class ShopService {
   }
 
   async update(id: number, updateShopDto: UpdateShopDto) {
+    const shop: Shop = await this.shopRepository.findOneBy({ id: id });
+    shop.name = updateShopDto.name ? updateShopDto.name : shop.name;
+    shop.description = updateShopDto.description
+      ? updateShopDto.description
+      : shop.description;
+    shop.address = updateShopDto.address ? updateShopDto.address : shop.address;
     const company: Company = await this.companyService.findOne(
       updateShopDto.companyID,
     );
     const manager: Person = await this.personService.findOne(
       updateShopDto.managerID,
     );
-    const depot: Depot = await this.depotService.findOne(updateShopDto.depotID);
+    const depot: Depot = await this.depotService.findOneShort(
+      updateShopDto.depotID,
+    );
+    shop.company = company ? company : shop.company;
+    shop.manager = manager ? manager : shop.manager;
+    shop.depot = depot ? depot : shop.depot;
+    console.log(shop);
     if (company && manager && depot) {
-      return await this.shopRepository.update(
-        { id: id },
-        {
-          name: updateShopDto.name,
-          description: updateShopDto.description,
-          address: updateShopDto.address,
-          company: company,
-          manager: manager,
-          depot: depot,
-        },
-      );
+      return await this.shopRepository.update({ id: id }, shop);
     } else {
       throw new ForbiddenException();
     }
