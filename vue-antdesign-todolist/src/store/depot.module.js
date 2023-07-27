@@ -7,6 +7,11 @@ const state = {
     current: 1,
     pageSize: 10,
     totalCount: 0,
+    dialogVisibleDepot: false,
+    selectedDepot: {
+        id: null,
+        name: '',
+    }
 };
 
 const actions = {
@@ -70,6 +75,22 @@ const actions = {
             commit('setDepot', null);
             dispatch('alert/error', error.response.data.message, {root: true});
         })
+    },
+
+    setDialogVisibleDepot({dispatch, commit}, {visibility}){
+        commit('setDialogVisibilityDepot', visibility);
+    },
+
+    handleSelectDepot({dispatch, commit}, {id, name}){
+        const selectedDepot = {id, name};
+        const visibility = false;
+        commit('setSelectedDepot', selectedDepot);
+        commit('setDialogVisibilityDepot', visibility);
+    },
+
+    handleCloseSelectionDepot({dispatch, commit}){
+        const selectedDepot = {id: null, name: ''};
+        commit('setSelectedDepot', selectedDepot);
     }
 };
 
@@ -89,6 +110,14 @@ const mutations = {
 
     setPageSize(state, pageSize){
         state.pageSize = pageSize;
+    },
+
+    setDialogVisibilityDepot(state, visibility){
+        state.dialogVisibleDepot = visibility;
+    },
+
+    setSelectedDepot(state, selectedDepot){
+        state.selectedDepot = selectedDepot;
     }
 };
 
