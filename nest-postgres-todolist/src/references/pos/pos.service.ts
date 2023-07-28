@@ -6,6 +6,7 @@ import { Pos } from './entities/pos.entity';
 import { Repository } from 'typeorm';
 import { ShopService } from '../shop/shop.service';
 import { FindAllDto } from './dto/find-all.dto';
+import { Shop } from '../shop/entities/shop.entity';
 
 @Injectable()
 export class PosService {
@@ -52,7 +53,10 @@ export class PosService {
   }
 
   async update(id: number, updatePosDto: UpdatePosDto) {
-    const shop = await this.shopService.findOne(updatePosDto.shopID);
+    const pos = await this.posRepository.findOneBy({ id: id });
+    const shop: Shop = await this.shopService.findOneShort(updatePosDto.shopID);
+    pos.name = updatePosDto.name ? updatePosDto.name : pos.name;
+    pos.shop = shop ? shop : pos.shop;
     if (shop) {
       return await this.posRepository.update(
         { id: id },

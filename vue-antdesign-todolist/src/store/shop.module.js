@@ -7,6 +7,11 @@ const state = {
     current: 1,
     pageSize: 10,
     totalCount: 0,
+    dialogVisibleShop: false,
+    selectedShop: {
+        id: null,
+        name: '',
+    }
 };
 
 const actions = {
@@ -72,6 +77,22 @@ const actions = {
             dispatch('alert/error', error.response.data.message, {root: true});
         });
     },
+
+    setDialogVisibilityShop({dispatch, commit}, {visibility}){
+        commit('setDialogVisibleShop', visibility);
+    },
+
+    handleSelectShop({dispatch, commit}, {id, name}){
+        const selectedShop = { id, name };
+        const dialogVisibility = false;
+        commit('setSelectedShop', selectedShop);
+        commit('setDialogVisibleShop', dialogVisibility);
+    },
+
+    handleCloseSelectionShop({dispatch, commit}){
+        const selectedShop = { id: null, name: '' };
+        commit('setSelectedShop', selectedShop);
+    }
 };
 
 const mutations = {
@@ -91,6 +112,14 @@ const mutations = {
     setPageSize(state, pageSize){
         state.pageSize = pageSize;
     },
+
+    setDialogVisibleShop(state, visibility){
+        state.dialogVisibleShop = visibility;
+    },
+
+    setSelectedShop(state, selectedShop){
+        state.selectedShop = selectedShop;
+    }
 };
 
 export const shopModule = {

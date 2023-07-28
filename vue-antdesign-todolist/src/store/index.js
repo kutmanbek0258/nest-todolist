@@ -12,6 +12,7 @@ import { supplierModule } from './supplier.module';
 import { salesmanModule } from './salesman.module';
 import { depotModule } from './depot.module';
 import { shopModule } from './shop.module';
+import { posModule } from './pos.module';
 
 Vue.use(Vuex);
 
@@ -28,5 +29,6 @@ export const store = new Vuex.Store({
         salesman: salesmanModule,
         depot: depotModule,
         shop: shopModule,
+        pos: posModule,
     }
 });

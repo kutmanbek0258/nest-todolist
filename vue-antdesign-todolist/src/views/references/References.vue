@@ -81,7 +81,7 @@ const salaries = [
     title: "reference.pos",
     content: {
       body: "Points of sale",
-      link: "/poses"
+      link: "/references/pos"
     },
   },
   {

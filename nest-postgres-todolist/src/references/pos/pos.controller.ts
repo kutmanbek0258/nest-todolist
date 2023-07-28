@@ -21,7 +21,7 @@ export class PosController {
     return this.posService.create(createPosDto);
   }
 
-  @Get()
+  @Post('/get-all')
   findAll(@Body() findAllDto: FindAllDto) {
     return this.posService.findAll(findAllDto);
   }
