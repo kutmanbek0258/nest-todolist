@@ -82,8 +82,10 @@ const actions = {
     },
 
     setSelectedPos({dispatch, commit}, {id, name}){
-        const selectedPos = { id, name }
+        const selectedPos = { id, name };
+        const dialogVisible = false;
         commit('setSelectedPos', selectedPos);
+        commit('setDialogVisiblePos', dialogVisible);
     }
 };
 
