@@ -280,6 +280,25 @@ let routes = [
 		layout: "dashboard",
 		component: () => import('../views/references/pos/UpdatePos'),
 	},
+
+	{
+		path: '/references/cash-register',
+		name: 'cash-register',
+		layout: "dashboard",
+		component: () => import('../views/references/cash-register/CashRegisterList'),
+	},
+	{
+		path: '/references/create-cash-register',
+		name: 'cash-register',
+		layout: "dashboard",
+		component: () => import('../views/references/cash-register/CreateCashRegister'),
+	},
+	{
+		path: '/references/update-cash-register/:id',
+		name: 'cash-register',
+		layout: "dashboard",
+		component: () => import('../views/references/cash-register/UpdateCashRegister'),
+	},
 ]
 
 // Adding layout property from each route to the meta

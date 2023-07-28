@@ -19,7 +19,7 @@ export class CreateCashRegisterDto {
   @IsString()
   @MinLength(6)
   @MaxLength(200)
-  OFD: string;
+  ofd: string;
 
   @IsNotEmpty()
   @IsString()

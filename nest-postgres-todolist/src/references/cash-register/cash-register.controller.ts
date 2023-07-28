@@ -21,7 +21,7 @@ export class CashRegisterController {
     return this.cashRegisterService.create(createCashRegisterDto);
   }
 
-  @Get()
+  @Post('/get-all')
   findAll(@Body() findAllDto: FindAllDto) {
     return this.cashRegisterService.findAll(findAllDto);
   }

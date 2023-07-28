@@ -92,7 +92,7 @@ const salaries = [
     title: "reference.cash_register",
     content: {
       body: "Cash registers",
-      link: "/cash-register"
+      link: "/references/cash-register"
     },
   },
   {

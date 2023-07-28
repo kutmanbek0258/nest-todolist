@@ -7,6 +7,8 @@ import { Repository } from 'typeorm';
 import { ShopService } from '../shop/shop.service';
 import { PosService } from '../pos/pos.service';
 import { FindAllDto } from './dto/find-all.dto';
+import { Shop } from '../shop/entities/shop.entity';
+import { Pos } from '../pos/entities/pos.entity';
 
 @Injectable()
 export class CashRegisterService {
@@ -26,7 +28,7 @@ export class CashRegisterService {
       const cashRegister = this.cashRegisterRepository.create({
         shop: shop,
         pos: pos,
-        ofd: createCashRegisterDto.OFD,
+        ofd: createCashRegisterDto.ofd,
         printer: createCashRegisterDto.printer,
       });
       return await this.cashRegisterRepository.save(cashRegister);
@@ -58,15 +60,24 @@ export class CashRegisterService {
   }
 
   async update(id: number, updateCashRegisterDto: UpdateCashRegisterDto) {
-    const shop = await this.shopService.findOne(updateCashRegisterDto.shopID);
-    const pos = await this.posService.findOne(updateCashRegisterDto.posID);
+    const cashRegister = await this.cashRegisterRepository.findOneBy({
+      id: id,
+    });
+    const shop: Shop = await this.shopService.findOneShort(
+      updateCashRegisterDto.shopID,
+    );
+    const pos: Pos = await this.posService.findOneShort(
+      updateCashRegisterDto.posID,
+    );
+    cashRegister.shop = shop ? shop : cashRegister.shop;
+    cashRegister.pos = pos ? pos : cashRegister.pos;
     if (shop && pos) {
       return await this.cashRegisterRepository.update(
         { id: id },
         {
           shop: shop,
           pos: pos,
-          ofd: updateCashRegisterDto.OFD,
+          ofd: updateCashRegisterDto.ofd,
           printer: updateCashRegisterDto.printer,
         },
       );
