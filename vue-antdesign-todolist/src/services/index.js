@@ -12,3 +12,4 @@ export * from './supplier.service';
 export * from './salesman.service';
 export * from './depot.service';
 export * from './shop.service';
+export * from './pos.service';

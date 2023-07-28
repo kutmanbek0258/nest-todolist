@@ -86,7 +86,6 @@ export class ShopService {
     shop.company = company ? company : shop.company;
     shop.manager = manager ? manager : shop.manager;
     shop.depot = depot ? depot : shop.depot;
-    console.log(shop);
     if (company && manager && depot) {
       return await this.shopRepository.update({ id: id }, shop);
     } else {
