@@ -10,6 +10,7 @@ import { Person } from '../../person/entities/person.entity';
 import { Pos } from '../../pos/entities/pos.entity';
 import { CashRegister } from '../../cash-register/entities/cash-register.entity';
 import { Depot } from '../../depot/entities/depot.entity';
+import { Receipt } from '../../../documents/receipt/entities/receipt.entity';
 
 @Entity()
 export class Shop {
@@ -45,4 +46,7 @@ export class Shop {
 
   @OneToMany(() => CashRegister, (cashRegister) => cashRegister.shop)
   cashRegisters: CashRegister[];
+
+  @OneToMany(() => Receipt, (receipt) => receipt.shop)
+  receipts: Receipt[];
 }

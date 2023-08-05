@@ -11,14 +11,14 @@ export class AppLoggerMiddleware implements NestMiddleware {
     const userAgent = request.get('user-agent') || '';
 
     request.on('close', () => {
-        this.logger.log(
-            `\n---------------------!!---------------------
+      this.logger.log(
+        `\n---------------------!!---------------------
         method: ${method}
         url: ${request.url}
         userAgent: ${userAgent}
-        ip: ${ip}\n---------------------!!---------------------`
-          );
-    })
+        ip: ${ip}\n---------------------!!---------------------`,
+      );
+    });
 
     next();
   }

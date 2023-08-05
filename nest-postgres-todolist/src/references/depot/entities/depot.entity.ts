@@ -8,6 +8,7 @@ import {
 import { Company } from '../../company/entities/company.entity';
 import { Person } from '../../person/entities/person.entity';
 import { Shop } from '../../shop/entities/shop.entity';
+import { Receipt } from '../../../documents/receipt/entities/receipt.entity';
 
 @Entity()
 export class Depot {
@@ -31,4 +32,7 @@ export class Depot {
 
   @OneToMany(() => Shop, (shop) => shop.depot)
   shops: Shop[];
+
+  @OneToMany(() => Receipt, (receipt) => receipt.depot)
+  receipts: Receipt[];
 }
