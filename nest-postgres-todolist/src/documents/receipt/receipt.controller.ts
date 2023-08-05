@@ -15,6 +15,7 @@ import { User } from '../../user/entities/user.entity';
 import { ReceiptService } from './receipt.service';
 import { CreateReceiptDto } from './dto/create-receipt.dto';
 import { UpdateReceiptDto } from './dto/update-receipt.dto';
+import { FindAllDto } from './dto/find-all.dto';
 
 @Controller('receipt')
 @UseGuards(AuthGuard('jwt'))
@@ -23,12 +24,12 @@ export class ReceiptController {
 
   @Post()
   create(@UserData() user: User, @Body() createReceiptDto: CreateReceiptDto) {
-    return this.receiptService.create(createReceiptDto);
+    return this.receiptService.create(user, createReceiptDto);
   }
 
-  @Get()
-  findAll() {
-    return this.receiptService.findAll();
+  @Post('/get-all')
+  findAll(@Body() findAllDto: FindAllDto) {
+    return this.receiptService.findAll(findAllDto);
   }
 
   @Get(':id')

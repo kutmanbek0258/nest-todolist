@@ -11,6 +11,7 @@ import { Supplier } from '../../references/supplier/entities/supplier.entity';
 import { Shop } from '../../references/shop/entities/shop.entity';
 import { Depot } from '../../references/depot/entities/depot.entity';
 import { FindAllDto } from './dto/find-all.dto';
+import { User } from '../../user/entities/user.entity';
 
 @Injectable()
 export class ReceiptService {
@@ -21,8 +22,8 @@ export class ReceiptService {
     private readonly shopService: ShopService,
     private readonly depotService: DepotService,
   ) {}
-  async create(createReceiptDto: CreateReceiptDto) {
-    const suppler: Supplier = await this.supplierService.findOneShort(
+  async create(user: User, createReceiptDto: CreateReceiptDto) {
+    const supplier: Supplier = await this.supplierService.findOneShort(
       createReceiptDto.supplierID,
     );
     const shop: Shop = await this.shopService.findOneShort(
@@ -31,11 +32,12 @@ export class ReceiptService {
     const depot: Depot = await this.depotService.findOneShort(
       createReceiptDto.depotID,
     );
-    if (suppler && shop && depot) {
+    if (supplier && shop && depot) {
       const receipt = this.receiptRepository.create({
-        supplier: suppler,
-        shop: shop,
-        depot: depot,
+        supplier,
+        shop,
+        depot,
+        created_by: user,
       });
       return await this.receiptRepository.save(receipt);
     } else {
@@ -43,31 +45,63 @@ export class ReceiptService {
     }
   }
 
-  async findAll(/*findAllDto: FindAllDto*/) {
-    // const total = await this.receiptRepository.count();
-    // const receipts = await this.receiptRepository.query(
-    //   `SELECT receipt.id AS id, receipt."supplierId" AS supplierID, receipt."shopId" AS shopid, receipt."depotId" AS depotid,
-    //                 person.full_name AS suppliername,
-    //                 shop.name AS shopname,
-    //                 depot.name AS depotname
-    //             FROM receipt
-    //             INNER JOIN supplier on supplier.id = receipt."supplierId"
-    //             INNER JOIN shop on shop.id = receipt."shopId"
-    //             INNER JOIN depot on depot.id = receipt."depotId"
-    //             INNER JOIN person on person.id = supplier."personId"`,
-    // );
-    return `This action returns all receipt`;
+  async findAll(findAllDto: FindAllDto) {
+    const total = await this.receiptRepository.count();
+    const receipts = await this.receiptRepository.query(
+      `SELECT receipt.id AS id, receipt."supplierId" AS supplierID, receipt."shopId" AS shopid, receipt."depotId" AS depotid,
+                    p.full_name AS suppliername,
+                    s.name AS shopname,
+                    d.name AS depotname
+                FROM receipt
+                INNER JOIN supplier sr on sr.id = receipt."supplierId"
+                INNER JOIN shop s on s.id = receipt."shopId"
+                INNER JOIN depot d on d.id = receipt."depotId"
+                INNER JOIN person p on p.id = sr."personId"
+                LIMIT ${findAllDto.take} OFFSET ${findAllDto.skip}`,
+    );
+    return { total, receipts };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} receipt`;
+  async findOne(id: number) {
+    return await this.receiptRepository.query(
+      `SELECT receipt.id AS id, receipt."supplierId" AS supplierID, receipt."shopId" AS shopid, receipt."depotId" AS depotid,
+                    p.full_name AS suppliername,
+                    s.name AS shopname,
+                    d.name AS depotname
+                FROM receipt
+                INNER JOIN supplier sr on sr.id = receipt."supplierId"
+                INNER JOIN shop s on s.id = receipt."shopId"
+                INNER JOIN depot d on d.id = receipt."depotId"
+                INNER JOIN person p on p.id = sr."personId"
+                WHERE receipt.id = ${id}`,
+    );
   }
 
-  update(id: number, updateReceiptDto: UpdateReceiptDto) {
-    return `This action updates a #${id} receipt`;
+  async update(id: number, updateReceiptDto: UpdateReceiptDto) {
+    const supplier: Supplier = await this.supplierService.findOneShort(
+      updateReceiptDto.supplierID,
+    );
+    const shop: Shop = await this.shopService.findOneShort(
+      updateReceiptDto.shopID,
+    );
+    const depot: Depot = await this.depotService.findOneShort(
+      updateReceiptDto.depotID,
+    );
+    if (supplier && shop && depot) {
+      return await this.receiptRepository.update(
+        { id: id },
+        {
+          supplier,
+          shop,
+          depot,
+        },
+      );
+    } else {
+      throw new ForbiddenException();
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} receipt`;
+  async remove(id: number) {
+    return await this.receiptRepository.delete({ id: id });
   }
 }
