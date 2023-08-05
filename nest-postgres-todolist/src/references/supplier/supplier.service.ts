@@ -60,6 +60,10 @@ export class SupplierService {
     );
   }
 
+  async findOneShort(id: number) {
+    return await this.supplierRepository.findOneBy({ id: id });
+  }
+
   async update(id: number, updateSupplierDto: UpdateSupplierDto) {
     const company = await this.companyService.findOne(
       updateSupplierDto.companyID,

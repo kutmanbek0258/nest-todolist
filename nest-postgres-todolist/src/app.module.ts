@@ -8,6 +8,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DataSource } from './data-source';
 import { ReferencesModule } from './references/references.module';
 import { AuthModule } from './auth/auth.module';
+import { DocumentModule } from './documents/receipt/document.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
     NmailerModule,
     ReferencesModule,
+    DocumentModule,
   ],
 })
 export class AppModule {

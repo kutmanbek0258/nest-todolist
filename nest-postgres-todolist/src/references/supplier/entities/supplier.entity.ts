@@ -1,6 +1,7 @@
-import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Person } from '../../person/entities/person.entity';
 import { Company } from '../../company/entities/company.entity';
+import { Receipt } from '../../../documents/receipt/entities/receipt.entity';
 
 @Entity()
 export class Supplier {
@@ -12,4 +13,7 @@ export class Supplier {
 
   @ManyToOne(() => Company, (company) => company.suppliers)
   company: Company;
+
+  @OneToMany(() => Receipt, (receipt) => receipt.supplier)
+  contracts: Receipt[];
 }

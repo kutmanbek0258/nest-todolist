@@ -63,6 +63,10 @@ export class ProductService {
     );
   }
 
+  async findOneShort(id: number) {
+    return await this.productRepository.findOneBy({ id: id });
+  }
+
   async update(id: number, updateProductDto: UpdateProductDto) {
     const product: Product = await this.productRepository.findOneBy({ id: id });
     product.name = updateProductDto.name ? updateProductDto.name : product.name;
