@@ -24,28 +24,47 @@
     "sign_in": "Войти"
   },
   "sidebar_dashboard": {
-    "dashboard": "Панель управления",
+    "dashboard": "Dashboard",
     "todos": "Todos",
-    "receipts": "Прием",
-    "postings": "Отправка",
-    "reports": "Отчеты",
-    "profile": "Профиль"
-  },
-  "create_todo": {
-    "title": "Create todo",
-    "text_message": "Create todo",
-    "name": "Name",
-    "description": "Description",
-    "create_button": "CREATE TODO",
-    "back_to_todos": "Back to todos",
-    "back": "back"
+    "sales": "Sales",
+    "depot": "Depot",
+    "marketing": "Marketing",
+    "references": "References",
+    "profile": "Profile"
   },
 
-  "todo_list": {
-    "title": "Todos table",
-    "create_new_posting": "Create new todo",
-    "edit_button": "EDIT",
-    "delete_button": "DELETE",
-    "delete_dialog_title": "ARE YOU SURE DELETE TODO?"
+  "sales": {
+    "pos": "POS",
+    "open_shift": "Open shift",
+    "close_shift": "Close shift",
+    "daily_sales": "Daily sales"
+  },
+
+  "marketing": {
+    "prices": "Prices",
+    "promotions": "Promotions"
+  },
+
+  "depot": {
+    "receipt": "Receipts",
+    "write_off": "Write off",
+    "recount": "Recount"
+  },
+
+  "reference": {
+    "company": "Companies",
+    "shop": "Shops",
+    "pos": "Points of sale",
+    "cash_register": "Cash registers",
+    "supplier": "Supplier",
+    "salesman": "Salesmen",
+    "person": "Persons",
+    "product": "Products",
+    "product_group": "Product groups",
+    "price_template": "Price templates"
+  },
+
+  "create_person": {
+    "title": "Create person test"
   }
 }
