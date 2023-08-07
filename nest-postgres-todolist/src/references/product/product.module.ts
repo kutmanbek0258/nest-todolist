@@ -14,5 +14,6 @@ import { PriceTemplateModule } from '../price-template/price-template.module';
   ],
   controllers: [ProductController],
   providers: [ProductService],
+  exports: [ProductService],
 })
 export class ProductModule {}
