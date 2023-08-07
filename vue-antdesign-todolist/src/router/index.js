@@ -18,20 +18,8 @@ let routes = [
 		path: '/dashboard',
 		name: 'Dashboard',
 		layout: "dashboard",
-		// route level code-splitting
-		// this generates a separate chunk (about.[hash].js) for this route
-		// which is lazy-loaded when the route is visited.
 		component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
 	},
-	// {
-	// 	path: '/Profile',
-	// 	name: 'Profile',
-	// 	layout: "dashboard",
-	// 	meta: {
-	// 		layoutClass: 'layout-profile',
-	// 	},
-	// 	component: () => import('../views/Profile.vue'),
-	// },
 	{
 		path: '/sign-in',
 		name: 'Sign-In',
@@ -77,30 +65,6 @@ let routes = [
 		},
 		component: () => import('../views/auth/Reset-Password'),
 	},
-	{
-		path: '/create-todo',
-		name: 'create-todo',
-		meta: {
-			layoutClass: 'layout-create-todo',
-		},
-		component: () => import('../views/todo/CreateTodo'),
-	},
-
-	{
-		path: '/references/todo-list',
-		name: 'todo-list',
-		layout: "dashboard",
-		component: () => import('../views/todo/TodoList'),
-	},
-
-	{
-		path: '/update-todo/:id',
-		name: 'update-todo',
-		meta: {
-			layoutClass: 'layout-update-todo',
-		},
-		component: () => import('../views/todo/UpdateTodo'),
-	},
 
 	{
 		path: '/marketing',
@@ -125,6 +89,215 @@ let routes = [
 		name: 'references',
 		layout: "dashboard",
 		component: () => import('../views/references/References'),
+	},
+
+	{
+		path: '/references/company',
+		name: 'company',
+		layout: "dashboard",
+		component: () => import('../views/references/company/CompanyList'),
+	},
+	{
+		path: '/references/create-company',
+		name: 'company',
+		layout: "dashboard",
+		component: () => import('../views/references/company/CreateCompany'),
+	},
+	{
+		path: '/references/update-company/:id',
+		name: 'company',
+		layout: "dashboard",
+		component: () => import('../views/references/company/UpdateCompany'),
+	},
+
+	{
+		path: '/references/person',
+		name: 'person',
+		layout: "dashboard",
+		component: () => import('../views/references/person/PersonList'),
+	},
+	{
+		path: '/references/create-person',
+		name: 'person',
+		layout: "dashboard",
+		component: () => import('../views/references/person/CreatePerson'),
+	},
+	{
+		path: '/references/update-person/:id',
+		name: 'person',
+		layout: "dashboard",
+		component: () => import('../views/references/person/UpdatePerson'),
+	},
+
+	{
+		path: '/references/product-group',
+		name: 'product-group',
+		layout: "dashboard",
+		component: () => import('../views/references/product-group/ProductGroupList'),
+	},
+	{
+		path: '/references/update-product-group/:id',
+		name: 'update product-group',
+		layout: "dashboard",
+		component: () => import('../views/references/product-group/UpdateProductGroup'),
+	},
+	{
+		path: '/references/create-product-group',
+		name: 'create product-group',
+		layout: "dashboard",
+		component: () => import('../views/references/product-group/CreateProductGroup'),
+	},
+
+	{
+		path: '/references/price-template',
+		name: 'price-template',
+		layout: "dashboard",
+		component: () => import('../views/references/price-template/PriceTemplateList'),
+	},
+	{
+		path: '/references/create-price-template',
+		name: 'price-template',
+		layout: "dashboard",
+		component: () => import('../views/references/price-template/CreatePriceTemplate'),
+	},
+	{
+		path: '/references/update-price-template/:id',
+		name: 'price-template',
+		layout: "dashboard",
+		component: () => import('../views/references/price-template/UpdatePriceTemplate'),
+	},
+
+	{
+		path: '/references/product',
+		name: 'product',
+		layout: "dashboard",
+		component: () => import('../views/references/product/ProductList'),
+	},
+	{
+		path: '/references/create-product',
+		name: 'product',
+		layout: "dashboard",
+		component: () => import('../views/references/product/CreateProduct'),
+	},
+	{
+		path: '/references/update-product/:id',
+		name: 'product',
+		layout: "dashboard",
+		component: () => import('../views/references/product/UpdateProduct'),
+	},
+
+	{
+		path: '/references/supplier',
+		name: 'supplier',
+		layout: "dashboard",
+		component: () => import('../views/references/supplier/SupplierList'),
+	},
+	{
+		path: '/references/create-supplier',
+		name: 'supplier',
+		layout: "dashboard",
+		component: () => import('../views/references/supplier/CreateSupplier'),
+	},
+	{
+		path: '/references/update-supplier/:id',
+		name: 'supplier',
+		layout: "dashboard",
+		component: () => import('../views/references/supplier/UpdateSupplier'),
+	},
+
+	{
+		path: '/references/salesman',
+		name: 'salesman',
+		layout: "dashboard",
+		component: () => import('../views/references/salesman/SalesmanList'),
+	},
+	{
+		path: '/references/create-salesman',
+		name: 'salesman',
+		layout: "dashboard",
+		component: () => import('../views/references/salesman/CreateSalesman'),
+	},
+	{
+		path: '/references/update-salesman/:id',
+		name: 'salesman',
+		layout: "dashboard",
+		component: () => import('../views/references/salesman/UpdateSalesman'),
+	},
+
+	{
+		path: '/references/depot',
+		name: 'depot',
+		layout: "dashboard",
+		component: () => import('../views/references/depot/DepotList'),
+	},
+	{
+		path: '/references/create-depot',
+		name: 'depot',
+		layout: "dashboard",
+		component: () => import('../views/references/depot/CreateDepot'),
+	},
+	{
+		path: '/references/update-depot/:id',
+		name: 'depot',
+		layout: "dashboard",
+		component: () => import('../views/references/depot/UpdateDepot'),
+	},
+
+	{
+		path: '/references/shop',
+		name: 'shop',
+		layout: "dashboard",
+		component: () => import('../views/references/shop/ShopList'),
+	},
+	{
+		path: '/references/create-shop',
+		name: 'shop',
+		layout: "dashboard",
+		component: () => import('../views/references/shop/CreateShop'),
+	},
+	{
+		path: '/references/update-shop/:id',
+		name: 'shop',
+		layout: "dashboard",
+		component: () => import('../views/references/shop/UpdateShop'),
+	},
+
+	{
+		path: '/references/pos',
+		name: 'pos',
+		layout: "dashboard",
+		component: () => import('../views/references/pos/PosList'),
+	},
+	{
+		path: '/references/create-pos',
+		name: 'pos',
+		layout: "dashboard",
+		component: () => import('../views/references/pos/CreatePos'),
+	},
+	{
+		path: '/references/update-pos/:id',
+		name: 'pos',
+		layout: "dashboard",
+		component: () => import('../views/references/pos/UpdatePos'),
+	},
+
+	{
+		path: '/references/cash-register',
+		name: 'cash-register',
+		layout: "dashboard",
+		component: () => import('../views/references/cash-register/CashRegisterList'),
+	},
+	{
+		path: '/references/create-cash-register',
+		name: 'cash-register',
+		layout: "dashboard",
+		component: () => import('../views/references/cash-register/CreateCashRegister'),
+	},
+	{
+		path: '/references/update-cash-register/:id',
+		name: 'cash-register',
+		layout: "dashboard",
+		component: () => import('../views/references/cash-register/UpdateCashRegister'),
 	},
 ]
 

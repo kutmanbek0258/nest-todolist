@@ -1,6 +1,6 @@
 import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
-import { NmailerService } from './nmailer.service';
+import { NMailerService } from './n-mailer.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
@@ -25,7 +25,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       inject: [ConfigService],
     }),
   ],
-  providers: [NmailerService],
-  exports: [NmailerService],
+  providers: [NMailerService],
+  exports: [NMailerService],
 })
 export class NmailerModule {}
