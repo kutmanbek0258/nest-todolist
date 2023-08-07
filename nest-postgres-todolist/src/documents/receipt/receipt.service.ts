@@ -12,15 +12,23 @@ import { Shop } from '../../references/shop/entities/shop.entity';
 import { Depot } from '../../references/depot/entities/depot.entity';
 import { FindAllDto } from './dto/find-all.dto';
 import { User } from '../../user/entities/user.entity';
+import { ReceiptItem } from './entities/receipt-item.entity';
+import { AddReceiptItemDto } from './dto/add-receipt-item.dto';
+import { ProductService } from '../../references/product/product.service';
+import { UpdateReceiptItemDto } from './dto/update-receipt-item.dto';
+import { Product } from '../../references/product/entities/product.entity';
 
 @Injectable()
 export class ReceiptService {
   constructor(
     @InjectRepository(Receipt)
     private readonly receiptRepository: Repository<Receipt>,
+    @InjectRepository(ReceiptItem)
+    private readonly receiptItemRepository: Repository<ReceiptItem>,
     private readonly supplierService: SupplierService,
     private readonly shopService: ShopService,
     private readonly depotService: DepotService,
+    private readonly productService: ProductService,
   ) {}
   async create(user: User, createReceiptDto: CreateReceiptDto) {
     const supplier: Supplier = await this.supplierService.findOneShort(
@@ -77,6 +85,10 @@ export class ReceiptService {
     );
   }
 
+  async findOneShort(id: number) {
+    return await this.receiptRepository.findOneBy({ id: id });
+  }
+
   async update(id: number, updateReceiptDto: UpdateReceiptDto) {
     const supplier: Supplier = await this.supplierService.findOneShort(
       updateReceiptDto.supplierID,
@@ -103,5 +115,56 @@ export class ReceiptService {
 
   async remove(id: number) {
     return await this.receiptRepository.delete({ id: id });
+  }
+
+  async addReceiptItem(addReceiptItemDto: AddReceiptItemDto) {
+    const product = await this.productService.findOneShort(
+      addReceiptItemDto.productID,
+    );
+    const receipt = await this.findOneShort(addReceiptItemDto.receiptID);
+    if (product && receipt) {
+      const receiptItem = this.receiptItemRepository.create({
+        receipt,
+        product,
+        quantity: addReceiptItemDto.quantity,
+        price: addReceiptItemDto.price,
+      });
+      return await this.receiptItemRepository.save(receiptItem);
+    } else {
+      throw new ForbiddenException();
+    }
+  }
+
+  async getAllItems(receiptId: number) {
+    return await this.receiptItemRepository.query(
+      `SELECT ri.id, ri.quantity, ri.price,
+                       ri."productId" AS productid,
+                       p.name AS productname
+                FROM receipt_item ri
+                INNER JOIN product p on p.id = ri."productId"
+                WHERE ri."receiptId" = ${receiptId};`,
+    );
+  }
+
+  async updateItem(itemId: number, updateReceiptItemDto: UpdateReceiptItemDto) {
+    const product: Product = await this.productService.findOneShort(
+      updateReceiptItemDto.productID,
+    );
+    if (product) {
+      return await this.receiptItemRepository.update(
+        { id: itemId },
+        {
+          product,
+          quantity: updateReceiptItemDto.quantity,
+          price: updateReceiptItemDto.price,
+        },
+      );
+    } else {
+      throw new ForbiddenException();
+    }
+  }
+
+  async deleteItem(itemId: number) {
+    return await this.receiptItemRepository.delete({ id: itemId });
   }
 }
