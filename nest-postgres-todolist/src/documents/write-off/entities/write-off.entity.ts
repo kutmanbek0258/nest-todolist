@@ -1,12 +1,15 @@
 import {
-  CreateDateColumn, Entity,
+  CreateDateColumn,
+  Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Shop } from '../../../references/shop/entities/shop.entity';
 import { Depot } from '../../../references/depot/entities/depot.entity';
 import { User } from '../../../user/entities/user.entity';
+import { WriteOffItem } from './write-off.item';
 
 @Entity()
 export class WriteOff {
@@ -34,4 +37,7 @@ export class WriteOff {
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
   updated_at: Date;
+
+  @OneToMany(() => WriteOffItem, (writeOffItem) => writeOffItem.writeOff)
+  items: WriteOffItem[];
 }

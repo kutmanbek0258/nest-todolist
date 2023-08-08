@@ -10,12 +10,15 @@ import { User } from '../../user/entities/user.entity';
 import { Shop } from '../../references/shop/entities/shop.entity';
 import { Depot } from '../../references/depot/entities/depot.entity';
 import { FindAllDto } from './dto/find-all.dto';
+import { WriteOffItem } from './entities/write-off.item';
 
 @Injectable()
 export class WriteOffService {
   constructor(
     @InjectRepository(WriteOff)
     private readonly writeOffRepository: Repository<WriteOff>,
+    @InjectRepository(WriteOffItem)
+    private readonly writeOffItemRepository: Repository<WriteOffItem>,
     private readonly shopService: ShopService,
     private readonly depotService: DepotService,
   ) {}
