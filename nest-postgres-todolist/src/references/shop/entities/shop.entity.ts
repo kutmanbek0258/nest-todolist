@@ -11,6 +11,7 @@ import { Pos } from '../../pos/entities/pos.entity';
 import { CashRegister } from '../../cash-register/entities/cash-register.entity';
 import { Depot } from '../../depot/entities/depot.entity';
 import { Receipt } from '../../../documents/receipt/entities/receipt.entity';
+import { WriteOff } from '../../../documents/write-off/entities/write-off.entity';
 
 @Entity()
 export class Shop {
@@ -49,4 +50,7 @@ export class Shop {
 
   @OneToMany(() => Receipt, (receipt) => receipt.shop)
   receipts: Receipt[];
+
+  @OneToMany(() => WriteOff, (writeOff) => writeOff.shop)
+  writeOffs: WriteOff[];
 }
