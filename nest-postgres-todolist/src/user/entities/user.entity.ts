@@ -10,6 +10,7 @@ import * as bcrypt from 'bcrypt';
 import { InternalServerErrorException } from '@nestjs/common';
 import { RefreshToken } from '../../auth/entities/refresh-token.entity';
 import { Receipt } from '../../documents/receipt/entities/receipt.entity';
+import { WriteOff } from '../../documents/write-off/entities/write-off.entity';
 
 @Entity()
 export class User {
@@ -51,6 +52,9 @@ export class User {
 
   @OneToMany(() => Receipt, (receipt) => receipt.created_by)
   receipts: Receipt[];
+
+  @OneToMany(() => WriteOff, (writeOff) => writeOff.created_by)
+  writeOffs: WriteOff[];
 
   @BeforeInsert()
   async hashPassword() {
