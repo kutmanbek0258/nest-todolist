@@ -3,7 +3,7 @@ import { IsNotEmpty, IsNumber } from 'class-validator';
 export class AddWriteOffItemDto {
   @IsNumber()
   @IsNotEmpty()
-  receiptID: number;
+  writeOffID: number;
 
   @IsNumber()
   @IsNotEmpty()
