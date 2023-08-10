@@ -11,6 +11,10 @@ import { Shop } from '../../references/shop/entities/shop.entity';
 import { Depot } from '../../references/depot/entities/depot.entity';
 import { FindAllDto } from './dto/find-all.dto';
 import { WriteOffItem } from './entities/write-off.item';
+import { AddWriteOffItemDto } from './dto/add-write-off-item.dto';
+import { ProductService } from '../../references/product/product.service';
+import { UpdateWriteOffItemDto } from './dto/update-write-off-item.dto';
+import { Product } from '../../references/product/entities/product.entity';
 
 @Injectable()
 export class WriteOffService {
@@ -21,6 +25,7 @@ export class WriteOffService {
     private readonly writeOffItemRepository: Repository<WriteOffItem>,
     private readonly shopService: ShopService,
     private readonly depotService: DepotService,
+    private readonly productService: ProductService,
   ) {}
 
   async create(user: User, createWriteOffDto: CreateWriteOffDto) {
@@ -72,11 +77,87 @@ export class WriteOffService {
     );
   }
 
-  update(id: number, updateWriteOffDto: UpdateWriteOffDto) {
-    return `This action updates a #${id} writeOff`;
+  async findOneShort(id: number) {
+    return await this.writeOffRepository.findOneBy({ id: id });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} writeOff`;
+  async update(id: number, updateWriteOffDto: UpdateWriteOffDto) {
+    const shop: Shop = await this.shopService.findOneShort(
+      updateWriteOffDto.shopID,
+    );
+    const depot: Depot = await this.depotService.findOneShort(
+      updateWriteOffDto.depotID,
+    );
+    if (shop && depot) {
+      return await this.writeOffRepository.update(
+        { id: id },
+        {
+          shop,
+          depot,
+        },
+      );
+    } else {
+      throw new ForbiddenException();
+    }
+  }
+
+  async remove(id: number) {
+    return await this.writeOffRepository.delete({ id: id });
+  }
+
+  async addItem(addWriteOffItemDto: AddWriteOffItemDto) {
+    const writeOff = await this.findOneShort(addWriteOffItemDto.writeOffID);
+    const product = await this.productService.findOneShort(
+      addWriteOffItemDto.productID,
+    );
+    if (writeOff && product) {
+      const writeOffItem = this.writeOffItemRepository.create({
+        writeOff,
+        product,
+        quantity: addWriteOffItemDto.quantity,
+        price: addWriteOffItemDto.price,
+      });
+      return await this.writeOffRepository.save(writeOffItem);
+    } else {
+      throw new ForbiddenException();
+    }
+  }
+
+  async getAllItems(writeOffId: number, findAllDto: FindAllDto) {
+    return await this.writeOffItemRepository.query(
+      `SELECT write_off_item.id,
+                       write_off_item."productId" AS productid, p.name AS productname,
+                       write_off_item.quantity AS quantity, write_off_item.price AS price
+                FROM write_off_item
+                INNER JOIN product p on p.id = write_off_item."productId"
+                WHERE write_off_item."writeOffId" = $1
+                LIMIT $2 OFFSET $3;`,
+      [writeOffId, findAllDto.take, findAllDto.skip],
+    );
+  }
+
+  async updateItem(
+    itemId: number,
+    updateWriteOffItemDto: UpdateWriteOffItemDto,
+  ) {
+    const product: Product = await this.productService.findOneShort(
+      updateWriteOffItemDto.productID,
+    );
+    if (product) {
+      return await this.writeOffItemRepository.update(
+        { id: itemId },
+        {
+          product,
+          quantity: updateWriteOffItemDto.quantity,
+          price: updateWriteOffItemDto.price,
+        },
+      );
+    } else {
+      throw new ForbiddenException();
+    }
+  }
+
+  async deleteItem(itemId: number) {
+    return await this.writeOffItemRepository.delete({ id: itemId });
   }
 }

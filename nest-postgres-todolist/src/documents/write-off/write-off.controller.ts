@@ -13,6 +13,8 @@ import { UpdateWriteOffDto } from './dto/update-write-off.dto';
 import { User } from '../../user/entities/user.entity';
 import { UserData } from '../../auth/decorators/user.decorator';
 import { FindAllDto } from './dto/find-all.dto';
+import { AddWriteOffItemDto } from './dto/add-write-off-item.dto';
+import { UpdateWriteOffItemDto } from './dto/update-write-off-item.dto';
 
 @Controller('write-off')
 export class WriteOffController {
@@ -44,5 +46,28 @@ export class WriteOffController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.writeOffService.remove(+id);
+  }
+
+  @Post('add-item')
+  addItem(@Body() addWriteOffItemDto: AddWriteOffItemDto) {
+    return this.writeOffService.addItem(addWriteOffItemDto);
+  }
+
+  @Get('get-all-item/:id')
+  getAllItems(@Param(':id') itemId: number, @Body() findAllDto: FindAllDto) {
+    return this.writeOffService.getAllItems(itemId, findAllDto);
+  }
+
+  @Patch('update-item/:id')
+  updateItem(
+    @Param(':id') itemId: number,
+    @Body() updateWriteOffItemDto: UpdateWriteOffItemDto,
+  ) {
+    return this.writeOffService.updateItem(itemId, updateWriteOffItemDto);
+  }
+
+  @Delete('delete-item/:id')
+  deleteItem(@Param(':id') itemId: number) {
+    return this.writeOffService.deleteItem(itemId);
   }
 }
