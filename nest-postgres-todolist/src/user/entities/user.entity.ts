@@ -11,6 +11,7 @@ import { InternalServerErrorException } from '@nestjs/common';
 import { RefreshToken } from '../../auth/entities/refresh-token.entity';
 import { Receipt } from '../../documents/receipt/entities/receipt.entity';
 import { WriteOff } from '../../documents/write-off/entities/write-off.entity';
+import { Recount } from '../../documents/recount/entities/recount.entity';
 
 @Entity()
 export class User {
@@ -55,6 +56,9 @@ export class User {
 
   @OneToMany(() => WriteOff, (writeOff) => writeOff.created_by)
   writeOffs: WriteOff[];
+
+  @OneToMany(() => Recount, (recount) => recount.created_by)
+  recounts: Recount[];
 
   @BeforeInsert()
   async hashPassword() {
