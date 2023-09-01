@@ -54,20 +54,20 @@ export class WriteOffController {
   }
 
   @Get('get-all-item/:id')
-  getAllItems(@Param(':id') itemId: number, @Body() findAllDto: FindAllDto) {
+  getAllItems(@Param('id') itemId: number, @Body() findAllDto: FindAllDto) {
     return this.writeOffService.getAllItems(itemId, findAllDto);
   }
 
   @Patch('update-item/:id')
   updateItem(
-    @Param(':id') itemId: number,
+    @Param('id') itemId: number,
     @Body() updateWriteOffItemDto: UpdateWriteOffItemDto,
   ) {
     return this.writeOffService.updateItem(itemId, updateWriteOffItemDto);
   }
 
   @Delete('delete-item/:id')
-  deleteItem(@Param(':id') itemId: number) {
+  deleteItem(@Param('id') itemId: number) {
     return this.writeOffService.deleteItem(itemId);
   }
 }
