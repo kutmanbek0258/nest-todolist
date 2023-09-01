@@ -11,6 +11,9 @@ import { DepotService } from '../../references/depot/depot.service';
 import { Shop } from '../../references/shop/entities/shop.entity';
 import { Depot } from '../../references/depot/entities/depot.entity';
 import { FindAllDto } from './dto/find-all.dto';
+import { AddRecountItemDto } from './dto/add-recount-item.dto';
+import { Product } from '../../references/product/entities/product.entity';
+import { UpdateRecountItemDto } from './dto/update-recount-item.dto';
 
 @Injectable()
 export class RecountService {
@@ -80,11 +83,85 @@ export class RecountService {
     return await this.recountRepository.findOneBy({ id: id });
   }
 
-  update(id: number, updateRecountDto: UpdateRecountDto) {
-    return `This action updates a #${id} recount`;
+  async update(id: number, updateRecountDto: UpdateRecountDto) {
+    const shop: Shop = await this.shopService.findOneShort(
+      updateRecountDto.shopID,
+    );
+    const depot: Depot = await this.depotService.findOneShort(
+      updateRecountDto.depotID,
+    );
+    if (shop && depot) {
+      return await this.recountRepository.update(
+        {
+          id: id,
+        },
+        {
+          shop,
+          depot,
+          status: updateRecountDto.status,
+          start_date: updateRecountDto.startDate,
+          end_date: updateRecountDto.endDate,
+        },
+      );
+    } else {
+      throw new ForbiddenException({ message: 'References not found!' });
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} recount`;
+  async remove(id: number) {
+    return await this.recountRepository.delete({ id: id });
+  }
+
+  async addItem(addRecountItem: AddRecountItemDto) {
+    const recount: Recount = await this.findOneShort(addRecountItem.recountID);
+    const product: Product = await this.productService.findOneShort(
+      addRecountItem.productID,
+    );
+    if (recount && product) {
+      const recountItem = this.recountItemRepository.create({
+        recount,
+        product,
+        quantity: addRecountItem.quantity,
+        price: addRecountItem.price,
+      });
+      return await this.recountItemRepository.save(recountItem);
+    } else {
+      throw new ForbiddenException({ message: 'References not found!' });
+    }
+  }
+
+  async getAllItems(recountID: number) {
+    return await this.recountItemRepository.query(
+      `
+        SELECT ri.id,
+               ri."productId" AS productid, p.name AS productname,
+               ri.quantity, ri.price
+        FROM recount_item ri
+        INNER JOIN product p on p.id = ri."productId"
+        WHERE ri."recountId" = $1;`,
+      [recountID],
+    );
+  }
+
+  async updateItem(itemId: number, updateRecountItem: UpdateRecountItemDto) {
+    const product: Product = await this.productService.findOneShort(
+      updateRecountItem.productID,
+    );
+    if (product) {
+      return await this.recountItemRepository.update(
+        { id: itemId },
+        {
+          product,
+          quantity: updateRecountItem.quantity,
+          price: updateRecountItem.price,
+        },
+      );
+    } else {
+      throw new ForbiddenException({ message: 'References not found!' });
+    }
+  }
+
+  async deleteItem(itemId: number) {
+    return await this.recountItemRepository.delete({ id: itemId });
   }
 }
