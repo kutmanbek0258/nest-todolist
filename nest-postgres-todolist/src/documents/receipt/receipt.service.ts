@@ -65,7 +65,8 @@ export class ReceiptService {
                 INNER JOIN shop s on s.id = receipt."shopId"
                 INNER JOIN depot d on d.id = receipt."depotId"
                 INNER JOIN person p on p.id = sr."personId"
-                LIMIT ${findAllDto.take} OFFSET ${findAllDto.skip}`,
+                LIMIT $1 OFFSET $2`,
+      [findAllDto.take, findAllDto.skip],
     );
     return { total, receipts };
   }
@@ -81,7 +82,8 @@ export class ReceiptService {
                 INNER JOIN shop s on s.id = receipt."shopId"
                 INNER JOIN depot d on d.id = receipt."depotId"
                 INNER JOIN person p on p.id = sr."personId"
-                WHERE receipt.id = ${id}`,
+                WHERE receipt.id = $1`,
+      [id],
     );
   }
 
@@ -117,7 +119,7 @@ export class ReceiptService {
     return await this.receiptRepository.delete({ id: id });
   }
 
-  async addReceiptItem(addReceiptItemDto: AddReceiptItemDto) {
+  async addItem(addReceiptItemDto: AddReceiptItemDto) {
     const product = await this.productService.findOneShort(
       addReceiptItemDto.productID,
     );
@@ -142,7 +144,8 @@ export class ReceiptService {
                        p.name AS productname
                 FROM receipt_item ri
                 INNER JOIN product p on p.id = ri."productId"
-                WHERE ri."receiptId" = ${receiptId};`,
+                WHERE ri.id = $1;`,
+      [receiptId],
     );
   }
 

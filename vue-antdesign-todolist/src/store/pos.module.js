@@ -34,6 +34,8 @@ const actions = {
         PosService.getAllPoses({take, skip}).then(
             poses => {
                 commit('setPoses', poses.data);
+                commit('setCurrent', current);
+                commit('setPageSize', pageSize);
             }
         ).catch(error => {
             commit('setPoses', null);
