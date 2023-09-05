@@ -28,8 +28,9 @@ const actions = {
         const skip = (current === 0) ? 0 : pageSize * (current - 1);
         CashRegisterService.getAllCashRegisters({take, skip}).then(
             cashRegisters => {
-                console.log(cashRegisters.data);
                 commit('setCashRegisters', cashRegisters.data);
+                commit('setCurrent', current);
+                commit('setPageSize', pageSize);
             }
         ).catch(error => {
             commit('setCashRegisters', null);

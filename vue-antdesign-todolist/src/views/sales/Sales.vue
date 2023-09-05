@@ -54,7 +54,7 @@ const salaries = [
     title: "POS",
     content: {
       body: "Point of sale",
-      link: "/pos"
+      link: "/sales/pos"
     },
   },
   {

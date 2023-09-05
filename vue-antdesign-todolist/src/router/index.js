@@ -299,6 +299,13 @@ let routes = [
 		layout: "dashboard",
 		component: () => import('../views/references/cash-register/UpdateCashRegister'),
 	},
+
+	{
+		path: '/sales/pos',
+		name: 'POS',
+		layout: "dashboard",
+		component: () => import('../views/sales/POS'),
+	},
 ]
 
 // Adding layout property from each route to the meta

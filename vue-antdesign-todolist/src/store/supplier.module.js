@@ -29,6 +29,8 @@ const actions = {
         SupplierService.getAllSuppliers({take, skip}).then(
             suppliers => {
                 commit('setSuppliers', suppliers.data);
+                commit('setCurrent', current);
+                commit('setPageSize', pageSize);
             }
         ).catch(error => {
             const suppliers = {

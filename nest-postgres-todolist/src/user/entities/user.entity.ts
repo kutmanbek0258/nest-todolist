@@ -12,6 +12,7 @@ import { RefreshToken } from '../../auth/entities/refresh-token.entity';
 import { Receipt } from '../../documents/receipt/entities/receipt.entity';
 import { WriteOff } from '../../documents/write-off/entities/write-off.entity';
 import { Recount } from '../../documents/recount/entities/recount.entity';
+import { Price } from '../../documents/price/entities/price.entity';
 
 @Entity()
 export class User {
@@ -59,6 +60,9 @@ export class User {
 
   @OneToMany(() => Recount, (recount) => recount.created_by)
   recounts: Recount[];
+
+  @OneToMany(() => Price, (price) => price.created_by)
+  prices: Price[];
 
   @BeforeInsert()
   async hashPassword() {
