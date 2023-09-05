@@ -34,6 +34,8 @@ const actions = {
         DepotService.getAllDepots({take, skip}).then(
             depots => {
                 commit('setDepots', depots.data);
+                commit('setCurrent', current);
+                commit('setPageSize', pageSize);
             }
         ).catch(error => {
             commit('setDepots', null);

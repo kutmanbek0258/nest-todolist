@@ -13,6 +13,7 @@ import { Depot } from '../../depot/entities/depot.entity';
 import { Receipt } from '../../../documents/receipt/entities/receipt.entity';
 import { WriteOff } from '../../../documents/write-off/entities/write-off.entity';
 import { Recount } from '../../../documents/recount/entities/recount.entity';
+import { Price } from '../../../documents/price/entities/price.entity';
 
 @Entity()
 export class Shop {
@@ -57,4 +58,7 @@ export class Shop {
 
   @OneToMany(() => Recount, (recount) => recount.shop)
   recounts: Recount[];
+
+  @OneToMany(() => Price, (price) => price.shop)
+  prices: Price[];
 }
