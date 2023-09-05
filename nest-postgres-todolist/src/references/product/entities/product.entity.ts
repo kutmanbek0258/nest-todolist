@@ -8,6 +8,8 @@ import {
 import { ProductGroup } from '../../product-group/entities/product-group.entity';
 import { PriceTemplate } from '../../price-template/entities/price-template.entity';
 import { ReceiptItem } from '../../../documents/receipt/entities/receipt-item.entity';
+import { WriteOffItem } from '../../../documents/write-off/entities/write-off.item';
+import { RecountItem } from '../../../documents/recount/entities/recount-item.entity';
 
 @Entity()
 export class Product {
@@ -31,4 +33,10 @@ export class Product {
 
   @OneToMany(() => ReceiptItem, (receiptItem) => receiptItem.product)
   receipts: ReceiptItem[];
+
+  @OneToMany(() => WriteOffItem, (writeOffItem) => writeOffItem.product)
+  writeOffs: WriteOffItem[];
+
+  @OneToMany(() => RecountItem, (recountItem) => recountItem.product)
+  recounts: RecountItem[];
 }

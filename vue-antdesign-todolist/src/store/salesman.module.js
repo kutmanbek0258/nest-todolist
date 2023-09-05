@@ -28,6 +28,8 @@ const actions = {
         SalesmanService.getAllSalesmen({take, skip}).then(
             salesmen => {
                 commit('setSalesmen', salesmen.data);
+                commit('setCurrent', current);
+                commit('setPageSize', pageSize);
             }
         ).catch(error => {
             commit('setSalesmen', null);

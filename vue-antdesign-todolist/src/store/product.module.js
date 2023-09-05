@@ -28,7 +28,10 @@ const actions = {
         const skip = (current === 0) ? 0 : pageSize * (current - 1);
         ProductService.getAllProducts({take, skip}).then(
             products => {
+                console.log(products.data)
                 commit('setProducts', products.data);
+                commit('setCurrent', current);
+                commit('setPageSize', pageSize)
             }
         ).catch(error => {
             commit('setProducts', null);

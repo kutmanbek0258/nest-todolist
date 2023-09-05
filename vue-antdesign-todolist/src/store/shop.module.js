@@ -34,6 +34,8 @@ const actions = {
         ShopService.getAllShops({take, skip}).then(
             shops => {
                 commit('setShops', shops.data);
+                commit('setCurrent', current);
+                commit('setPageSize', pageSize);
             }
         ).catch(error => {
             commit('setShops', null);

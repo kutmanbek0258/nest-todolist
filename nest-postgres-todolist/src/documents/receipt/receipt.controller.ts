@@ -50,24 +50,25 @@ export class ReceiptController {
 
   @Post('add-item')
   addItem(@Body() addReceiptItemDto: AddReceiptItemDto) {
-    return this.receiptService.addReceiptItem(addReceiptItemDto);
+    return this.receiptService.addItem(addReceiptItemDto);
   }
 
   @Get('get-all-items/:id')
-  getAllItems(@Param(':id') id: string) {
+  getAllItems(@Param('id') id: string) {
+    console.log(id);
     return this.receiptService.getAllItems(+id);
   }
 
   @Patch('update-item/:id')
   updateItem(
-    @Param(':id') id: string,
+    @Param('id') id: string,
     @Body() updateReceiptItemDto: UpdateReceiptItemDto,
   ) {
     return this.receiptService.updateItem(+id, updateReceiptItemDto);
   }
 
   @Delete('delete-item/:id')
-  deleteItem(@Param(':id') id: string) {
+  deleteItem(@Param('id') id: string) {
     return this.receiptService.deleteItem(+id);
   }
 }
