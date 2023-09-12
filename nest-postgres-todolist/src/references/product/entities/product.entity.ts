@@ -10,6 +10,7 @@ import { PriceTemplate } from '../../price-template/entities/price-template.enti
 import { ReceiptItem } from '../../../documents/receipt/entities/receipt-item.entity';
 import { WriteOffItem } from '../../../documents/write-off/entities/write-off.item';
 import { RecountItem } from '../../../documents/recount/entities/recount-item.entity';
+import { PriceItem } from '../../../documents/price/entities/price-item.entity';
 
 @Entity()
 export class Product {
@@ -39,4 +40,7 @@ export class Product {
 
   @OneToMany(() => RecountItem, (recountItem) => recountItem.product)
   recounts: RecountItem[];
+
+  @OneToMany(() => PriceItem, (priceItem) => priceItem.product)
+  prices: PriceItem[];
 }
