@@ -15,6 +15,8 @@ import { UserData } from '../../auth/decorators/user.decorator';
 import { User } from '../../user/entities/user.entity';
 import { FindAllDto } from './dto/find-all.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { AddPriceItemDto } from './dto/add-price-item.dto';
+import { UpdatePriceItemDto } from './dto/update-price-item.dto';
 
 @Controller('price')
 @UseGuards(AuthGuard('jwt'))
@@ -44,5 +46,28 @@ export class PriceController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.priceService.remove(+id);
+  }
+
+  @Post('add-item')
+  addItem(@Body() addPriceItemDto: AddPriceItemDto) {
+    return this.priceService.addItem(addPriceItemDto);
+  }
+
+  @Get('get-all-items/:id')
+  getAllItems(@Param('id') priceId: number) {
+    return this.priceService.getAllItems(priceId);
+  }
+
+  @Patch('update-item/:id')
+  updateItem(
+    @Param('id') itemId: number,
+    @Body() updatePriceItemDto: UpdatePriceItemDto,
+  ) {
+    return this.priceService.updateItem(itemId, updatePriceItemDto);
+  }
+
+  @Delete('delete-item/:id')
+  deleteItem(@Param('id') itemId: number) {
+    return this.priceService.deleteItem(itemId);
   }
 }
