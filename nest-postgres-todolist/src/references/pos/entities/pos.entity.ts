@@ -16,6 +16,9 @@ export class Pos {
   @Column()
   name: string;
 
+  @Column({ nullable: false })
+  workspace: string;
+
   @ManyToOne(() => Shop, (shop) => shop.poses)
   shop: Shop;
 
