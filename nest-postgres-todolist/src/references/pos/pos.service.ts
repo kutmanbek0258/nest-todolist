@@ -21,6 +21,7 @@ export class PosService {
       const pos = await this.posRepository.create({
         name: createPosDto.name,
         shop: shop,
+        workspace: createPosDto.workspace,
       });
       return await this.posRepository.save(pos);
     } else {
@@ -40,7 +41,7 @@ export class PosService {
 
   async findOne(id: number) {
     return await this.posRepository.query(
-      `SELECT pos.id, pos.name,
+      `SELECT pos.id, pos.name, pos.workspace,
                s.id AS shopId, s.name AS shopName
         FROM pos
         INNER JOIN shop s on pos."shopId" = s.id
@@ -60,7 +61,11 @@ export class PosService {
     if (shop) {
       return await this.posRepository.update(
         { id: id },
-        { shop: shop, name: updatePosDto.name },
+        {
+          shop: shop,
+          name: updatePosDto.name,
+          workspace: updatePosDto.workspace,
+        },
       );
     } else {
       throw new ForbiddenException();

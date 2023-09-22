@@ -16,4 +16,8 @@ export class CreatePosDto {
   @IsNotEmpty()
   @IsNumber()
   shopID: number;
+
+  @IsNotEmpty()
+  @IsString()
+  workspace: string;
 }
