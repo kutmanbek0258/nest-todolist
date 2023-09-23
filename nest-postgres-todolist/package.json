@@ -5,6 +5,16 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
+  "bin": "dist/main.js",
+  "pkg": {
+    "assets": [
+      "node_modules"
+    ],
+    "targets": [
+      "node16-linux",
+      "node16-win"
+    ]
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
@@ -40,6 +50,7 @@
     "dotenv": "^16.0.0",
     "moment": "^2.29.1",
     "mongoose": "^6.2.0",
+    "node-thermal-printer": "^4.4.0",
     "nodemailer": "^6.7.2",
     "passport-jwt": "^4.0.0",
     "pg": "^8.10.0",

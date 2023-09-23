@@ -7,12 +7,14 @@ import { Repository } from 'typeorm';
 import { ShopService } from '../shop/shop.service';
 import { FindAllDto } from './dto/find-all.dto';
 import { Shop } from '../shop/entities/shop.entity';
+import { ThermalPrinterService } from '../../thermal-printer/thermal-printer.service';
 
 @Injectable()
 export class PosService {
   constructor(
     @InjectRepository(Pos) private readonly posRepository: Repository<Pos>,
     private readonly shopService: ShopService,
+    private readonly thermalPrinterService: ThermalPrinterService,
   ) {}
 
   async create(createPosDto: CreatePosDto) {
@@ -59,6 +61,7 @@ export class PosService {
     pos.name = updatePosDto.name ? updatePosDto.name : pos.name;
     pos.shop = shop ? shop : pos.shop;
     if (shop) {
+      await this.thermalPrinterService.print('updated success!');
       return await this.posRepository.update(
         { id: id },
         {
