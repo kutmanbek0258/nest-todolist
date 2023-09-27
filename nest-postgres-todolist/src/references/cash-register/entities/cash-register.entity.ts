@@ -1,6 +1,13 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Shop } from '../../shop/entities/shop.entity';
 import { Pos } from '../../pos/entities/pos.entity';
+import { Shift } from '../../../documents/shift/entities/shift.entity';
 
 @Entity()
 export class CashRegister {
@@ -18,4 +25,7 @@ export class CashRegister {
 
   @Column({ length: 200 })
   printer: string;
+
+  @OneToMany(() => Shift, (shift) => shift.cash_register)
+  shifts: Shift[];
 }
