@@ -61,7 +61,6 @@ export class PosService {
     pos.name = updatePosDto.name ? updatePosDto.name : pos.name;
     pos.shop = shop ? shop : pos.shop;
     if (shop) {
-      await this.thermalPrinterService.print('updated success!');
       return await this.posRepository.update(
         { id: id },
         {
