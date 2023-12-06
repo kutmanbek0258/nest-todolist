@@ -5,16 +5,19 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { now } from 'moment';
+import { Sale } from '../../sale/entities/sale.entity';
 
 @Entity()
 export class Shift {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'timestamptz' })
+  @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   start_date: Date;
 
   @Column({ type: 'timestamptz' })
@@ -41,4 +44,7 @@ export class Shift {
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
   updated_at: Date;
+
+  @OneToMany(() => Sale, (sale) => sale.shift)
+  sales: Sale[];
 }
