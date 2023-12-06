@@ -1,20 +1,33 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ShiftService } from './shift.service';
-import { CreateShiftDto } from './dto/create-shift.dto';
 import { UpdateShiftDto } from './dto/update-shift.dto';
+import { FindAllDto } from './dto/find-all.dto';
+import { OpenShiftDto } from './dto/open-shift.dto';
 
 @Controller('shift')
 export class ShiftController {
   constructor(private readonly shiftService: ShiftService) {}
 
-  @Post()
-  create(@Body() createShiftDto: CreateShiftDto) {
-    return this.shiftService.create(createShiftDto);
+  @Post('open')
+  open(@Body() openShiftDto: OpenShiftDto) {
+    return this.shiftService.open(openShiftDto);
   }
 
-  @Get()
-  findAll() {
-    return this.shiftService.findAll();
+  close(@Param('id') id: string) {
+    return this.shiftService.close(+id);
+  }
+
+  @Post('find-all')
+  findAll(@Body() findAllDto: FindAllDto) {
+    return this.shiftService.findAll(findAllDto);
   }
 
   @Get(':id')

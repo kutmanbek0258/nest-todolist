@@ -10,5 +10,6 @@ import { PosModule } from '../pos/pos.module';
   imports: [TypeOrmModule.forFeature([CashRegister]), ShopModule, PosModule],
   controllers: [CashRegisterController],
   providers: [CashRegisterService],
+  exports: [CashRegisterService],
 })
 export class CashRegisterModule {}

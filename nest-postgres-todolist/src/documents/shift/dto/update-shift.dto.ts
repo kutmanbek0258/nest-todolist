@@ -1,4 +1,4 @@
 import { PartialType } from '@nestjs/swagger';
-import { CreateShiftDto } from './create-shift.dto';
+import { OpenShiftDto } from './open-shift.dto';
 
-export class UpdateShiftDto extends PartialType(CreateShiftDto) {}
+export class UpdateShiftDto extends PartialType(OpenShiftDto) {}
