@@ -48,7 +48,7 @@ const salaries = [
     title: "Reception",
     content: {
       body: "Reception of goods",
-      link: "/receipts"
+      link: "/depot/receipts"
     },
   },
   {

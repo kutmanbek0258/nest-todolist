@@ -306,6 +306,30 @@ let routes = [
 		layout: "dashboard",
 		component: () => import('../views/sales/POS'),
 	},
+	{
+		path: '/depot/receipts',
+		name: 'receipt',
+		layout: "dashboard",
+		component: () => import('../views/depot/ReceiptList'),
+	},
+	{
+		path: '/depot/create-receipt',
+		name: 'receipt',
+		layout: "dashboard",
+		component: () => import('../views/depot/CreateReceipt'),
+	},
+	{
+		path: '/depot/update-receipt/:id',
+		name: 'receipt',
+		layout: "dashboard",
+		component: () => import('../views/depot/UpdateReceipt'),
+	},
+	{
+		path: '/editable-table',
+		name: 'receipt',
+		layout: "dashboard",
+		component: () => import('../components/Cards/EditableTableExamp'),
+	},
 ]
 
 // Adding layout property from each route to the meta
