@@ -13,7 +13,7 @@
             bordered>
 
           <template slot="selectBtn" slot-scope="row">
-            <a-button v-on:click="handleSelect(row.id)" :data-id="row.id"  class="btn-edit">
+            <a-button v-on:click="handleSelect(row.id, row.name)" :data-id="row.id"  class="btn-edit">
               Select
             </a-button>
           </template>
@@ -73,14 +73,16 @@
     },
 
     methods: {
-      ...mapActions('product', ['getAllProducts', 'deleteProduct', 'setPageSize']),
+      ...mapActions('product', ['getAllProducts', 'setSelectedProduct', 'setDialogVisibleProduct']),
 
       openLink(link){
         router.push(link);
       },
 
-      handleSelect(id){
-        console.log('selected ' + id);
+      handleSelect(id, name){
+        this.setSelectedProduct({id, name});
+        const visibility = false;
+        this.setDialogVisibleProduct({visibility});
       },
 
       onChange(current) {

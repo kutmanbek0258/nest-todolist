@@ -15,3 +15,4 @@ export * from './depot.service';
 export * from './shop.service';
 export * from './pos.service';
 export * from './cash-register.service';
+export * from './receipt.service';

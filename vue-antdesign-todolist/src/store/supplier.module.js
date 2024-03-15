@@ -7,6 +7,11 @@ const state = {
     current: 1,
     pageSize: 10,
     totalCount: 0,
+    dialogVisibleSuppler: false,
+    selectedSupplier: {
+        id: null,
+        name: '',
+    }
 };
 
 const actions = {
@@ -77,6 +82,22 @@ const actions = {
             commit('setSupplier', null);
             dispatch('alert/error', error.response.data.message, {root: true});
         })
+    },
+
+    setDialogVisibilitySupplier({dispatch, commit}, {visibility}){
+        commit('setDialogVisibleSuppler', visibility);
+    },
+
+    handleSelectSupplier({dispatch, commit}, {id, name}){
+        const selectedSupplier = { id, name };
+        const dialogVisibility = false;
+        commit('setSelectedSupplier', selectedSupplier);
+        commit('setDialogVisibleSuppler', dialogVisibility);
+    },
+
+    handleCloseSelectionSupplier({dispatch, commit}){
+        const selectedShop = { id: null, name: '' };
+        commit('setSelectedSupplier', selectedShop);
     }
 };
 
@@ -97,6 +118,14 @@ const mutations = {
     setPageSize(state, pageSize){
         state.pageSize = pageSize;
     },
+
+    setDialogVisibleSuppler(state, visibility){
+        state.dialogVisibleSuppler = visibility;
+    },
+
+    setSelectedSupplier(state, selectedSupplier){
+        state.selectedSupplier = selectedSupplier;
+    }
 };
 
 export const supplierModule = {
