@@ -14,7 +14,7 @@ import { depotModule } from './depot.module';
 import { shopModule } from './shop.module';
 import { posModule } from './pos.module';
 import { cashRegisterModule } from './cash-register.module';
-import { receiptModule } from "@/store/receipt.modeule";
+import { receiptModule } from "./receipt.modeule";
 
 Vue.use(Vuex);
 

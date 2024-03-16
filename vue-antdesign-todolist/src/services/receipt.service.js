@@ -41,8 +41,11 @@ class ReceiptService {
         })
     }
 
-    getAllReceiptItems({receiptID}){
-        return api.get('/receipt/get-all-items/' + receiptID);
+    getAllReceiptItems({receiptID, sortBy, order}){
+        return api.post('/receipt/get-all-items/' + receiptID, {
+            sortBy,
+            order
+        });
     }
 
     updateReceiptItem({itemID, productID, quantity, price}){

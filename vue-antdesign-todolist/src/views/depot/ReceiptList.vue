@@ -36,6 +36,12 @@
 	import CardReceiptTable from "../../components/Cards/CardReceiptTable";
 
 	const receiptColumns = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      scopedSlots: { customRender: 'ID' },
+      width: 70,
+    },
 		{
 			title: 'DEPOT',
 			dataIndex: 'depotname',
