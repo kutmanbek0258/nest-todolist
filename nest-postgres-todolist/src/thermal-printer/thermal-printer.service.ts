@@ -2,8 +2,8 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ThermalPrinter, PrinterTypes } from 'node-thermal-printer';
 
 const printer = new ThermalPrinter({
-  type: PrinterTypes.EPSON, // Printer type: 'star' or 'epson'
-  interface: 'tcp://192.168.43.12:9100', // Printer interface
+  type: PrinterTypes.DARUMA, // Printer type: 'star' or 'epson'
+  interface: '/dev/usb/lp0', // Printer interface
 });
 
 @Injectable()

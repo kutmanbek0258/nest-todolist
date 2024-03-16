@@ -5,7 +5,7 @@
 
 <template>
 	<div class="container">
-    <h1 class="mb-15">update receipt</h1>
+    <h4 class="mb-15">update receipt</h4>
 
     <!-- Sign In Form -->
     <div class="box1">
@@ -36,7 +36,7 @@
           <a-button type="primary" @click="showModalShop">SELECT SHOP</a-button>
           <div>
             <div>
-              new:
+              old:
               {{ this.receipt.shopname }}
             </div>
             <div>
@@ -83,7 +83,7 @@
 
     <a-modal v-model:visible="dialogVisibleSuppler"
              title="Select supplier"
-             @ok="handleOkSuppler"
+             @ok="handleOkSupplier"
              @cancel="handleOkSupplier"
              @close="handleOkSupplier">
       <CardSupplierTableDialog/>
@@ -115,7 +115,6 @@
   import CardShopTableDialog from "../../components/Cards/CardShopTableDialog";
   import CardDepotTableDialog from "../../components/Cards/CardDepotTableDialog";
   import CardReceiptItemTable from "../../components/Cards/CardReceiptItemTable";
-  import CardProductTableDialog from "@/components/Cards/CardProductTableDialog";
 
 	export default ({
 

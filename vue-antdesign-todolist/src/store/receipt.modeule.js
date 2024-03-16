@@ -2,20 +2,21 @@ import ReceiptService from '../services/receipt.service'
 import router from "@/router";
 
 const state = {
-    receipt: null,
-    receipts: null,
-    receiptItem: null,
-    receiptItems: null,
+    receipt: {},
+    receipts: [],
+    receiptItem: {},
+    receiptItems: [],
     current: 1,
     pageSize: 10,
     totalCount: 0,
+    sortBy: 'id',
+    order: 'ASC',
     dialogVisibleReceipt: false,
     selectedReceipt: {
         id: null,
         name: '',
     },
     editedItem: {},
-    editedData: []
 }
 
 const actions = {
@@ -37,7 +38,6 @@ const actions = {
         const skip = (current === 0) ? 0 : pageSize * (current - 1);
         ReceiptService.getAllReceipts({take, skip}).then(
             receipts => {
-                console.log(receipts.data.receipts);
                 commit('setReceipts', receipts.data);
                 commit('setPageSize', pageSize);
                 commit('setCurrent', current);
@@ -88,7 +88,7 @@ const actions = {
         ReceiptService.addReceiptItem({receiptID, productID, quantity, price}).then(
             receiptItem => {
                 commit('setReceiptItem', receiptItem.data);
-                dispatch('getAllReceiptItem', receiptID);
+                dispatch('getAllReceiptItem', {receiptID, sortBy: state.sortBy, order: state.order});
             }
         ).catch(error => {
             commit('setReceiptItem', null);
@@ -96,13 +96,42 @@ const actions = {
         })
     },
 
-    getAllReceiptItem({dispatch, commit}, {receiptID}){
-        ReceiptService.getAllReceiptItems({receiptID}).then(
+    getAllReceiptItem({dispatch, commit}, {receiptID, sortBy, order}){
+        ReceiptService.getAllReceiptItems({receiptID, sortBy, order}).then(
             receiptItems => {
                 commit('setReceiptItems', receiptItems.data);
+                const newItem = state.receiptItems.find(({ id }) => id === state.receiptItem.id);
+                if(newItem){
+                    commit('setEditedItem', newItem);
+                    commit('setSortBy', sortBy);
+                    commit('setOrder', order);
+                }
             }
         ).catch(error => {
             commit('setReceiptItems', null);
+            dispatch('alert/error', error.response.data.message, {root: true})
+        })
+    },
+
+    updateReceiptItem({dispatch, commit}, {itemID, productID, quantity, price}){
+        ReceiptService.updateReceiptItem({itemID, productID, quantity: Number(quantity), price: Number(price)}).then(
+            receiptItem => {
+                commit('setReceiptItem', receiptItem.data)
+            }
+        ).catch(error => {
+            commit('setReceiptItem', null);
+            dispatch('alert/error', error.response.data.message, {root: true})
+        })
+    },
+
+    deleteReceiptItem({dispatch, commit}, {itemID, receiptID}){
+        ReceiptService.deleteReceiptItem({itemID}).then(
+            receiptItem => {
+                commit('setReceiptItem', receiptItem.data);
+                dispatch('getAllReceiptItem', {receiptID});
+            }
+        ).catch(error => {
+            commit('setReceiptItem', null);
             dispatch('alert/error', error.response.data.message, {root: true})
         })
     },
@@ -123,9 +152,9 @@ const actions = {
         commit('setSelectedReceipt', selectedReceipt);
     },
 
-    setEditedItem({dispatch, commit}, {item}){
+    saveEditing({dispatch, commit}, {item}){
         commit('setEditedItem', item);
-    }
+    },
 }
 
 const mutations = {
@@ -146,6 +175,14 @@ const mutations = {
         state.pageSize = pageSize
     },
 
+    setSortBy(state, sortBy){
+        state.sortBy = sortBy
+    },
+
+    setOrder(state, order){
+        state.order = order
+    },
+
     setDialogVisibleReceipt(state, visible){
         state.dialogVisibleReceipt = visible
     },
@@ -164,12 +201,12 @@ const mutations = {
 
     setEditedItem(state, item){
         state.editedItem = item;
-        const foundedItem = state.editedData.find(({ id }) => id === item.id);
-        if(foundedItem){
-            state.editedData[foundedItem] = item;
-        }else {
-            state.editedData.push(item)
-        }
+        // const foundedItem = state.editedData.find(({ id }) => id === item.id);
+        // if(foundedItem){
+        //     state.editedData[foundedItem] = item;
+        // }else {
+        //     state.editedData.push(item)
+        // }
     },
 }
 

@@ -17,6 +17,7 @@ import { AddReceiptItemDto } from './dto/add-receipt-item.dto';
 import { ProductService } from '../../references/product/product.service';
 import { UpdateReceiptItemDto } from './dto/update-receipt-item.dto';
 import { Product } from '../../references/product/entities/product.entity';
+import {SorterDto} from "./dto/sorter.dto";
 
 @Injectable()
 export class ReceiptService {
@@ -137,14 +138,16 @@ export class ReceiptService {
     }
   }
 
-  async getAllItems(receiptId: number) {
+  async getAllItems(receiptId: number, sorterDto: SorterDto) {
+    const order = sorterDto.order === 'ascend' ? 'ASC' : 'DESC';
     return await this.receiptItemRepository.query(
       `SELECT ri.id, ri.quantity, ri.price,
                        ri."productId" AS productid,
                        p.name AS productname
                 FROM receipt_item ri
                 INNER JOIN product p on p.id = ri."productId"
-                WHERE ri.id = $1;`,
+                WHERE ri."receiptId" = $1
+                ORDER BY ri.id DESC;`,
       [receiptId],
     );
   }

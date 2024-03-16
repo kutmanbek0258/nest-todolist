@@ -324,12 +324,6 @@ let routes = [
 		layout: "dashboard",
 		component: () => import('../views/depot/UpdateReceipt'),
 	},
-	{
-		path: '/editable-table',
-		name: 'receipt',
-		layout: "dashboard",
-		component: () => import('../components/Cards/EditableTableExamp'),
-	},
 ]
 
 // Adding layout property from each route to the meta

@@ -25,10 +25,13 @@
             :columns="receiptItemsTableColumns"
             :data-source="receiptItems"
             :pagination="false"
-            bordered>
+            :scroll="{ y: 400 }"
+            bordered
+            @change="onChange">
           <template slot="quantity" slot-scope="row">
             <div>
               <a-input
+                  type="number"
                   v-if="editedItem.id === row.id"
                   v-model:value="editedItem.quantity"
                   style="margin: -5px 0"
@@ -41,6 +44,7 @@
           <template slot="price" slot-scope="row">
             <div>
               <a-input
+                  type="number"
                   v-if="editedItem.id === row.id"
                   v-model:value="editedItem.price"
                   style="margin: -5px 0"
@@ -50,17 +54,27 @@
               </template>
             </div>
           </template>
+          <template slot="fullPrice" slot-scope="row">
+            <div>
+              {{ row.price * row.quantity }}
+            </div>
+          </template>
           <template slot="editBtn" slot-scope="row">
             <div class="editable-row-operations">
               <span v-if="editedItem.id === row.id">
-                <a @click="save(row)">Save</a>
-                <a-popconfirm title="Sure to cancel?" @confirm="cancel(row)">
-                  <a>Cancel</a>
-                </a-popconfirm>
+                <a @click="saveItem(row)">Save</a>
               </span>
               <span v-else>
-                <a @click="edit(row)">Edit</a>
+                <a @click="editItem(row)">Edit</a>
               </span>
+            </div>
+          </template>
+
+          <template slot="deleteBtn" slot-scope="row">
+            <div class="editable-row-operations">
+              <a-popconfirm title="Sure to Delete?" @confirm="() => (deleteItem(row))">
+                <a>Delete</a>
+              </a-popconfirm>
             </div>
           </template>
         </a-table>
@@ -84,13 +98,21 @@
 <script>
 
   import {mapActions, mapState} from "vuex";
-  import CardProductTableDialog from "@/components/Cards/CardProductTableDialog";
+  import CardProductTableDialog from "../../components/Cards/CardProductTableDialog";
 
   const receiptItemsTableColumns = [
     {
+      title: 'ID',
+      dataIndex: 'id',
+      scopedSlots: { customRender: 'ID' },
+      width: 100,
+      sorter: (a, b) => {},
+    },
+    {
       title: 'NAME',
       dataIndex: 'productname',
-      scopedSlots: { customRender: 'product name' },
+      scopedSlots: { customRender: 'productName' },
+      sorter: (a, b) => {},
     },
     {
       title: 'quantity',
@@ -99,6 +121,10 @@
     {
       title: 'price',
       scopedSlots: { customRender: 'price' },
+    },
+    {
+      title: 'full price',
+      scopedSlots: { customRender: 'fullPrice' },
     },
     {
       title: '',
@@ -133,30 +159,34 @@
     },
 
     created(){
-      this.getAllReceiptItem({receiptID: this.receiptID});
+      this.getAllReceiptItem({receiptID: this.receiptID, sortBy: this.sortBy, order: this.order});
     },
 
     computed: {
-		  ...mapState('receipt', ['receiptItems', 'editedItem']),
+		  ...mapState('receipt', ['receiptItems', 'editedItem', 'sortBy', 'order']),
       ...mapState('product', ['product', 'selectedProduct', 'dialogVisibleProduct'])
     },
 
     methods: {
-      ...mapActions('receipt', ['getAllReceiptItem', 'setEditedItem']),
+      ...mapActions('receipt', ['getAllReceiptItem', 'addReceiptItem', 'saveEditing', 'updateReceiptItem', 'deleteReceiptItem']),
       ...mapActions('product', ['setDialogVisibleProduct']),
 
-      edit(item){
-        this.setEditedItem({item});
+      editItem(item){
+        this.saveEditing({item});
       },
 
-      save(){
+      saveItem(row){
+        this.updateReceiptItem({
+          itemID: row.id,
+          productID: row.productid,
+          quantity: row.quantity,
+          price: row.price})
         const item = {}
-        this.setEditedItem({item})
+        this.saveEditing({item})
       },
 
-      cancel(){
-        const item = {}
-        this.setEditedItem({item})
+      deleteItem(item){
+        this.deleteReceiptItem({itemID: item.id, receiptID: this.receiptID});
       },
 
       showModalProduct(){
@@ -167,8 +197,23 @@
       handleOkProduct(){
         const visibility = false;
         this.setDialogVisibleProduct({visibility});
+      },
+
+      onChange(pagination, filters, sorter){
+        console.log(sorter)
+        if(sorter.order){
+          this.getAllReceiptItem({receiptID: this.receiptID, sortBy: sorter.field, order: sorter.order});
+        }
       }
 
+    },
+
+    watch: {
+      selectedProduct(newValue, oldValue) {
+        if(oldValue !== newValue){
+          this.addReceiptItem({receiptID: Number(this.receiptID), productID: Number(this.selectedProduct.id), quantity: 1, price: 1})
+        }
+      },
     },
 	})
 
