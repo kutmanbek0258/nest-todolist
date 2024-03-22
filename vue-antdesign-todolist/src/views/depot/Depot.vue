@@ -58,7 +58,7 @@ const salaries = [
     title: "Write-off",
     content: {
       body: "Write-off of goods",
-      link: "/write-off"
+      link: "/depot/write-offs"
     },
   },
   {

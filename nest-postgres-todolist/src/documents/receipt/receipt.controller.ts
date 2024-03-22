@@ -17,7 +17,7 @@ import { UpdateReceiptDto } from './dto/update-receipt.dto';
 import { FindAllDto } from './dto/find-all.dto';
 import { AddReceiptItemDto } from './dto/add-receipt-item.dto';
 import { UpdateReceiptItemDto } from './dto/update-receipt-item.dto';
-import {SorterDto} from "./dto/sorter.dto";
+import { SorterDto } from './dto/sorter.dto';
 
 @Controller('receipt')
 @UseGuards(AuthGuard('jwt'))

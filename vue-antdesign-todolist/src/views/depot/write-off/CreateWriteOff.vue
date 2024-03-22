@@ -11,7 +11,7 @@
       <!-- Sign In Form Column -->
       <a-col :span="24" :md="12" :lg="{span: 12, offset: 0}" :xl="{span: 6, offset: 0}" class="col-form">
         <h1 class="mb-15">Create supplier</h1>
-        <h5 class="font-regular text-muted">create supplier</h5>
+        <h5 class="font-regular text-muted">create Write-off document</h5>
 
         <!-- Sign In Form -->
         <a-form
@@ -20,13 +20,6 @@
             @submit.prevent="handleSubmit"
             :hideRequiredMark="true"
         >
-
-          <a-form-item class="mb-10" label="supplier" :colon="false">
-            <a-button type="primary" @click="showModalSupplier">SELECT SUPPLIER</a-button>
-            <div class="author-info">
-              {{ this.selectedSupplier.name }}
-            </div>
-          </a-form-item>
 
           <a-form-item class="mb-10" label="shop" :colon="false">
             <a-button type="primary" @click="showModalShop">SELECT SHOP</a-button>
@@ -43,7 +36,7 @@
           </a-form-item>
 
           <a-button type="primary" block html-type="submit" class="login-form-button">
-            CREATE SUPPLIER
+            CREATE DOCUMENT
           </a-button>
 
         </a-form>
@@ -54,14 +47,6 @@
       </a-col>
 
     </a-row>
-
-    <a-modal v-model:visible="dialogVisibleSuppler"
-             title="Select supplier"
-             @ok="handleOkSuppler"
-             @cancel="handleOkSupplier"
-             @close="handleOkSupplier">
-      <CardSupplierTableDialog/>
-    </a-modal>
 
     <a-modal v-model:visible="dialogVisibleShop"
              title="Select shop"
@@ -85,14 +70,14 @@
 <script>
 
   import {mapActions, mapState} from "vuex";
-  import CardSupplierTableDialog from "../../components/Cards/CardSupplierTableDialog";
-  import CardShopTableDialog from "../../components/Cards/CardShopTableDialog";
-  import CardDepotTableDialog from "../../components/Cards/CardDepotTableDialog";
+  import CardSupplierTableDialog from "../../../components/Cards/CardSupplierTableDialog";
+  import CardShopTableDialog from "../../../components/Cards/CardShopTableDialog";
+  import CardDepotTableDialog from "../../../components/Cards/CardDepotTableDialog";
 
 	export default ({
 
     computed: {
-      ...mapState('receipt', ['receipt']),
+      ...mapState('writeOff', ['writeOff']),
       ...mapState('supplier', ['supplier', 'selectedSupplier',  'dialogVisibleSuppler']),
       ...mapState('shop', ['shop', 'selectedShop', 'dialogVisibleShop']),
       ...mapState('depot', ['depot', 'selectedDepot', 'dialogVisibleDepot'])
@@ -113,28 +98,17 @@
 		},
 
     methods: {
-      ...mapActions('receipt', ['createReceipt']),
+      ...mapActions('writeOff', ['createWriteOff']),
       ...mapActions('supplier', ['setDialogVisibilitySupplier', 'handleSelectSupplier']),
       ...mapActions('shop', ['setDialogVisibilityShop', 'handleSelectShop']),
       ...mapActions('depot', ['setDialogVisibleDepot', 'handleSelectDepot']),
 
       handleSubmit() {
-        const supplierID = this.selectedSupplier.id;
         const shopID = this.selectedShop.id;
         const depotID = this.selectedDepot.id
-        if (supplierID && shopID && depotID) {
-          this.createReceipt({supplierID, shopID, depotID});
+        if (shopID && depotID) {
+          this.createWriteOff({shopID, depotID});
         }
-      },
-
-      showModalSupplier() {
-        const visibility = true;
-        this.setDialogVisibilitySupplier({visibility});
-      },
-
-      handleOkSupplier(){
-        const visibility = false;
-        this.setDialogVisibilitySupplier({visibility});
       },
 
       showModalShop(){

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { WriteOffService } from './write-off.service';
 import { CreateWriteOffDto } from './dto/create-write-off.dto';
@@ -15,8 +16,10 @@ import { UserData } from '../../auth/decorators/user.decorator';
 import { FindAllDto } from './dto/find-all.dto';
 import { AddWriteOffItemDto } from './dto/add-write-off-item.dto';
 import { UpdateWriteOffItemDto } from './dto/update-write-off-item.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('write-off')
+@UseGuards(AuthGuard('jwt'))
 export class WriteOffController {
   constructor(private readonly writeOffService: WriteOffService) {}
 
@@ -25,7 +28,7 @@ export class WriteOffController {
     return this.writeOffService.create(user, createWriteOffDto);
   }
 
-  @Get()
+  @Post('get-all')
   findAll(@Body() findAllDto: FindAllDto) {
     return this.writeOffService.findAll(findAllDto);
   }
@@ -53,9 +56,9 @@ export class WriteOffController {
     return this.writeOffService.addItem(addWriteOffItemDto);
   }
 
-  @Get('get-all-item/:id')
-  getAllItems(@Param('id') itemId: number, @Body() findAllDto: FindAllDto) {
-    return this.writeOffService.getAllItems(itemId, findAllDto);
+  @Get('get-all-items/:id')
+  getAllItems(@Param('id') itemId: number) {
+    return this.writeOffService.getAllItems(itemId);
   }
 
   @Patch('update-item/:id')

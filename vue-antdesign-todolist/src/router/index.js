@@ -306,23 +306,43 @@ let routes = [
 		layout: "dashboard",
 		component: () => import('../views/sales/POS'),
 	},
+
 	{
 		path: '/depot/receipts',
 		name: 'receipt',
 		layout: "dashboard",
-		component: () => import('../views/depot/ReceiptList'),
+		component: () => import('../views/depot/receipt/ReceiptList'),
 	},
 	{
 		path: '/depot/create-receipt',
 		name: 'receipt',
 		layout: "dashboard",
-		component: () => import('../views/depot/CreateReceipt'),
+		component: () => import('../views/depot/receipt/CreateReceipt'),
 	},
 	{
 		path: '/depot/update-receipt/:id',
 		name: 'receipt',
 		layout: "dashboard",
-		component: () => import('../views/depot/UpdateReceipt'),
+		component: () => import('../views/depot/receipt/UpdateReceipt'),
+	},
+
+	{
+		path: '/depot/write-offs',
+		name: 'write-off',
+		layout: "dashboard",
+		component: () => import('../views/depot/write-off/WriteOffList'),
+	},
+	{
+		path: '/depot/create-write-off',
+		name: 'write-off',
+		layout: "dashboard",
+		component: () => import('../views/depot/write-off/CreateWriteOff'),
+	},
+	{
+		path: '/depot/update-write-off/:id',
+		name: 'write-off',
+		layout: "dashboard",
+		component: () => import('../views/depot/write-off/UpdateWriteOff'),
 	},
 ]
 

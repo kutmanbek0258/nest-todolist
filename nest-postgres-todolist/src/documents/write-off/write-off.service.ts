@@ -117,22 +117,21 @@ export class WriteOffService {
         quantity: addWriteOffItemDto.quantity,
         price: addWriteOffItemDto.price,
       });
-      return await this.writeOffRepository.save(writeOffItem);
+      return await this.writeOffItemRepository.save(writeOffItem);
     } else {
       throw new ForbiddenException();
     }
   }
 
-  async getAllItems(writeOffId: number, findAllDto: FindAllDto) {
+  async getAllItems(writeOffId: number) {
     return await this.writeOffItemRepository.query(
       `SELECT write_off_item.id,
                        write_off_item."productId" AS productid, p.name AS productname,
                        write_off_item.quantity AS quantity, write_off_item.price AS price
                 FROM write_off_item
                 INNER JOIN product p on p.id = write_off_item."productId"
-                WHERE write_off_item."writeOffId" = $1
-                LIMIT $2 OFFSET $3;`,
-      [writeOffId, findAllDto.take, findAllDto.skip],
+                WHERE write_off_item."writeOffId" = $1;`,
+      [writeOffId],
     );
   }
 

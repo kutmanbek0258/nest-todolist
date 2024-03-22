@@ -128,7 +128,7 @@ const actions = {
         ReceiptService.deleteReceiptItem({itemID}).then(
             receiptItem => {
                 commit('setReceiptItem', receiptItem.data);
-                dispatch('getAllReceiptItem', {receiptID});
+                dispatch('getAllReceiptItem', {receiptID, sortBy: state.sortBy, order: state.order});
             }
         ).catch(error => {
             commit('setReceiptItem', null);
