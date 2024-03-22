@@ -22,8 +22,8 @@
         </template>
 
         <a-table
-            :columns="receiptItemsTableColumns"
-            :data-source="receiptItems"
+            :columns="writeOffItemsTableColumns"
+            :data-source="writeOffItems"
             :pagination="false"
             :scroll="{ y: 400 }"
             bordered
@@ -100,7 +100,7 @@
   import {mapActions, mapState} from "vuex";
   import CardProductTableDialog from "../../components/Cards/CardProductTableDialog";
 
-  const receiptItemsTableColumns = [
+  const writeOffItemsTableColumns = [
     {
       title: 'ID',
       dataIndex: 'id',
@@ -149,7 +149,7 @@
 	export default ({
 
     props: {
-      receiptID: {
+      writeOffID: {
         default: () => null,
       }
     },
@@ -158,7 +158,7 @@
 			return {
 				// Active button for the "Authors" table's card header radio button group.
 				authorsHeaderBtns: 'all',
-        receiptItemsTableColumns,
+        writeOffItemsTableColumns,
       }
 		},
 
@@ -167,16 +167,16 @@
     },
 
     created(){
-      this.getAllReceiptItem({receiptID: this.receiptID, sortBy: this.sortBy, order: this.order});
+      this.getAllWriteOffItems({writeOffID: this.writeOffID, });
     },
 
     computed: {
-		  ...mapState('receipt', ['receiptItems', 'editedItem', 'sortBy', 'order']),
+		  ...mapState('writeOff', ['writeOffItems', 'editedItem']),
       ...mapState('product', ['product', 'selectedProduct', 'dialogVisibleProduct'])
     },
 
     methods: {
-      ...mapActions('receipt', ['getAllReceiptItem', 'addReceiptItem', 'saveEditing', 'updateReceiptItem', 'deleteReceiptItem']),
+      ...mapActions('writeOff', ['getAllWriteOffItems', 'addWriteOffItem', 'saveEditing', 'updateWriteOffItem', 'deleteWriteOffItem']),
       ...mapActions('product', ['setDialogVisibleProduct']),
 
       editItem(item){
@@ -184,7 +184,7 @@
       },
 
       saveItem(row){
-        this.updateReceiptItem({
+        this.updateWriteOffItem({
           itemID: row.id,
           productID: row.productid,
           quantity: row.quantity,
@@ -194,7 +194,7 @@
       },
 
       deleteItem(item){
-        this.deleteReceiptItem({itemID: item.id, receiptID: this.receiptID});
+        this.deleteWriteOffItem({itemID: item.id, writeOffID: this.writeOffID});
       },
 
       showModalProduct(){
@@ -208,9 +208,8 @@
       },
 
       onChange(pagination, filters, sorter){
-        console.log(sorter)
         if(sorter.order){
-          this.getAllReceiptItem({receiptID: this.receiptID, sortBy: sorter.field, order: sorter.order});
+          this.getAllWriteOffItems({writeOffID: this.writeOffID});
         }
       }
 
@@ -219,7 +218,7 @@
     watch: {
       selectedProduct(newValue, oldValue) {
         if(oldValue !== newValue){
-          this.addReceiptItem({receiptID: Number(this.receiptID), productID: Number(this.selectedProduct.id), quantity: 1, price: 1})
+          this.addWriteOffItem({writeOffID: Number(this.writeOffID), productID: Number(this.selectedProduct.id), quantity: 1, price: 1})
         }
       },
     },

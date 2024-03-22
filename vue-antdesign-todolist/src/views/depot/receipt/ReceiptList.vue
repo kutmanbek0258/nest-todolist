@@ -33,7 +33,7 @@
 
   import {mapActions, mapState} from "vuex";
 
-	import CardReceiptTable from "../../components/Cards/CardReceiptTable";
+	import CardReceiptTable from "../../../components/Cards/CardReceiptTable";
 
 	const receiptColumns = [
     {

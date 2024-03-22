@@ -16,3 +16,4 @@ export * from './shop.service';
 export * from './pos.service';
 export * from './cash-register.service';
 export * from './receipt.service';
+export * from './write-off.service';

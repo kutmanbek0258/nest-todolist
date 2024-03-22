@@ -5,39 +5,21 @@
 
 <template>
 	<div class="container">
-    <h4 class="mb-15">update receipt</h4>
+    <h4 class="mb-15">update write-off</h4>
 
     <!-- Sign In Form -->
     <div class="box1">
-      <div class="box1-rows">
-        <div class="row1">
-          <h6>SUPPLIER</h6>
-        </div>
-        <div class="row2">
-          <a-button type="primary" @click="showModalSupplier">SELECT SUPPLIER</a-button>
-          <div>
-            <div>
-              old:
-              {{ this.receipt.suppliername }}
-            </div>
-            <div>
-              new:
-              {{ this.selectedSupplier.name }}
-            </div>
-          </div>
-        </div>
-      </div>
 
       <div class="box1-rows">
         <div class="row1">
-          <h6>SUPPLIER</h6>
+          <h6>SHOP</h6>
         </div>
         <div class="row2">
           <a-button type="primary" @click="showModalShop">SELECT SHOP</a-button>
           <div>
             <div>
               old:
-              {{ this.receipt.shopname }}
+              {{ this.writeOff.shopname }}
             </div>
             <div>
               new:
@@ -49,14 +31,14 @@
 
       <div class="box1-rows">
         <div class="row1">
-          <h6>SUPPLIER</h6>
+          <h6>DEPOT</h6>
         </div>
         <div class="row2">
           <a-button type="primary" @click="showModalDepot">SELECT DEPOT</a-button>
           <div>
             <div>
               old:
-              {{ this.receipt.depotname }}
+              {{ this.writeOff.depotname }}
             </div>
             <div>
               new:
@@ -68,26 +50,18 @@
 
     </div>
 
-    <CardReceiptItemTable
-        :receiptID="id"
+    <CardWriteOffItemsTable
+        :writeOffID="id"
     >
-    </CardReceiptItemTable>
+    </CardWriteOffItemsTable>
 
     <a-button type="primary" @click="handleSubmit" class="submit">
-      UPDATE RECEIPT
+      UPDATE WRITE-OFF
     </a-button>
     <!-- / Sign In Form -->
 
     <p class="font-semibold text-muted">Back to groups <router-link to="/references/product-group" class="font-bold text-dark">
       back</router-link></p>
-
-    <a-modal v-model:visible="dialogVisibleSuppler"
-             title="Select supplier"
-             @ok="handleOkSupplier"
-             @cancel="handleOkSupplier"
-             @close="handleOkSupplier">
-      <CardSupplierTableDialog/>
-    </a-modal>
 
     <a-modal v-model:visible="dialogVisibleShop"
              title="Select shop"
@@ -111,26 +85,23 @@
 <script>
 
   import {mapActions, mapState} from "vuex";
-  import CardSupplierTableDialog from "../../components/Cards/CardSupplierTableDialog";
-  import CardShopTableDialog from "../../components/Cards/CardShopTableDialog";
-  import CardDepotTableDialog from "../../components/Cards/CardDepotTableDialog";
-  import CardReceiptItemTable from "../../components/Cards/CardReceiptItemTable";
+  import CardShopTableDialog from "../../../components/Cards/CardShopTableDialog";
+  import CardDepotTableDialog from "../../../components/Cards/CardDepotTableDialog";
+  import CardWriteOffItemsTable from "../../../components/Cards/CardWriteOffItemsTable";
 
 	export default ({
 
     computed: {
-      ...mapState('receipt', ['receipt']),
-      ...mapState('supplier', ['supplier', 'selectedSupplier',  'dialogVisibleSuppler']),
+      ...mapState('writeOff', ['writeOff']),
       ...mapState('shop', ['shop', 'selectedShop', 'dialogVisibleShop']),
       ...mapState('depot', ['depot', 'selectedDepot', 'dialogVisibleDepot']),
       ...mapState('product', ['product', 'selectedProduct', 'dialogVisibleProduct'])
     },
 
     components: {
-      CardSupplierTableDialog,
       CardShopTableDialog,
       CardDepotTableDialog,
-      CardReceiptItemTable
+      CardWriteOffItemsTable
     },
 
 		data() {
@@ -143,32 +114,20 @@
 
     created() {
       this.id = this.$route.params.id;
-      this.getReceiptById({id: this.id});
+      this.getWriteOffById({id: this.id});
     },
 
     methods: {
-      ...mapActions('receipt', ['getReceiptById', 'updateReceipt']),
-      ...mapActions('supplier', ['setDialogVisibilitySupplier', 'handleSelectSupplier']),
+      ...mapActions('writeOff', ['getWriteOffById', 'updateWriteOff']),
       ...mapActions('shop', ['setDialogVisibilityShop', 'handleSelectShop']),
       ...mapActions('depot', ['setDialogVisibleDepot', 'handleSelectDepot']),
 
       handleSubmit() {
-        const supplierID = (this.selectedSupplier.id) ? this.selectedSupplier.id : this.receipt.supplierid;
-        const shopID = (this.selectedShop.id) ? this.selectedShop.id : this.receipt.shopid;
-        const depotID = (this.selectedDepot.id) ? this.selectedDepot.id : this.receipt.depotid;
-        if (supplierID && shopID && depotID) {
-          this.updateReceipt({id: this.id, supplierID, shopID, depotID});
+        const shopID = (this.selectedShop.id) ? this.selectedShop.id : this.writeOff.shopid;
+        const depotID = (this.selectedDepot.id) ? this.selectedDepot.id : this.writeOff.depotid;
+        if (shopID && depotID) {
+          this.updateWriteOff({id: this.id, shopID, depotID});
         }
-      },
-
-      showModalSupplier() {
-        const visibility = true;
-        this.setDialogVisibilitySupplier({visibility});
-      },
-
-      handleOkSupplier(){
-        const visibility = false;
-        this.setDialogVisibilitySupplier({visibility});
       },
 
       showModalShop(){
