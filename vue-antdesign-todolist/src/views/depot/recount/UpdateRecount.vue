@@ -56,7 +56,7 @@
     </CardRecountItemsTable>
 
     <a-button type="primary" @click="handleSubmit" class="submit">
-      UPDATE WRITE-OFF
+      UPDATE DOCUMENT
     </a-button>
     <!-- / Sign In Form -->
 

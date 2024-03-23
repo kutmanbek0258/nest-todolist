@@ -5,7 +5,7 @@
 		<template #title>
 			<a-row type="flex" align="middle">
 				<a-col :span="24" :md="12">
-					<h5 class="font-semibold m-0">Cash-Registers</h5>
+					<h5 class="font-semibold m-0">Receipt list</h5>
 				</a-col>
         <a-col :span="24" :md="12" style="display: flex; align-items: center; justify-content: flex-end">
           <a-radio-group v-model="authorsHeaderBtns" size="small">
