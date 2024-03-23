@@ -68,7 +68,7 @@ const salaries = [
     title: "Recount",
     content: {
       body: "Recalculation of goods",
-      link: "/recount"
+      link: "/depot/recounts"
     },
   },
 ] ;

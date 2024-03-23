@@ -17,7 +17,7 @@ import { AddReceiptItemDto } from './dto/add-receipt-item.dto';
 import { ProductService } from '../../references/product/product.service';
 import { UpdateReceiptItemDto } from './dto/update-receipt-item.dto';
 import { Product } from '../../references/product/entities/product.entity';
-import {SorterDto} from "./dto/sorter.dto";
+import { SorterDto } from './dto/sorter.dto';
 
 @Injectable()
 export class ReceiptService {

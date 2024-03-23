@@ -344,6 +344,25 @@ let routes = [
 		layout: "dashboard",
 		component: () => import('../views/depot/write-off/UpdateWriteOff'),
 	},
+
+	{
+		path: '/depot/recounts',
+		name: 'recounts',
+		layout: "dashboard",
+		component: () => import('../views/depot/recount/RecountList'),
+	},
+	{
+		path: '/depot/create-recount',
+		name: 'recount',
+		layout: "dashboard",
+		component: () => import('../views/depot/recount/CreateRecount'),
+	},
+	{
+		path: '/depot/update-recount/:id',
+		name: 'recount',
+		layout: "dashboard",
+		component: () => import('../views/depot/recount/UpdateRecount'),
+	},
 ]
 
 // Adding layout property from each route to the meta
