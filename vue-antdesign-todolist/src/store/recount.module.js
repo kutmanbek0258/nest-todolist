@@ -162,7 +162,7 @@ const mutations = {
 
     setRecounts(state, recounts){
         state.recounts = recounts.recounts;
-        state.totalCount = recounts.totalCount;
+        state.totalCount = recounts.total;
     },
 
     setCurrent(state, current){

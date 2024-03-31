@@ -117,6 +117,7 @@ const actions = {
         ReceiptService.updateReceiptItem({itemID, productID, quantity: Number(quantity), price: Number(price)}).then(
             receiptItem => {
                 commit('setReceiptItem', receiptItem.data)
+                commit('setEditedItem', {});
             }
         ).catch(error => {
             commit('setReceiptItem', null);
@@ -164,7 +165,7 @@ const mutations = {
 
     setReceipts(state, receipts){
         state.receipts = receipts.receipts;
-        state.totalCount = receipts.totalCount;
+        state.totalCount = receipts.total;
     },
 
     setCurrent(state, current){

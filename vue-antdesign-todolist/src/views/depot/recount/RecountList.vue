@@ -53,6 +53,11 @@
 			scopedSlots: { customRender: 'shop' },
 		},
     {
+      title: 'CERATED DATE',
+      dataIndex: 'created_at',
+      scopedSlots: { customRender: 'created_ad' },
+    },
+    {
       title: '',
       scopedSlots: { customRender: 'editBtn' },
       width: 50,

@@ -3,7 +3,7 @@ import { CreateReceiptDto } from './dto/create-receipt.dto';
 import { UpdateReceiptDto } from './dto/update-receipt.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Receipt } from './entities/receipt.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { SupplierService } from '../../references/supplier/supplier.service';
 import { ShopService } from '../../references/shop/shop.service';
 import { DepotService } from '../../references/depot/depot.service';
@@ -30,6 +30,7 @@ export class ReceiptService {
     private readonly shopService: ShopService,
     private readonly depotService: DepotService,
     private readonly productService: ProductService,
+    private dataSource: DataSource,
   ) {}
   async create(user: User, createReceiptDto: CreateReceiptDto) {
     const supplier: Supplier = await this.supplierService.findOneShort(
@@ -48,7 +49,7 @@ export class ReceiptService {
         depot,
         created_by: user,
       });
-      return await this.receiptRepository.save(receipt);
+      return await this.receiptRepository.manager.save(receipt);
     } else {
       throw new ForbiddenException();
     }
@@ -57,7 +58,7 @@ export class ReceiptService {
   async findAll(findAllDto: FindAllDto) {
     const total = await this.receiptRepository.count();
     const receipts = await this.receiptRepository.query(
-      `SELECT receipt.id AS id, receipt."supplierId" AS supplierID, receipt."shopId" AS shopid, receipt."depotId" AS depotid,
+      `SELECT receipt.id AS id, receipt."supplierId" AS supplierID, receipt."shopId" AS shopid, receipt."depotId" AS depotid, receipt.created_at,
                     p.full_name AS suppliername,
                     s.name AS shopname,
                     d.name AS depotname
@@ -121,18 +122,39 @@ export class ReceiptService {
   }
 
   async addItem(addReceiptItemDto: AddReceiptItemDto) {
+    const queryRunner = this.dataSource.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
     const product = await this.productService.findOneShort(
       addReceiptItemDto.productID,
     );
     const receipt = await this.findOneShort(addReceiptItemDto.receiptID);
     if (product && receipt) {
-      const receiptItem = this.receiptItemRepository.create({
-        receipt,
-        product,
-        quantity: addReceiptItemDto.quantity,
-        price: addReceiptItemDto.price,
-      });
-      return await this.receiptItemRepository.save(receiptItem);
+      try {
+        const receiptItem = this.receiptItemRepository.create({
+          receipt,
+          product,
+          quantity: addReceiptItemDto.quantity,
+          price: addReceiptItemDto.price,
+        });
+        const newReceiptItem = await queryRunner.manager.save(receiptItem);
+        await queryRunner.manager
+          .query(`SELECT update_product_quantity($1);`, [
+            addReceiptItemDto.productID,
+          ])
+          .catch((error) => {
+            throw new ForbiddenException({ message: error.message });
+          });
+        await queryRunner.commitTransaction();
+        return newReceiptItem;
+      } catch (error) {
+        await queryRunner.rollbackTransaction();
+        throw error;
+      } finally {
+        await queryRunner.release();
+      }
     } else {
       throw new ForbiddenException();
     }
@@ -153,24 +175,67 @@ export class ReceiptService {
   }
 
   async updateItem(itemId: number, updateReceiptItemDto: UpdateReceiptItemDto) {
+    const queryRunner = this.dataSource.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
     const product: Product = await this.productService.findOneShort(
       updateReceiptItemDto.productID,
     );
     if (product) {
-      return await this.receiptItemRepository.update(
-        { id: itemId },
-        {
-          product,
+      try {
+        const item = {
+          product: product,
           quantity: updateReceiptItemDto.quantity,
           price: updateReceiptItemDto.price,
-        },
-      );
+        };
+        const updatedItem = await queryRunner.manager.update(
+          ReceiptItem,
+          { id: itemId },
+          item,
+        );
+        await queryRunner.manager
+          .query(`SELECT update_product_quantity($1);`, [product.id])
+          .catch((error) => {
+            throw new ForbiddenException({ message: error.message });
+          });
+        await queryRunner.commitTransaction();
+        return updatedItem;
+      } catch (error) {
+        await queryRunner.rollbackTransaction();
+        throw error;
+      } finally {
+        await queryRunner.release();
+      }
     } else {
       throw new ForbiddenException();
     }
   }
 
   async deleteItem(itemId: number) {
-    return await this.receiptItemRepository.delete({ id: itemId });
+    const queryRunner = this.dataSource.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      const item = await this.receiptItemRepository.findOne({
+        where: { id: itemId },
+        relations: ['product'],
+      });
+      await queryRunner.manager.delete(ReceiptItem, { id: itemId });
+      await queryRunner.manager
+        .query(`SELECT update_product_quantity($1);`, [item.product.id])
+        .catch((error) => {
+          throw new ForbiddenException({ message: error.message });
+        });
+      await queryRunner.commitTransaction();
+      return item;
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw error;
+    } finally {
+      await queryRunner.release();
+    }
   }
 }

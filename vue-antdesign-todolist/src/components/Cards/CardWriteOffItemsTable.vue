@@ -190,7 +190,6 @@
           quantity: row.quantity,
           price: row.price})
         const item = {}
-        this.saveEditing({item})
       },
 
       deleteItem(item){

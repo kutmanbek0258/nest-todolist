@@ -113,6 +113,7 @@ const actions = {
         WriteOffService.updateWriteOffItem({itemID, productID, quantity: Number(quantity), price: Number(price)}).then(
             writeOffItem => {
                 commit('setWriteOffItem', writeOffItem.data)
+                commit('setEditedItem', {})
             }
         ).catch(error => {
             commit('setWriteOffItem', null);
@@ -160,7 +161,7 @@ const mutations = {
 
     setWriteOffs(state, writeOffs){
         state.writeOffs = writeOffs.writeOffs;
-        state.totalCount = writeOffs.totalCount;
+        state.totalCount = writeOffs.total;
     },
 
     setCurrent(state, current){

@@ -7,6 +7,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { UserModule } from './user/user.module';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
 import { AppLogger } from './logger/logger.service';
+import { SqlExceptionFilter } from './filters/sql-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -17,6 +18,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({}));
 
   app.useGlobalFilters(new HttpExceptionFilter());
+
+  // app.useGlobalFilters(new SqlExceptionFilter());
 
   const swaggerOptions = new DocumentBuilder()
     .setTitle('API')

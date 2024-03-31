@@ -1,20 +1,28 @@
-import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import {
+  ExceptionFilter,
+  Catch,
+  ArgumentsHost,
+  HttpException,
+  HttpStatus,
+  Logger,
+} from '@nestjs/common';
 import { Request, Response } from 'express';
 import { IncomingMessage } from 'http';
+import { QueryFailedError } from 'typeorm';
 
 export const getStatusCode = (exception: unknown): number => {
-    return exception instanceof HttpException
-        ? exception.getStatus()
-        : HttpStatus.INTERNAL_SERVER_ERROR;
-    };
-  
+  return exception instanceof HttpException
+    ? exception.getStatus()
+    : HttpStatus.INTERNAL_SERVER_ERROR;
+};
+
 export const getErrorMessage = (exception: unknown): string => {
-    return String(exception);
+  return String(exception);
 };
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
-    private logger = new Logger('HTTP RESPONSE');
+  private logger = new Logger('HTTP RESPONSE');
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
@@ -32,32 +40,42 @@ export class HttpExceptionFilter implements ExceptionFilter {
     let sysResponse: string | object;
     let sysMessage: string[];
 
-    try{
-        sysResponse = exception.getResponse();
+    try {
+      sysResponse = exception.getResponse();
 
-        if(typeof sysResponse['message'] == 'object'){
-            sysMessage = sysResponse['message'];
-        }else{
-            sysMessage = [sysResponse['message']];
-        }
-        
-    }catch(error){
+      if (typeof sysResponse['message'] == 'object') {
+        sysMessage = sysResponse['message'];
+      } else {
+        sysMessage = [sysResponse['message']];
+      }
+    } catch (error) {
+      if (exception.constructor === QueryFailedError) {
+        console.log('QUERY FAILED');
         response.status(code).json({
-            statusCode: code,
-            error: message,
-            path: request.url,
-            message: ['Internal server error!'],
-            timestamp: new Date().toISOString(),
+          statusCode: code,
+          error: message,
+          path: request.url,
+          message: 'QUERY FAILED',
+          timestamp: new Date().toISOString(),
         });
         return;
-    }
-
-    response.status(code).json({
+      }
+      response.status(code).json({
         statusCode: code,
         error: message,
         path: request.url,
-        message: sysMessage,
+        message: message,
         timestamp: new Date().toISOString(),
+      });
+      return;
+    }
+
+    response.status(code).json({
+      statusCode: code,
+      error: message,
+      path: request.url,
+      message: sysMessage,
+      timestamp: new Date().toISOString(),
     });
   }
 }

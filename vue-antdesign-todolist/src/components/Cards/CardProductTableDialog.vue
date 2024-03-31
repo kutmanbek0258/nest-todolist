@@ -48,6 +48,11 @@
       scopedSlots: { customRender: 'name' },
     },
     {
+      title: 'quantity',
+      dataIndex: 'quantity',
+      scopedSlots: { customRender: 'quantity' },
+    },
+    {
       title: '',
       scopedSlots: { customRender: 'selectBtn' },
       width: 50,

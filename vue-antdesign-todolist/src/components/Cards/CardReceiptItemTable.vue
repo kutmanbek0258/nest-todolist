@@ -170,13 +170,17 @@
       this.getAllReceiptItem({receiptID: this.receiptID, sortBy: this.sortBy, order: this.order});
     },
 
+    destroyed() {
+      this.initialValues();
+    },
+
     computed: {
 		  ...mapState('receipt', ['receiptItems', 'editedItem', 'sortBy', 'order']),
       ...mapState('product', ['product', 'selectedProduct', 'dialogVisibleProduct'])
     },
 
     methods: {
-      ...mapActions('receipt', ['getAllReceiptItem', 'addReceiptItem', 'saveEditing', 'updateReceiptItem', 'deleteReceiptItem']),
+      ...mapActions('receipt', ['getAllReceiptItem', 'addReceiptItem', 'saveEditing', 'updateReceiptItem', 'deleteReceiptItem', 'initialValues']),
       ...mapActions('product', ['setDialogVisibleProduct']),
 
       editItem(item){
@@ -190,7 +194,6 @@
           quantity: row.quantity,
           price: row.price})
         const item = {}
-        this.saveEditing({item})
       },
 
       deleteItem(item){
@@ -208,10 +211,10 @@
       },
 
       onChange(pagination, filters, sorter){
-        console.log(sorter)
-        if(sorter.order){
-          this.getAllReceiptItem({receiptID: this.receiptID, sortBy: sorter.field, order: sorter.order});
-        }
+        // console.log(sorter)
+        // if(sorter.order){
+        //   this.getAllReceiptItem({receiptID: this.receiptID, sortBy: sorter.field, order: sorter.order});
+        // }
       }
 
     },
