@@ -7,6 +7,11 @@ const state = {
     current: 1,
     pageSize: 10,
     totalCount: 0,
+    dialogVisibleProduct: false,
+    selectedProduct: {
+        id: null,
+        name: '',
+    }
 }
 
 const actions = {
@@ -28,7 +33,6 @@ const actions = {
         const skip = (current === 0) ? 0 : pageSize * (current - 1);
         ProductService.getAllProducts({take, skip}).then(
             products => {
-                console.log(products.data)
                 commit('setProducts', products.data);
                 commit('setCurrent', current);
                 commit('setPageSize', pageSize)
@@ -75,6 +79,17 @@ const actions = {
             commit('setProduct', null);
             dispatch('alert/error', error.response.data.message, {root: true});
         })
+    },
+
+    setDialogVisibleProduct({dispatch, commit}, {visibility}){
+        commit('setDialogVisibleProduct', visibility);
+    },
+
+    setSelectedProduct({dispatch, commit}, {id, name}){
+        const selectedProduct = { id, name };
+        const dialogVisible = false;
+        commit('setSelectedProduct', selectedProduct);
+        commit('setDialogVisibleProduct', dialogVisible);
     }
 }
 
@@ -95,6 +110,14 @@ const mutations = {
     setPageSize(state, pageSize){
         state.pageSize = pageSize;
     },
+
+    setDialogVisibleProduct(state, visibility){
+        state.dialogVisibleProduct = visibility;
+    },
+
+    setSelectedProduct(state, selectedProduct){
+        state.selectedProduct = selectedProduct;
+    }
 }
 
 export const productModule = {

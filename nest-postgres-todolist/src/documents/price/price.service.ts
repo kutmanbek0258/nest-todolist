@@ -12,6 +12,7 @@ import { PriceItem } from './entities/price-item.entity';
 import { ProductService } from '../../references/product/product.service';
 import { AddPriceItemDto } from './dto/add-price-item.dto';
 import { Product } from '../../references/product/entities/product.entity';
+import { UpdatePriceItemDto } from './dto/update-price-item.dto';
 
 @Injectable()
 export class PriceService {
@@ -107,5 +108,22 @@ export class PriceService {
       WHERE pi.id = $1`,
       [priceId],
     );
+  }
+
+  async updateItem(itemId: number, updatePriceItemDto: UpdatePriceItemDto) {
+    const product: Product = await this.productService.findOneShort(
+      updatePriceItemDto.productID,
+    );
+    return await this.priceItemRepository.update(
+      { id: itemId },
+      {
+        product,
+        retail_price: updatePriceItemDto.retail_price,
+      },
+    );
+  }
+
+  async deleteItem(itemId: number) {
+    return await this.priceItemRepository.delete({ id: itemId });
   }
 }

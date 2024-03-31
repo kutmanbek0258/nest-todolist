@@ -17,6 +17,7 @@ import { UpdateReceiptDto } from './dto/update-receipt.dto';
 import { FindAllDto } from './dto/find-all.dto';
 import { AddReceiptItemDto } from './dto/add-receipt-item.dto';
 import { UpdateReceiptItemDto } from './dto/update-receipt-item.dto';
+import { SorterDto } from './dto/sorter.dto';
 
 @Controller('receipt')
 @UseGuards(AuthGuard('jwt'))
@@ -53,10 +54,10 @@ export class ReceiptController {
     return this.receiptService.addItem(addReceiptItemDto);
   }
 
-  @Get('get-all-items/:id')
-  getAllItems(@Param('id') id: string) {
+  @Post('get-all-items/:id')
+  getAllItems(@Param('id') id: string, @Body() sorterDto: SorterDto) {
     console.log(id);
-    return this.receiptService.getAllItems(+id);
+    return this.receiptService.getAllItems(+id, sorterDto);
   }
 
   @Patch('update-item/:id')

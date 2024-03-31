@@ -47,6 +47,11 @@
 			scopedSlots: { customRender: 'description' },
 		},
     {
+      title: 'quantity',
+      dataIndex: 'quantity',
+      scopedSlots: { customRender: 'quantity' },
+    },
+    {
       title: '',
       scopedSlots: { customRender: 'editBtn' },
       width: 50,

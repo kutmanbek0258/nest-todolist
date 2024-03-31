@@ -59,6 +59,10 @@ export class CashRegisterService {
     );
   }
 
+  async findOneShort(id: number) {
+    return await this.cashRegisterRepository.findOneBy({ id: id });
+  }
+
   async update(id: number, updateCashRegisterDto: UpdateCashRegisterDto) {
     const cashRegister = await this.cashRegisterRepository.findOneBy({
       id: id,

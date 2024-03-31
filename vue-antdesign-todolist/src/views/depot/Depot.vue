@@ -48,7 +48,7 @@ const salaries = [
     title: "Reception",
     content: {
       body: "Reception of goods",
-      link: "/receipts"
+      link: "/depot/receipts"
     },
   },
   {
@@ -58,7 +58,7 @@ const salaries = [
     title: "Write-off",
     content: {
       body: "Write-off of goods",
-      link: "/write-off"
+      link: "/depot/write-offs"
     },
   },
   {
@@ -68,7 +68,7 @@ const salaries = [
     title: "Recount",
     content: {
       body: "Recalculation of goods",
-      link: "/recount"
+      link: "/depot/recounts"
     },
   },
 ] ;

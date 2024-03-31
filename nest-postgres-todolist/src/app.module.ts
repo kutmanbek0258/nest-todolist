@@ -9,6 +9,7 @@ import { DataSource } from './data-source';
 import { ReferencesModule } from './references/references.module';
 import { AuthModule } from './auth/auth.module';
 import { DocumentModule } from './documents/document.module';
+import { ThermalPrinterModule } from './thermal-printer/thermal-printer.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { DocumentModule } from './documents/document.module';
     NmailerModule,
     ReferencesModule,
     DocumentModule,
+    ThermalPrinterModule,
   ],
 })
 export class AppModule {

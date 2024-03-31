@@ -14,6 +14,7 @@ import { FindAllDto } from './dto/find-all.dto';
 import { AddRecountItemDto } from './dto/add-recount-item.dto';
 import { Product } from '../../references/product/entities/product.entity';
 import { UpdateRecountItemDto } from './dto/update-recount-item.dto';
+import { User } from '../../user/entities/user.entity';
 
 @Injectable()
 export class RecountService {
@@ -26,7 +27,7 @@ export class RecountService {
     private readonly shopService: ShopService,
     private readonly depotService: DepotService,
   ) {}
-  async create(createRecountDto: CreateRecountDto) {
+  async create(user: User, createRecountDto: CreateRecountDto) {
     const shop: Shop = await this.shopService.findOneShort(
       createRecountDto.shopID,
     );
@@ -37,9 +38,8 @@ export class RecountService {
       const recount = this.recountRepository.create({
         shop,
         depot,
-        status: 0,
-        start_date: createRecountDto.startDate,
-        end_date: createRecountDto.endDate,
+        status: 1,
+        created_by: user,
       });
       return await this.recountRepository.save(recount);
     } else {
@@ -48,9 +48,10 @@ export class RecountService {
   }
 
   async findAll(findAllDto: FindAllDto) {
-    return await this.recountRepository.query(
+    const total = await this.recountRepository.count();
+    const recounts = await this.recountRepository.query(
       `
-    SELECT recount.id, recount.status,
+    SELECT recount.id, recount.status, recount.created_at,
            recount."shopId" AS shopid, s.name AS shopname,
            recount."depotId" AS depotid, d.name AS depotname,
            recount."createdById" AS createdById, u."fullName" AS createdByName
@@ -58,9 +59,11 @@ export class RecountService {
     INNER JOIN shop s on s.id = recount."shopId"
     INNER JOIN depot d on d.id = recount."depotId"
     INNER JOIN "user" u on u.id = recount."createdById"
+    ORDER BY recount.created_at DESC 
     LIMIT $1 OFFSET $2;`,
       [findAllDto.take, findAllDto.skip],
     );
+    return { total, recounts };
   }
 
   async findOne(id: number) {
@@ -99,8 +102,6 @@ export class RecountService {
           shop,
           depot,
           status: updateRecountDto.status,
-          start_date: updateRecountDto.startDate,
-          end_date: updateRecountDto.endDate,
         },
       );
     } else {

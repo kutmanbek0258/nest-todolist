@@ -1,4 +1,4 @@
-import { IsDate, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateRecountDto {
   @IsNotEmpty()
@@ -9,15 +9,5 @@ export class CreateRecountDto {
   @IsNumber()
   depotID: number;
 
-  @IsNotEmpty()
-  @IsNumber()
   status: number;
-
-  @IsNotEmpty()
-  @IsDate()
-  startDate: Date;
-
-  @IsNotEmpty()
-  @IsDate()
-  endDate: Date;
 }
