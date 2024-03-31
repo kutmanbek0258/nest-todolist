@@ -1,4 +1,15 @@
-import { PartialType } from '@nestjs/swagger';
-import { AddRecountItemDto } from './add-recount-item.dto';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 
-export class UpdateRecountItemDto extends PartialType(AddRecountItemDto) {}
+export class UpdateRecountItemDto {
+  @IsNumber()
+  @IsNotEmpty()
+  productID: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  quantity: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  price: number;
+}

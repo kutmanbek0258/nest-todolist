@@ -4,18 +4,21 @@ services:
     build: ./vue-antdesign-todolist
     restart: always
     hostname: vue-antdesign-todolist
+    networks:
+      - frontnet
     ports:
       - "8083:8083"
-    network_mode: "host"
   backend:
     build: ./nest-postgres-todolist
     restart: always
     hostname: nest-postgres-todolist
     env_file:
       - .env
+    networks:
+      - frontnet
+      - backnet
     ports:
       - "8080:8080"
-    network_mode: "host"
   db:
     image: 'postgres'
     restart: always
@@ -24,7 +27,12 @@ services:
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 #    volumes:
-#      - "/home/kutman/docker_apps/data/postgres:/var/lib/postgresql/data"
+#      - "/home/kutman/docker/postgres/data:/var/lib/postgresql/data"
+    networks:
+      - backnet
     ports:
-      - 5432:5432
-    network_mode: "host"
+      - "5432:5432"
+
+networks:
+  backnet:
+  frontnet:

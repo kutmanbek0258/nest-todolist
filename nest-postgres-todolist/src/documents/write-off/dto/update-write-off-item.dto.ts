@@ -1,4 +1,15 @@
-import { PartialType } from '@nestjs/swagger';
-import { AddWriteOffItemDto } from './add-write-off-item.dto';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 
-export class UpdateWriteOffItemDto extends PartialType(AddWriteOffItemDto) {}
+export class UpdateWriteOffItemDto {
+  @IsNumber()
+  @IsNotEmpty()
+  productID: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  quantity: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  price: number;
+}

@@ -10,8 +10,8 @@
 
       <!-- Sign In Form Column -->
       <a-col :span="24" :md="12" :lg="{span: 12, offset: 0}" :xl="{span: 6, offset: 0}" class="col-form">
-        <h1 class="mb-15">Create company</h1>
-        <h5 class="font-regular text-muted">create company</h5>
+        <h1 class="mb-15">Create person</h1>
+        <h5 class="font-regular text-muted">create person</h5>
 
         <!-- Sign In Form -->
         <a-form

@@ -14,6 +14,9 @@ import { depotModule } from './depot.module';
 import { shopModule } from './shop.module';
 import { posModule } from './pos.module';
 import { cashRegisterModule } from './cash-register.module';
+import { receiptModule } from "./receipt.module";
+import { writeOffModule } from "./write-off.module";
+import { recountModule } from "./recount.module";
 
 Vue.use(Vuex);
 
@@ -32,5 +35,8 @@ export const store = new Vuex.Store({
         shop: shopModule,
         pos: posModule,
         cashRegister: cashRegisterModule,
+        receipt: receiptModule,
+        writeOff: writeOffModule,
+        recount: recountModule,
     }
 });
