@@ -3,7 +3,7 @@ import { CreateReceiptDto } from './dto/create-receipt.dto';
 import { UpdateReceiptDto } from './dto/update-receipt.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Receipt } from './entities/receipt.entity';
-import { DataSource, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { SupplierService } from '../../references/supplier/supplier.service';
 import { ShopService } from '../../references/shop/shop.service';
 import { DepotService } from '../../references/depot/depot.service';
@@ -30,7 +30,6 @@ export class ReceiptService {
     private readonly shopService: ShopService,
     private readonly depotService: DepotService,
     private readonly productService: ProductService,
-    private dataSource: DataSource,
   ) {}
   async create(user: User, createReceiptDto: CreateReceiptDto) {
     const supplier: Supplier = await this.supplierService.findOneShort(
@@ -122,39 +121,22 @@ export class ReceiptService {
   }
 
   async addItem(addReceiptItemDto: AddReceiptItemDto) {
-    const queryRunner = this.dataSource.createQueryRunner();
-
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-
     const product = await this.productService.findOneShort(
       addReceiptItemDto.productID,
     );
     const receipt = await this.findOneShort(addReceiptItemDto.receiptID);
     if (product && receipt) {
-      try {
-        const receiptItem = this.receiptItemRepository.create({
-          receipt,
-          product,
-          quantity: addReceiptItemDto.quantity,
-          price: addReceiptItemDto.price,
+      const receiptItem = this.receiptItemRepository.create({
+        receipt,
+        product,
+        quantity: addReceiptItemDto.quantity,
+        price: addReceiptItemDto.price,
+      });
+      return await this.receiptItemRepository
+        .save(receiptItem)
+        .catch((error) => {
+          throw new ForbiddenException({ message: error.message });
         });
-        const newReceiptItem = await queryRunner.manager.save(receiptItem);
-        await queryRunner.manager
-          .query(`SELECT update_product_quantity($1);`, [
-            addReceiptItemDto.productID,
-          ])
-          .catch((error) => {
-            throw new ForbiddenException({ message: error.message });
-          });
-        await queryRunner.commitTransaction();
-        return newReceiptItem;
-      } catch (error) {
-        await queryRunner.rollbackTransaction();
-        throw error;
-      } finally {
-        await queryRunner.release();
-      }
     } else {
       throw new ForbiddenException();
     }
@@ -175,67 +157,32 @@ export class ReceiptService {
   }
 
   async updateItem(itemId: number, updateReceiptItemDto: UpdateReceiptItemDto) {
-    const queryRunner = this.dataSource.createQueryRunner();
-
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-
     const product: Product = await this.productService.findOneShort(
       updateReceiptItemDto.productID,
     );
     if (product) {
-      try {
-        const item = {
-          product: product,
-          quantity: updateReceiptItemDto.quantity,
-          price: updateReceiptItemDto.price,
-        };
-        const updatedItem = await queryRunner.manager.update(
-          ReceiptItem,
+      return await this.receiptItemRepository
+        .update(
           { id: itemId },
-          item,
-        );
-        await queryRunner.manager
-          .query(`SELECT update_product_quantity($1);`, [product.id])
-          .catch((error) => {
-            throw new ForbiddenException({ message: error.message });
-          });
-        await queryRunner.commitTransaction();
-        return updatedItem;
-      } catch (error) {
-        await queryRunner.rollbackTransaction();
-        throw error;
-      } finally {
-        await queryRunner.release();
-      }
+          {
+            product: product,
+            quantity: updateReceiptItemDto.quantity,
+            price: updateReceiptItemDto.price,
+          },
+        )
+        .catch((error) => {
+          throw new ForbiddenException({ message: error.message });
+        });
     } else {
       throw new ForbiddenException();
     }
   }
 
   async deleteItem(itemId: number) {
-    const queryRunner = this.dataSource.createQueryRunner();
-
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-    try {
-      const item = await this.receiptItemRepository.findOne({
-        where: { id: itemId },
-        relations: ['product'],
+    return await this.receiptItemRepository
+      .delete({ id: itemId })
+      .catch((error) => {
+        throw new ForbiddenException({ message: error.message });
       });
-      await queryRunner.manager.delete(ReceiptItem, { id: itemId });
-      await queryRunner.manager
-        .query(`SELECT update_product_quantity($1);`, [item.product.id])
-        .catch((error) => {
-          throw new ForbiddenException({ message: error.message });
-        });
-      await queryRunner.commitTransaction();
-      return item;
-    } catch (error) {
-      await queryRunner.rollbackTransaction();
-      throw error;
-    } finally {
-      await queryRunner.release();
-    }
   }
 }

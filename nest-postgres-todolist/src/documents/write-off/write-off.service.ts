@@ -3,7 +3,7 @@ import { CreateWriteOffDto } from './dto/create-write-off.dto';
 import { UpdateWriteOffDto } from './dto/update-write-off.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { WriteOff } from './entities/write-off.entity';
-import { DataSource, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { ShopService } from '../../references/shop/shop.service';
 import { DepotService } from '../../references/depot/depot.service';
 import { User } from '../../user/entities/user.entity';
@@ -26,7 +26,6 @@ export class WriteOffService {
     private readonly shopService: ShopService,
     private readonly depotService: DepotService,
     private readonly productService: ProductService,
-    private dataSource: DataSource,
   ) {}
 
   async create(user: User, createWriteOffDto: CreateWriteOffDto) {
@@ -108,39 +107,22 @@ export class WriteOffService {
   }
 
   async addItem(addWriteOffItemDto: AddWriteOffItemDto) {
-    const queryRunner = this.dataSource.createQueryRunner();
-
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-
     const writeOff = await this.findOneShort(addWriteOffItemDto.writeOffID);
     const product = await this.productService.findOneShort(
       addWriteOffItemDto.productID,
     );
     if (writeOff && product) {
-      try {
-        const writeOffItem = this.writeOffItemRepository.create({
-          writeOff,
-          product,
-          quantity: addWriteOffItemDto.quantity,
-          price: addWriteOffItemDto.price,
+      const writeOffItem = this.writeOffItemRepository.create({
+        writeOff,
+        product,
+        quantity: addWriteOffItemDto.quantity,
+        price: addWriteOffItemDto.price,
+      });
+      return await this.writeOffItemRepository
+        .save(writeOffItem)
+        .catch((error) => {
+          throw new ForbiddenException({ message: error.message });
         });
-        const newWriteOffItem = await queryRunner.manager.save(writeOffItem);
-        await queryRunner.manager
-          .query(`SELECT update_product_quantity($1)`, [
-            addWriteOffItemDto.productID,
-          ])
-          .catch((error) => {
-            throw new ForbiddenException({ message: error.message });
-          });
-        await queryRunner.commitTransaction();
-        return newWriteOffItem;
-      } catch (error) {
-        await queryRunner.rollbackTransaction();
-        throw error;
-      } finally {
-        await queryRunner.release();
-      }
     } else {
       throw new ForbiddenException();
     }
@@ -162,65 +144,32 @@ export class WriteOffService {
     itemId: number,
     updateWriteOffItemDto: UpdateWriteOffItemDto,
   ) {
-    const queryRunner = this.dataSource.createQueryRunner();
-
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
     const product: Product = await this.productService.findOneShort(
       updateWriteOffItemDto.productID,
     );
     if (product) {
-      try {
-        const item = {
-          product: product,
-          quantity: updateWriteOffItemDto.quantity,
-          price: updateWriteOffItemDto.price,
-        };
-        const updatedItem = await queryRunner.manager.update(
-          WriteOffItem,
+      return await this.writeOffItemRepository
+        .update(
           { id: itemId },
-          item,
-        );
-        await queryRunner.manager
-          .query(`SELECT update_product_quantity($1)`, [item.product.id])
-          .catch((error) => {
-            throw new ForbiddenException({ message: error.message });
-          });
-        await queryRunner.commitTransaction();
-        return updatedItem;
-      } catch (error) {
-        await queryRunner.rollbackTransaction();
-        throw error;
-      } finally {
-        await queryRunner.release();
-      }
+          {
+            product: product,
+            quantity: updateWriteOffItemDto.quantity,
+            price: updateWriteOffItemDto.price,
+          },
+        )
+        .catch((error) => {
+          throw new ForbiddenException({ message: error.message });
+        });
     } else {
       throw new ForbiddenException();
     }
   }
 
   async deleteItem(itemId: number) {
-    const queryRunner = this.dataSource.createQueryRunner();
-
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-    try {
-      const item = await this.writeOffItemRepository.findOne({
-        where: { id: itemId },
-        relations: ['product'],
+    return await this.writeOffItemRepository
+      .delete({ id: itemId })
+      .catch((error) => {
+        throw new ForbiddenException({ message: error.message });
       });
-      await queryRunner.manager.delete(WriteOffItem, { id: itemId });
-      await queryRunner.manager
-        .query(`SELECT update_product_quantity($1)`, [item.product.id])
-        .catch((error) => {
-          throw new ForbiddenException({ message: error.message });
-        });
-      return item;
-    } catch (error) {
-      await queryRunner.rollbackTransaction();
-      throw new ForbiddenException();
-    } finally {
-      await queryRunner.release();
-    }
   }
 }

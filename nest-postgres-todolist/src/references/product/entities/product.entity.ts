@@ -1,10 +1,8 @@
 import {
   Column,
   Entity,
-  JoinColumn,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ProductGroup } from '../../product-group/entities/product-group.entity';
@@ -13,7 +11,6 @@ import { ReceiptItem } from '../../../documents/receipt/entities/receipt-item.en
 import { WriteOffItem } from '../../../documents/write-off/entities/write-off.item';
 import { RecountItem } from '../../../documents/recount/entities/recount-item.entity';
 import { PriceItem } from '../../../documents/price/entities/price-item.entity';
-import { ProductQuantity } from './product-quantity.entity';
 
 @Entity()
 export class Product {
@@ -33,6 +30,11 @@ export class Product {
     default: 0,
   })
   quantity: number;
+
+  @Column({
+    default: 0,
+  })
+  price: number;
 
   @ManyToOne(() => ProductGroup, (productGroup) => productGroup.products)
   group: ProductGroup;
