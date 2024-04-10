@@ -92,7 +92,7 @@
           </template>
           <template slot="fullPrice" slot-scope="row">
             <div>
-              {{ row.actual_quantity * row.quantity }}
+              {{ row.price * row.actual_quantity }}
             </div>
           </template>
           <template slot="editBtn" slot-scope="row">
