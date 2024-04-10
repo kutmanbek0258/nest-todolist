@@ -131,12 +131,26 @@ export class RecountService {
     }
   }
 
+  async fillItemsByAccountingQuantity(recountId: number) {
+    return await this.recountRepository.query(
+      `SELECT * FROM fill_recount_items_accounting_quantity($1);`,
+      [recountId],
+    );
+  }
+
+  async fillItemsActualQuantityByAccountingQuantity(recountId: number) {
+    return await this.recountRepository.query(
+      `SELECT * FROM fill_recount_items_actual_quantity_by_accounting_quantity($1);`,
+      [recountId],
+    );
+  }
+
   async getAllItems(recountID: number) {
     return await this.recountItemRepository.query(
       `
         SELECT ri.id,
                ri."productId" AS productid, p.name AS productname,
-               ri.quantity, ri.price
+               ri.quantity, ri.actual_quantity, ri.price
         FROM recount_item ri
         INNER JOIN product p on p.id = ri."productId"
         WHERE ri."recountId" = $1;`,
@@ -154,6 +168,7 @@ export class RecountService {
         {
           product,
           quantity: updateRecountItem.quantity,
+          actual_quantity: updateRecountItem.actual_quantity,
           price: updateRecountItem.price,
         },
       );

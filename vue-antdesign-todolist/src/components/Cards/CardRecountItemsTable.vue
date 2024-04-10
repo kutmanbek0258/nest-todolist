@@ -9,11 +9,47 @@
         <template #title>
           <a-row type="flex" align="middle">
             <a-col :span="24" :md="12">
-              <h5 class="font-semibold m-0">items</h5>
+              <a-radio-group v-model="authorsHeaderBtns" size="small">
+                <a-popover class="rg-items" title="Create" trigger="click">
+                  <template #content>
+                    <p>
+                      <a>posting</a>
+                    </p>
+                    <p>
+                      <a>write-off</a>
+                    </p>
+                  </template>
+                  <a-button>create based on current recount</a-button>
+                </a-popover>
+              </a-radio-group>
             </a-col>
             <a-col :span="24" :md="12" style="display: flex; align-items: center; justify-content: flex-end">
               <a-radio-group v-model="authorsHeaderBtns" size="small">
-                <a-button type="primary" v-on:click="showModalProduct">
+                <a-popover class="rg-items" title="Fill by" trigger="click">
+                  <template #content>
+                    <p>
+                      <a @click="fillItemsByAccountingQuantity">fill in the accounting quantity</a>
+                    </p>
+                    <p>
+                      <a @click="fillItemsActualQuantityByAccountingQuantity">fill in actual quantity by accounting quantity</a>
+                    </p>
+                  </template>
+                  <a-button>Fill products</a-button>
+                </a-popover>
+
+                <a-popover class="rg-items" title="Fill by" trigger="click">
+                  <template #content>
+                    <p>
+                      <a>fill by retail prices</a>
+                    </p>
+                    <p>
+                      <a>fill by cost</a>
+                    </p>
+                  </template>
+                  <a-button>Fill prices</a-button>
+                </a-popover>
+
+                <a-button class="rg-items" type="primary" v-on:click="showModalProduct">
                   Add item
                 </a-button>
               </a-radio-group>
@@ -38,6 +74,19 @@
               />
               <template v-else>
                 {{ row.quantity }}
+              </template>
+            </div>
+          </template>
+          <template slot="actual_quantity" slot-scope="row">
+            <div>
+              <a-input
+                  type="number"
+                  v-if="editedItem.id === row.id"
+                  v-model:value="editedItem.actual_quantity"
+                  style="margin: -5px 0"
+              />
+              <template v-else>
+                {{ row.actual_quantity }}
               </template>
             </div>
           </template>
@@ -123,8 +172,12 @@
       },
     },
     {
-      title: 'quantity',
+      title: 'accounting quantity',
       scopedSlots: { customRender: 'quantity' },
+    },
+    {
+      title: 'actual quantity',
+      scopedSlots: { customRender: 'actual_quantity' },
     },
     {
       title: 'price',
@@ -176,8 +229,16 @@
     },
 
     methods: {
-      ...mapActions('recount', ['getAllRecountItems', 'addRecountItem', 'saveEditing', 'updateRecountItem', 'deleteRecountItem']),
+      ...mapActions('recount', ['getAllRecountItems', 'addRecountItem', 'fillRecountItemsByAccountingQuantity', 'fillRecountItemsActualQuantityByAccountingQuantity', 'saveEditing', 'updateRecountItem', 'deleteRecountItem']),
       ...mapActions('product', ['setDialogVisibleProduct']),
+
+      fillItemsByAccountingQuantity(){
+        this.fillRecountItemsByAccountingQuantity({recountId: this.recountID});
+      },
+
+      fillItemsActualQuantityByAccountingQuantity() {
+        this.fillRecountItemsActualQuantityByAccountingQuantity({recountId: this.recountID});
+      },
 
       editItem(item){
         this.saveEditing({item});
@@ -188,6 +249,7 @@
           itemID: row.id,
           productID: row.productid,
           quantity: row.quantity,
+          actual_quantity: row.actual_quantity,
           price: row.price})
         const item = {}
         this.saveEditing({item})
@@ -218,7 +280,7 @@
     watch: {
       selectedProduct(newValue, oldValue) {
         if(oldValue !== newValue){
-          this.addRecountItem({recountID: Number(this.recountID), productID: Number(this.selectedProduct.id), quantity: 1, price: 1})
+          this.addRecountItem({recountID: Number(this.recountID), productID: Number(this.selectedProduct.id), quantity: 1, actual_quantity: 1, price: 1})
         }
       },
     },
@@ -245,5 +307,9 @@
     grid-column-end: 2;
     grid-row-start: 7;
     grid-row-end: 8;
+  }
+
+  .rg-items {
+    margin: 5px;
   }
 </style>

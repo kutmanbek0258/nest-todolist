@@ -17,5 +17,8 @@ export class RecountItem {
   quantity: number;
 
   @Column({ type: 'int', default: 0 })
+  actual_quantity: number;
+
+  @Column({ type: 'int', default: 0 })
   price: number;
 }

@@ -83,8 +83,8 @@ const actions = {
         })
     },
 
-    addRecountItem({dispatch, commit}, {recountID, productID, quantity, price}){
-        RecountService.addRecountItem({recountID, productID, quantity, price}).then(
+    addRecountItem({dispatch, commit}, {recountID, productID, quantity, actual_quantity, price}){
+        RecountService.addRecountItem({recountID, productID, quantity, actual_quantity, price}).then(
             recountItem => {
                 commit('setRecountItem', recountItem.data);
                 dispatch('getAllRecountItems', {recountID});
@@ -95,10 +95,31 @@ const actions = {
         })
     },
 
+    fillRecountItemsByAccountingQuantity({dispatch, commit}, {recountId}){
+        RecountService.fillRecountItemsByAccountingQuantity({recountId}).then(
+            recountItems => {
+                commit('setRecountItems', recountItems.data);
+            }
+        ).catch(error => {
+            commit('setRecountItems', null);
+            dispatch('alert/error', error.response.data.message, {root: true})
+        })
+    },
+
+    fillRecountItemsActualQuantityByAccountingQuantity({dispatch, commit}, {recountId}){
+        RecountService.fillRecountItemsActualQuantityByAccountingQuantity({recountId}).then(
+            recountItems => {
+                commit('setRecountItems', recountItems.data);
+            }
+        ).catch(error => {
+            commit('setRecountItems', null);
+            dispatch('alert/error', error.response.data.message, {root: true})
+        })
+    },
+
     getAllRecountItems({dispatch, commit}, {recountID}){
         RecountService.getAllRecountItems({recountID}).then(
             recountItems => {
-                console.log(recountItems.data)
                 commit('setRecountItems', recountItems.data);
                 const newItem = state.recountItems.find(({ id }) => id === state.recountItem.id);
                 if(newItem){
@@ -111,8 +132,8 @@ const actions = {
         })
     },
 
-    updateRecountItem({dispatch, commit}, {itemID, productID, quantity, price}){
-        RecountService.updateRecountItem({itemID, productID, quantity: Number(quantity), price: Number(price)}).then(
+    updateRecountItem({dispatch, commit}, {itemID, productID, quantity, actual_quantity, price}){
+        RecountService.updateRecountItem({itemID, productID, quantity: Number(quantity), actual_quantity: Number(actual_quantity), price: Number(price)}).then(
             recountItem => {
                 commit('setRecountItem', recountItem.data)
             }

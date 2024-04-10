@@ -15,5 +15,9 @@ export class AddRecountItemDto {
 
   @IsNumber()
   @IsNotEmpty()
+  actual_quantity: number;
+
+  @IsNumber()
+  @IsNotEmpty()
   price: number;
 }

@@ -53,6 +53,18 @@ export class RecountController {
     return this.recountService.addItem(addItemDto);
   }
 
+  @Post('fill-items-by-accounting-qty/:id')
+  fillItemsByAccountingQuantity(@Param('id') recountId: string) {
+    return this.recountService.fillItemsByAccountingQuantity(+recountId);
+  }
+
+  @Post('fill-items-actual-qty-by-accounting-qty/:id')
+  fillItemsActualQuantityByAccountingQuantity(@Param('id') recountId: string) {
+    return this.recountService.fillItemsActualQuantityByAccountingQuantity(
+      +recountId,
+    );
+  }
+
   @Get('get-all-items/:id')
   getAllItems(@Param('id') recountId: number) {
     return this.recountService.getAllItems(recountId);
