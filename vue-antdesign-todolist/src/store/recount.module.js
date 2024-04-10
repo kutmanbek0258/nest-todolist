@@ -117,6 +117,28 @@ const actions = {
         })
     },
 
+    fillRecountItemsPriceByRetailPrice({dispatch, commit}, {recountId}){
+        RecountService.fillRecountItemsPriceByRetailPrice({recountId}).then(
+            recountItems => {
+                commit('setRecountItems', recountItems.data);
+            }
+        ).catch(error => {
+            commit('setRecountItems', null);
+            dispatch('alert/error', error.response.data.message, {root: true})
+        })
+    },
+
+    fillRecountItemsPriceByCost({dispatch, commit}, {recountId}){
+        RecountService.fillRecountItemsPriceByCost({recountId}).then(
+            recountItems => {
+                commit('setRecountItems', recountItems.data);
+            }
+        ).catch(error => {
+            commit('setRecountItems', null);
+            dispatch('alert/error', error.response.data.message, {root: true})
+        })
+    },
+
     getAllRecountItems({dispatch, commit}, {recountID}){
         RecountService.getAllRecountItems({recountID}).then(
             recountItems => {

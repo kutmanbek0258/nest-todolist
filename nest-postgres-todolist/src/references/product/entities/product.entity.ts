@@ -36,6 +36,11 @@ export class Product {
   })
   price: number;
 
+  @Column({
+    default: 0,
+  })
+  cost: number;
+
   @ManyToOne(() => ProductGroup, (productGroup) => productGroup.products)
   group: ProductGroup;
 

@@ -74,6 +74,12 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = CONCAT('the amount of write-offs should not exceed: ', receipt_sum::text, CHR(13),CHR(10), 'current amount: ', write_off_sum::text);
     END IF;
 
+    UPDATE product SET (cost) = (
+        SELECT AVG(price) FROM receipt_item
+        WHERE receipt_item."productId" = NEW."productId"
+    )
+    WHERE product.id = NEW."productId";
+
     UPDATE product SET quantity = totalQuantity
     WHERE id = NEW."productId";
 
@@ -171,9 +177,9 @@ CREATE OR REPLACE FUNCTION fill_recount_items_price_by_cost(recountId integer) R
                                                                                                  actual_quantity int,
                                                                                                  price int) AS $$
 BEGIN
-    UPDATE recount_item SET price = ri.price
-    FROM receipt_item ri
-    WHERE ri."productId" = recount_item."productId" AND recount_item."recountId" = recountId;
+    UPDATE recount_item SET price = p.cost
+    FROM product p
+    WHERE p.id = recount_item."productId" AND recount_item."recountId" = recountId;
 
     RETURN QUERY
         SELECT ri.id,

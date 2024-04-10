@@ -49,6 +49,14 @@ class RecountService {
         return api.post('/recount/fill-items-actual-qty-by-accounting-qty/' + recountId)
     }
 
+    fillRecountItemsPriceByRetailPrice({recountId}){
+        return api.post('/recount/fill-items-price-by-retail-price/' + recountId)
+    }
+
+    fillRecountItemsPriceByCost({recountId}){
+        return api.post('/recount/fill-items-price-by-cost/' + recountId)
+    }
+
     getAllRecountItems({recountID}){
         return api.get('/recount/get-all-items/' + recountID);
     }

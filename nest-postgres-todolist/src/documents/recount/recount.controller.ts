@@ -65,6 +65,16 @@ export class RecountController {
     );
   }
 
+  @Post('fill-items-price-by-retail-price/:id')
+  fillItemsPriceByRetailPrice(@Param('id') recountId: string) {
+    return this.recountService.fillItemsPriceByRetailPrice(+recountId);
+  }
+
+  @Post('fill-items-price-by-cost/:id')
+  fillItemsPriceByCost(@Param('id') recountId: string) {
+    return this.recountService.fillItemsPriceByCost(+recountId);
+  }
+
   @Get('get-all-items/:id')
   getAllItems(@Param('id') recountId: number) {
     return this.recountService.getAllItems(recountId);

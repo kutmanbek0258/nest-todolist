@@ -145,6 +145,20 @@ export class RecountService {
     );
   }
 
+  async fillItemsPriceByRetailPrice(recountId: number) {
+    return await this.recountRepository.query(
+      `SELECT * FROM fill_recount_items_price_by_retail_price($1);`,
+      [recountId],
+    );
+  }
+
+  async fillItemsPriceByCost(recountId: number) {
+    return await this.recountRepository.query(
+      `SELECT * FROM fill_recount_items_price_by_cost($1);`,
+      [recountId],
+    );
+  }
+
   async getAllItems(recountID: number) {
     return await this.recountItemRepository.query(
       `

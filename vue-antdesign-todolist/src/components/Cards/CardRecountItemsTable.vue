@@ -40,10 +40,10 @@
                 <a-popover class="rg-items" title="Fill by" trigger="click">
                   <template #content>
                     <p>
-                      <a>fill by retail prices</a>
+                      <a @click="fillItemsPriceByRetailPrice">fill by retail prices</a>
                     </p>
                     <p>
-                      <a>fill by cost</a>
+                      <a @click="fillItemsPriceByCost">fill by cost</a>
                     </p>
                   </template>
                   <a-button>Fill prices</a-button>
@@ -64,19 +64,6 @@
             :scroll="{ y: 400 }"
             bordered
             @change="onChange">
-          <template slot="quantity" slot-scope="row">
-            <div>
-              <a-input
-                  type="number"
-                  v-if="editedItem.id === row.id"
-                  v-model:value="editedItem.quantity"
-                  style="margin: -5px 0"
-              />
-              <template v-else>
-                {{ row.quantity }}
-              </template>
-            </div>
-          </template>
           <template slot="actual_quantity" slot-scope="row">
             <div>
               <a-input
@@ -105,7 +92,7 @@
           </template>
           <template slot="fullPrice" slot-scope="row">
             <div>
-              {{ row.price * row.quantity }}
+              {{ row.actual_quantity * row.quantity }}
             </div>
           </template>
           <template slot="editBtn" slot-scope="row">
@@ -173,6 +160,7 @@
     },
     {
       title: 'accounting quantity',
+      dataIndex: 'quantity',
       scopedSlots: { customRender: 'quantity' },
     },
     {
@@ -229,7 +217,16 @@
     },
 
     methods: {
-      ...mapActions('recount', ['getAllRecountItems', 'addRecountItem', 'fillRecountItemsByAccountingQuantity', 'fillRecountItemsActualQuantityByAccountingQuantity', 'saveEditing', 'updateRecountItem', 'deleteRecountItem']),
+      ...mapActions('recount', [
+        'getAllRecountItems',
+        'addRecountItem',
+        'fillRecountItemsByAccountingQuantity',
+        'fillRecountItemsActualQuantityByAccountingQuantity',
+        'fillRecountItemsPriceByRetailPrice',
+        'fillRecountItemsPriceByCost',
+        'saveEditing',
+        'updateRecountItem',
+        'deleteRecountItem']),
       ...mapActions('product', ['setDialogVisibleProduct']),
 
       fillItemsByAccountingQuantity(){
@@ -238,6 +235,14 @@
 
       fillItemsActualQuantityByAccountingQuantity() {
         this.fillRecountItemsActualQuantityByAccountingQuantity({recountId: this.recountID});
+      },
+
+      fillItemsPriceByRetailPrice() {
+        this.fillRecountItemsPriceByRetailPrice({recountId: this.recountID})
+      },
+
+      fillItemsPriceByCost() {
+        this.fillRecountItemsPriceByCost({recountId: this.recountID})
       },
 
       editItem(item){
