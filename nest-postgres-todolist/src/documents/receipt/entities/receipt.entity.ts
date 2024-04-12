@@ -1,4 +1,5 @@
 import {
+  Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
@@ -28,6 +29,11 @@ export class Receipt {
 
   @ManyToOne(() => User, (user) => user.receipts)
   created_by: User;
+
+  @Column({
+    nullable: true,
+  })
+  based_on: number;
 
   @CreateDateColumn({
     type: 'timestamptz',

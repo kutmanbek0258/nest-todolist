@@ -1,4 +1,5 @@
 import {
+  Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
@@ -24,6 +25,11 @@ export class WriteOff {
 
   @ManyToOne(() => User, (user) => user.writeOffs)
   created_by: User;
+
+  @Column({
+    nullable: true,
+  })
+  based_on: number;
 
   @CreateDateColumn({
     type: 'timestamptz',

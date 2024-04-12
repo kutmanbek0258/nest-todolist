@@ -13,10 +13,10 @@
                 <a-popover class="rg-items" title="Create" trigger="click">
                   <template #content>
                     <p>
-                      <a>posting</a>
+                      <a @click="createReceiptDocumentByRecountData">posting</a>
                     </p>
                     <p>
-                      <a>write-off</a>
+                      <a @click="createWriteOffDocumentByRecountData">write-off</a>
                     </p>
                   </template>
                   <a-button>create based on current recount</a-button>
@@ -48,10 +48,6 @@
                   </template>
                   <a-button>Fill prices</a-button>
                 </a-popover>
-
-                <a-button class="rg-items" type="primary" v-on:click="showModalProduct">
-                  Add item
-                </a-button>
               </a-radio-group>
             </a-col>
           </a-row>
@@ -224,6 +220,8 @@
         'fillRecountItemsActualQuantityByAccountingQuantity',
         'fillRecountItemsPriceByRetailPrice',
         'fillRecountItemsPriceByCost',
+        'createReceiptDocumentByRecount',
+        'createWriteOffDocumentByRecount',
         'saveEditing',
         'updateRecountItem',
         'deleteRecountItem']),
@@ -243,6 +241,14 @@
 
       fillItemsPriceByCost() {
         this.fillRecountItemsPriceByCost({recountId: this.recountID})
+      },
+
+      createReceiptDocumentByRecountData() {
+        this.createReceiptDocumentByRecount({recountId: this.recountID});
+      },
+
+      createWriteOffDocumentByRecountData() {
+        this.createWriteOffDocumentByRecount({recountId: this.recountID})
       },
 
       editItem(item){

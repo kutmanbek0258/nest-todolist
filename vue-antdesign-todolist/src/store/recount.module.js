@@ -139,6 +139,26 @@ const actions = {
         })
     },
 
+    createReceiptDocumentByRecount({dispatch, commit}, {recountId}){
+        RecountService.createReceiptDocumentByRecount({recountId}).then(
+            receiptId => {
+                router.push('/depot/update-receipt/' + receiptId.data.receiptId);
+            }
+        ).catch(error => {
+            dispatch('alert/error', error.response.data.message, {root: true})
+        })
+    },
+
+    createWriteOffDocumentByRecount({dispatch, commit}, {recountId}){
+        RecountService.createWriteOffDocumentByRecount({recountId}).then(
+            writeOffId => {
+                router.push('/depot/update-write-off/' + writeOffId.data.writeOffId);
+            }
+        ).catch(error => {
+            dispatch('alert/error', error.response.data.message, {root: true})
+        })
+    },
+
     getAllRecountItems({dispatch, commit}, {recountID}){
         RecountService.getAllRecountItems({recountID}).then(
             recountItems => {

@@ -75,6 +75,28 @@ export class RecountController {
     return this.recountService.fillItemsPriceByCost(+recountId);
   }
 
+  @Post('create-receipt-document-by-recount/:id')
+  createReceiptDocumentByRecount(
+    @UserData() user: User,
+    @Param('id') recountId: string,
+  ) {
+    return this.recountService.createReceiptDocumentFromRecount(
+      +recountId,
+      user,
+    );
+  }
+
+  @Post('create-write-off-document-by-recount/:id')
+  createWriteOffDocumentByRecount(
+    @UserData() user: User,
+    @Param('id') recountId: string,
+  ) {
+    return this.recountService.createWriteOffDocumentFromRecount(
+      +recountId,
+      user,
+    );
+  }
+
   @Get('get-all-items/:id')
   getAllItems(@Param('id') recountId: number) {
     return this.recountService.getAllItems(recountId);

@@ -159,6 +159,26 @@ export class RecountService {
     );
   }
 
+  async createReceiptDocumentFromRecount(recountId: number, user: User) {
+    const receiptId = await this.recountRepository.query(
+      `SELECT * FROM create_and_fill_receipt_document_from_recount($1, $2);`,
+      [recountId, user.id],
+    );
+    return {
+      receiptId: receiptId[0].create_and_fill_receipt_document_from_recount,
+    };
+  }
+
+  async createWriteOffDocumentFromRecount(recountId: number, user: User) {
+    const writeOffId = await this.recountRepository.query(
+      `SELECT * FROM create_and_fill_write_off_document_from_recount($1, $2)`,
+      [recountId, user.id],
+    );
+    return {
+      writeOffId: writeOffId[0].create_and_fill_write_off_document_from_recount,
+    };
+  }
+
   async getAllItems(recountID: number) {
     return await this.recountItemRepository.query(
       `

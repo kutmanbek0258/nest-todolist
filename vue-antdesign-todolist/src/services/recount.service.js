@@ -57,6 +57,14 @@ class RecountService {
         return api.post('/recount/fill-items-price-by-cost/' + recountId)
     }
 
+    createReceiptDocumentByRecount({recountId}){
+        return api.post('/recount/create-receipt-document-by-recount/' + recountId)
+    }
+
+    createWriteOffDocumentByRecount({recountId}){
+        return api.post('/recount/create-write-off-document-by-recount/' + recountId)
+    }
+
     getAllRecountItems({recountID}){
         return api.get('/recount/get-all-items/' + recountID);
     }

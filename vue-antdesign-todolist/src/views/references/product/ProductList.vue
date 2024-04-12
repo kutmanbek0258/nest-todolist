@@ -52,6 +52,16 @@
       scopedSlots: { customRender: 'quantity' },
     },
     {
+      title: 'price',
+      dataIndex: 'price',
+      scopedSlots: { customRender: 'price' },
+    },
+    {
+      title: 'cost',
+      dataIndex: 'cost',
+      scopedSlots: { customRender: 'cost' },
+    },
+    {
       title: '',
       scopedSlots: { customRender: 'editBtn' },
       width: 50,
