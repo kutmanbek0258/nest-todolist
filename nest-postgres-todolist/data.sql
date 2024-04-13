@@ -318,3 +318,35 @@ $$ LANGUAGE plpgsql;
 
 -- SELECT * FROM create_and_fill_receipt_document_from_recount(2);
 -- SELECT * FROM create_and_fill_write_off_document_from_recount(2);
+
+CREATE OR REPLACE FUNCTION update_product_price() RETURNS TRIGGER AS
+$check_update_price$
+DECLARE
+    last_retail_price integer;
+BEGIN
+    IF(TG_OP = 'DELETE') THEN
+        SELECT retail_price FROM price_item
+        ORDER BY id DESC
+        LIMIT 1 INTO last_retail_price;
+
+        IF NOT FOUND THEN
+            RETURN OLD;
+        END IF;
+
+        UPDATE product SET price = last_retail_price
+        WHERE product.id = OLD."productId";
+
+        RETURN OLD;
+    ELSE
+        UPDATE product SET price = NEW.retail_price
+        WHERE product.id = NEW."productId";
+
+        RETURN NEW;
+    END IF;
+END
+$check_update_price$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER check_update_price
+    AFTER INSERT OR UPDATE OR DELETE ON price_item
+    FOR EACH ROW
+EXECUTE FUNCTION update_product_price();
