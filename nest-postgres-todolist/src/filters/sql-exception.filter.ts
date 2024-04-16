@@ -6,61 +6,63 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common';
-import { Request, Response } from 'express';
-import {
-  CannotCreateEntityIdMapError,
-  EntityNotFoundError,
-  QueryFailedError,
-} from 'typeorm';
+import { Response } from 'express';
+import { IncomingMessage } from 'http';
+import { QueryFailedError } from 'typeorm';
+
+export const getStatusCode = (exception: unknown): number => {
+  return exception instanceof HttpException
+    ? exception.getStatus()
+    : HttpStatus.INTERNAL_SERVER_ERROR;
+};
 
 export const getErrorMessage = (exception: unknown): string => {
   return String(exception);
 };
 
-@Catch()
+@Catch(QueryFailedError)
 export class SqlExceptionFilter implements ExceptionFilter {
-  catch(exception: unknown, host: ArgumentsHost) {
+  private logger = new Logger('HTTP RESPONSE');
+  catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
-    const request = ctx.getRequest<Request>();
-    let message = getErrorMessage(exception);
-    let code = 'HttpException';
+    const request = ctx.getRequest<IncomingMessage>();
+    const code = getStatusCode(exception);
+    const message = getErrorMessage(exception);
 
-    Logger.error(
-      message,
-      (exception as any).stack,
-      `${request.method} ${request.url}`,
-    );
+    this.logger.warn(`\n---------------------!!---------------------
+    statusCode: ${(exception as any).code} 
+    error: ${message} 
+    path: ${request.url}
+    timestamp: ${new Date().toISOString()} \n---------------------!!---------------------`);
 
-    let status = HttpStatus.INTERNAL_SERVER_ERROR;
+    let sysResponse: string | object;
+    let sysMessage: string[];
 
-    switch (exception.constructor) {
-      case HttpException:
-        status = (exception as HttpException).getStatus();
-        break;
-      case QueryFailedError: // this is a TypeOrm error
-        status = HttpStatus.UNPROCESSABLE_ENTITY;
-        message = (exception as QueryFailedError).message;
-        code = (exception as any).code;
-        break;
-      case EntityNotFoundError: // this is another TypeOrm error
-        status = HttpStatus.UNPROCESSABLE_ENTITY;
-        message = (exception as EntityNotFoundError).message;
-        code = (exception as any).code;
-        break;
-      case CannotCreateEntityIdMapError: // and another
-        status = HttpStatus.UNPROCESSABLE_ENTITY;
-        message = (exception as CannotCreateEntityIdMapError).message;
-        code = (exception as any).code;
-        break;
-      default:
-        status = HttpStatus.INTERNAL_SERVER_ERROR;
+    try {
+      sysResponse = exception.getResponse();
+
+      if (typeof sysResponse['message'] == 'object') {
+        sysMessage = sysResponse['message'];
+      } else {
+        sysMessage = [sysResponse['message']];
+      }
+    } catch (error) {
+      response.status(code).json({
+        statusCode: code,
+        error: message,
+        path: request.url,
+        message: message,
+        timestamp: new Date().toISOString(),
+      });
+      return;
     }
 
-    response.status(status).json({
+    response.status(code).json({
       statusCode: code,
       error: message,
       path: request.url,
+      message: sysMessage,
       timestamp: new Date().toISOString(),
     });
   }

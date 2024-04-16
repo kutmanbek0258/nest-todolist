@@ -54,7 +54,7 @@ const salaries = [
     title: "Prices",
     content: {
       body: "Create products prices",
-      link: "/price-list"
+      link: "/marketing/price-list"
     },
   },
   {

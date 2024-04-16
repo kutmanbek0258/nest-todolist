@@ -101,11 +101,11 @@ export class PriceService {
   async getAllItems(priceId: number) {
     return await this.priceItemRepository.query(
       `SELECT pi.id,
-             p.name AS productname, p.id AS productname,
+             p.name AS productname, p.id AS productid,
              retail_price
       FROM price_item pi
       INNER JOIN product p on p.id = pi."productId"
-      WHERE pi.id = $1`,
+      WHERE pi."priceId" = $1`,
       [priceId],
     );
   }

@@ -19,7 +19,7 @@ async function bootstrap() {
 
   app.useGlobalFilters(new HttpExceptionFilter());
 
-  // app.useGlobalFilters(new SqlExceptionFilter());
+  app.useGlobalFilters(new SqlExceptionFilter());
 
   const swaggerOptions = new DocumentBuilder()
     .setTitle('API')

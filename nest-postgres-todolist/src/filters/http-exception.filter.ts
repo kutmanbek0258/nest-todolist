@@ -6,9 +6,8 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { IncomingMessage } from 'http';
-import { QueryFailedError } from 'typeorm';
 
 export const getStatusCode = (exception: unknown): number => {
   return exception instanceof HttpException
@@ -31,14 +30,15 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const message = getErrorMessage(exception);
 
     this.logger.warn(`\n---------------------!!---------------------
-    statusCode: ${code} 
+    statusCode: ${(exception as any).code} 
     error: ${message} 
-    path: ${request.url} 
-    message: ${exception.getResponse()['message']}
+    path: ${request.url}
     timestamp: ${new Date().toISOString()} \n---------------------!!---------------------`);
 
     let sysResponse: string | object;
     let sysMessage: string[];
+
+    // console.log((exception as any).code);
 
     try {
       sysResponse = exception.getResponse();
@@ -49,17 +49,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
         sysMessage = [sysResponse['message']];
       }
     } catch (error) {
-      if (exception.constructor === QueryFailedError) {
-        console.log('QUERY FAILED');
-        response.status(code).json({
-          statusCode: code,
-          error: message,
-          path: request.url,
-          message: 'QUERY FAILED',
-          timestamp: new Date().toISOString(),
-        });
-        return;
-      }
       response.status(code).json({
         statusCode: code,
         error: message,

@@ -363,6 +363,19 @@ let routes = [
 		layout: "dashboard",
 		component: () => import('../views/depot/recount/UpdateRecount'),
 	},
+
+	{
+		path: '/marketing/create-price',
+		name: 'create-price',
+		layout: "dashboard",
+		component: () => import('../views/marketing/price/CreatePrice'),
+	},
+	{
+		path: '/marketing/update-price/:id',
+		name: 'update-price',
+		layout: "dashboard",
+		component: () => import('../views/marketing/price/UpdatePrice'),
+	},
 ]
 
 // Adding layout property from each route to the meta

@@ -1,4 +1,11 @@
-import { PartialType } from '@nestjs/swagger';
-import { AddPriceItemDto } from './add-price-item.dto';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 
-export class UpdatePriceItemDto extends PartialType(AddPriceItemDto) {}
+export class UpdatePriceItemDto {
+  @IsNotEmpty()
+  @IsNumber()
+  productID: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  retail_price: number;
+}

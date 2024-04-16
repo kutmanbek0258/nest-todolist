@@ -17,6 +17,7 @@ import { cashRegisterModule } from './cash-register.module';
 import { receiptModule } from "./receipt.module";
 import { writeOffModule } from "./write-off.module";
 import { recountModule } from "./recount.module";
+import { priceModule } from "./price.module";
 
 Vue.use(Vuex);
 
@@ -38,5 +39,6 @@ export const store = new Vuex.Store({
         receipt: receiptModule,
         writeOff: writeOffModule,
         recount: recountModule,
+        price: priceModule,
     }
 });
