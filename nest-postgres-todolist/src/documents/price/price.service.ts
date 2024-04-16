@@ -37,7 +37,8 @@ export class PriceService {
   }
 
   async findAll(findAllDto: FindAllDto) {
-    return await this.priceRepository.query(
+    const total = await this.priceRepository.count();
+    const prices = await this.priceRepository.query(
       `SELECT p.id,
              s.id AS shopid, s.name AS shopname
       FROM price p
@@ -45,6 +46,8 @@ export class PriceService {
       LIMIT $1 OFFSET $2`,
       [findAllDto.take, findAllDto.skip],
     );
+
+    return { total, prices };
   }
 
   async findOne(id: number) {

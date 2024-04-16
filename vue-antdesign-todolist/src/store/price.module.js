@@ -65,6 +65,19 @@ const actions = {
         })
     },
 
+    deletePrice({dispatch, commit}, {priceID}){
+        PriceService.deletePrice({priceID}).then(
+            price => {
+                commit('setPrice', price.data);
+                router.go(0);
+                dispatch('alert/success', 'Deleted success!', {root: true});
+            }
+        ).catch(error => {
+            commit('setPrice', {});
+            dispatch('alert/error', error.response.data.message, {root: true});
+        })
+    },
+
     addPriceItem({dispatch, commit}, {priceID, productID, retail_price}){
         PriceService.addItem({priceID, productID, retail_price}).then(
             priceItem => {

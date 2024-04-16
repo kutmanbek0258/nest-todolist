@@ -365,6 +365,12 @@ let routes = [
 	},
 
 	{
+		path: '/marketing/price-list',
+		name: 'prices',
+		layout: "dashboard",
+		component: () => import('../views/marketing/price/PriceList'),
+	},
+	{
 		path: '/marketing/create-price',
 		name: 'create-price',
 		layout: "dashboard",
