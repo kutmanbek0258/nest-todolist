@@ -9,6 +9,7 @@ import { ProductGroup } from '../product-group/entities/product-group.entity';
 import { PriceTemplate } from '../price-template/entities/price-template.entity';
 import { PriceTemplateService } from '../price-template/price-template.service';
 import { FindAllDto } from './dto/find-all.dto';
+import ProductSearchService from './product.search.service';
 
 @Injectable()
 export class ProductService {
@@ -17,6 +18,7 @@ export class ProductService {
     private readonly productRepository: Repository<Product>,
     private readonly productGroupService: ProductGroupService,
     private readonly priceTemplateService: PriceTemplateService,
+    private readonly productSearchService: ProductSearchService,
   ) {}
 
   async create(createProductDto: CreateProductDto) {
@@ -35,7 +37,9 @@ export class ProductService {
         group: productGroup,
         price_template: priceTemplate,
       });
-      return await this.productRepository.save(product);
+      const newProduct = await this.productRepository.save(product);
+      await this.productSearchService.indexProduct(product);
+      return newProduct;
     } else {
       throw new ForbiddenException();
     }
@@ -86,7 +90,12 @@ export class ProductService {
     if (productGroup && priceTemplate) {
       product.group = productGroup;
       product.price_template = priceTemplate;
-      return await this.productRepository.update({ id: id }, product);
+      const updatedProduct = await this.productRepository.update(
+        { id: id },
+        product,
+      );
+      await this.productSearchService.updateProduct(product);
+      return updatedProduct;
     } else {
       throw new ForbiddenException();
     }

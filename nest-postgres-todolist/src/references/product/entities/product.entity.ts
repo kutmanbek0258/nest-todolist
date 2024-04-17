@@ -14,6 +14,7 @@ import { PriceItem } from '../../../documents/price/entities/price-item.entity';
 
 @Entity()
 export class Product {
+
   @PrimaryGeneratedColumn()
   id: number;
 
