@@ -5,7 +5,23 @@
   <div class="product-container">
     <div class="product-list-inside">
       <a-card :bordered="false" class="header-solid h-full" :bodyStyle="{padding: 0,}">
-
+        <template #title>
+          <a-row type="flex" align="middle">
+            <a-col :span="24" :md="12">
+              <h5 class="font-semibold m-0">Products</h5>
+            </a-col>
+            <a-col :span="24" :md="12" style="display: flex; align-items: center; justify-content: flex-end">
+              <a-radio-group v-model="authorsHeaderBtns" size="small">
+                <a-input-search
+                    v-model:value="keyword"
+                    placeholder="input search text"
+                    style="width: 200px"
+                    @search="onSearch"
+                />
+              </a-radio-group>
+            </a-col>
+          </a-row>
+        </template>
         <a-table
             :columns="productTableColumns"
             :data-source="products"
@@ -66,6 +82,7 @@
 				// Active button for the "Authors" table's card header radio button group.
 				authorsHeaderBtns: 'all',
         productTableColumns,
+        keyword: ''
       }
 		},
 
@@ -88,6 +105,10 @@
         this.setSelectedProduct({id, name});
         const visibility = false;
         this.setDialogVisibleProduct({visibility});
+      },
+
+      onSearch(){
+        this.getAllProducts({query: this.keyword, current: this.current, pageSize: this.pageSize})
       },
 
       onChange(current) {

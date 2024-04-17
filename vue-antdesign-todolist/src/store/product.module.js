@@ -28,10 +28,10 @@ const actions = {
         })
     },
 
-    getAllProducts({dispatch, commit}, {current, pageSize}){
+    getAllProducts({dispatch, commit}, {query, current, pageSize}){
         const take = pageSize;
         const skip = (current === 0) ? 0 : pageSize * (current - 1);
-        ProductService.getAllProducts({take, skip}).then(
+        ProductService.getAllProducts({query, take, skip}).then(
             products => {
                 commit('setProducts', products.data);
                 commit('setCurrent', current);

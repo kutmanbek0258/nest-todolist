@@ -45,16 +45,16 @@ services:
       ELASTIC_PASSWORD: ${ELASTICSEARCH_PASSWORD}
     network_mode: "host"
 
-    kibana:
-      restart: always
-      image: kibana:7.8.1
-      container_name: kibana
-      environment:
-        XPACK_SECURITY_ENABLED: 'true'
-        ELASTICSEARCH_HOSTS: ${ELASTICSEARCH_NODE}
-        ELASTICSEARCH_USERNAME: ${ELASTICSEARCH_USERNAME}
-        ELASTICSEARCH_PASSWORD: ${ELASTICSEARCH_PASSWORD}
-      network_mode: "host"
+  kibana:
+    restart: always
+    image: kibana:7.8.1
+    container_name: kibana
+    environment:
+      XPACK_SECURITY_ENABLED: 'true'
+      ELASTICSEARCH_HOSTS: ${ELASTICSEARCH_NODE}
+      ELASTICSEARCH_USERNAME: ${ELASTICSEARCH_USERNAME}
+      ELASTICSEARCH_PASSWORD: ${ELASTICSEARCH_PASSWORD}
+    network_mode: "host"
 
 volumes:
   elastic-data:

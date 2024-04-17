@@ -11,8 +11,9 @@ class ProductService{
         })
     }
 
-    getAllProducts({take, skip}){
+    getAllProducts({query, take, skip}){
         return api.post('/product/get-all', {
+            query,
             take,
             skip,
         })

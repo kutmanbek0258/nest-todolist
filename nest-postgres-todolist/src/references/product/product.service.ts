@@ -3,13 +3,14 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { ProductGroupService } from '../product-group/product-group.service';
 import { ProductGroup } from '../product-group/entities/product-group.entity';
 import { PriceTemplate } from '../price-template/entities/price-template.entity';
 import { PriceTemplateService } from '../price-template/price-template.service';
 import { FindAllDto } from './dto/find-all.dto';
 import ProductSearchService from './product.search.service';
+import { query } from 'express';
 
 @Injectable()
 export class ProductService {
@@ -38,7 +39,7 @@ export class ProductService {
         price_template: priceTemplate,
       });
       const newProduct = await this.productRepository.save(product);
-      await this.productSearchService.indexProduct(product);
+      await this.productSearchService.indexProduct(newProduct);
       return newProduct;
     } else {
       throw new ForbiddenException();
@@ -46,13 +47,32 @@ export class ProductService {
   }
 
   async findAll(findAllDto: FindAllDto) {
-    const total = await this.productRepository.count();
-    const products = await this.productRepository.find({
-      take: findAllDto.take,
-      skip: findAllDto.skip,
-      order: { id: 'DESC' },
-    });
-    return { total, products };
+    if (findAllDto.query) {
+      const { results, count } = await this.productSearchService.search(
+        findAllDto.query,
+        findAllDto.skip,
+        findAllDto.take,
+      );
+      const ids = results.map((result) => result.id);
+      if (!ids.length) {
+        return {
+          products: [],
+          total: count,
+        };
+      }
+      const products = await this.productRepository.find({
+        where: { id: In(ids) },
+      });
+      return { total: count, products };
+    } else {
+      const total = await this.productRepository.count();
+      const products = await this.productRepository.find({
+        take: findAllDto.take,
+        skip: findAllDto.skip,
+        order: { id: 'DESC' },
+      });
+      return { total, products };
+    }
   }
 
   async findOne(id: number) {
@@ -102,6 +122,8 @@ export class ProductService {
   }
 
   async remove(id: number) {
-    return await this.productRepository.delete({ id: id });
+    const removedProduct = await this.productRepository.delete({ id: id });
+    await this.productSearchService.removeProduct(id);
+    return removedProduct;
   }
 }

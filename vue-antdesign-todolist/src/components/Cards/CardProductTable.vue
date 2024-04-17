@@ -9,7 +9,14 @@
 				</a-col>
         <a-col :span="24" :md="12" style="display: flex; align-items: center; justify-content: flex-end">
           <a-radio-group v-model="authorsHeaderBtns" size="small">
-            <a-button type="primary" v-on:click="openLink('/references/create-product')">
+            <a-input-search
+                class="rg-items"
+                v-model:value="keyword"
+                placeholder="input search text"
+                style="width: 200px"
+                @search="onSearch"
+            />
+            <a-button class="rg-items" type="primary" v-on:click="openLink('/references/create-product')">
               New Product
             </a-button>
           </a-radio-group>
@@ -89,6 +96,10 @@
         this.deleteProduct({id});
       },
 
+      onSearch(){
+        this.getAllProducts({query: this.keyword, current: this.current, pageSize: this.pageSize})
+      },
+
       onChange(current) {
         this.getAllProducts({current, pageSize: this.pageSize});
       },
@@ -101,3 +112,8 @@
 	})
 
 </script>
+<style>
+.rg-items {
+  margin: 5px;
+}
+</style>
