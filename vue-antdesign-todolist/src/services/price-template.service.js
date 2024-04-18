@@ -5,7 +5,7 @@ class PriceTemplateService{
         return api.post('/price-template', {
             name,
             description,
-            formula
+            formula: Number(formula),
         })
     }
 
@@ -24,7 +24,7 @@ class PriceTemplateService{
         return api.patch('/price-template/' + id, {
             name,
             description,
-            formula
+            formula: Number(formula)
         })
     }
 

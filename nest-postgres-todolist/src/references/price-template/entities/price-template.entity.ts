@@ -12,8 +12,8 @@ export class PriceTemplate {
   @Column()
   description: string;
 
-  @Column({ nullable: false })
-  formula: string;
+  @Column({ default: 0 })
+  formula: number;
 
   @OneToMany(() => Product, (product) => product.price_template)
   products: Product[];

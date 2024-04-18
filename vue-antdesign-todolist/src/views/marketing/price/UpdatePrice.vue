@@ -5,14 +5,14 @@
 
 <template>
 	<div class="container">
-    <h4 class="mb-15">update receipt</h4>
+    <h4 class="mb-15">update price</h4>
 
     <!-- Sign In Form -->
     <div class="box1">
 
       <div class="box1-rows">
         <div class="row1">
-          <h6>SUPPLIER</h6>
+          <h6>SHOP</h6>
         </div>
         <div class="row2">
           <a-button type="primary" @click="showModalShop">SELECT SHOP</a-button>

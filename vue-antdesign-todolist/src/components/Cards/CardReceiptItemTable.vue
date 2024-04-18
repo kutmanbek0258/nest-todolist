@@ -9,7 +9,14 @@
         <template #title>
           <a-row type="flex" align="middle">
             <a-col :span="24" :md="12">
-              <h5 class="font-semibold m-0">items</h5>
+              <a-popover class="rg-items" title="Create" trigger="click">
+                <template #content>
+                  <p>
+                    <a @click="createPriceDocumentByReceipt">pricing</a>
+                  </p>
+                </template>
+                <a-button>create based on current receipt</a-button>
+              </a-popover>
             </a-col>
             <a-col :span="24" :md="12" style="display: flex; align-items: center; justify-content: flex-end">
               <a-radio-group v-model="authorsHeaderBtns" size="small">
@@ -171,7 +178,7 @@
     },
 
     destroyed() {
-      this.initialValues();
+      // this.initialValues();
     },
 
     computed: {
@@ -180,7 +187,7 @@
     },
 
     methods: {
-      ...mapActions('receipt', ['getAllReceiptItem', 'addReceiptItem', 'saveEditing', 'updateReceiptItem', 'deleteReceiptItem', 'initialValues']),
+      ...mapActions('receipt', ['getAllReceiptItem', 'addReceiptItem', 'saveEditing', 'updateReceiptItem', 'deleteReceiptItem', 'createAndFillPriceDocumentByReceipt']),
       ...mapActions('product', ['setDialogVisibleProduct']),
 
       editItem(item){
@@ -208,6 +215,10 @@
       handleOkProduct(){
         const visibility = false;
         this.setDialogVisibleProduct({visibility});
+      },
+
+      createPriceDocumentByReceipt(){
+        this.createAndFillPriceDocumentByReceipt({receiptID: this.receiptID})
       },
 
       onChange(pagination, filters, sorter){

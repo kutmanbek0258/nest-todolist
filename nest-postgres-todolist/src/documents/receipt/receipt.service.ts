@@ -120,6 +120,14 @@ export class ReceiptService {
     return await this.receiptRepository.delete({ id: id });
   }
 
+  async createAndFillPriceFromReceipt(receiptID: number, user: User) {
+    const priceID = await this.receiptRepository.query(
+      `SELECT * FROM create_and_fill_price_document_from_receipt($1, $2);`,
+      [receiptID, user.id],
+    );
+    return { priceID: priceID[0].create_and_fill_price_document_from_receipt };
+  }
+
   async addItem(addReceiptItemDto: AddReceiptItemDto) {
     const product = await this.productService.findOneShort(
       addReceiptItemDto.productID,

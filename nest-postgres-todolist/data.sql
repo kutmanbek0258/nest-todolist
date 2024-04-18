@@ -326,6 +326,7 @@ DECLARE
 BEGIN
     IF(TG_OP = 'DELETE') THEN
         SELECT retail_price FROM price_item
+        WHERE "productId" = OLD."productId"
         ORDER BY id DESC
         LIMIT 1 INTO last_retail_price;
 
@@ -350,3 +351,32 @@ CREATE OR REPLACE TRIGGER check_update_price
     AFTER INSERT OR UPDATE OR DELETE ON price_item
     FOR EACH ROW
 EXECUTE FUNCTION update_product_price();
+
+CREATE OR REPLACE FUNCTION create_and_fill_price_document_from_receipt(receiptId integer, authorId integer) RETURNS int AS $$
+DECLARE
+    new_price_id int;
+BEGIN
+
+    INSERT INTO price("shopId", "createdById")
+        SELECT receipt."shopId", authorId
+        FROM receipt
+        WHERE receipt.id = receiptId
+        RETURNING price.id
+            INTO new_price_id;
+
+    INSERT INTO price_item("priceId", "retail_price", "productId")
+        SELECT new_price_id,
+               (SELECT (ri.price * (pt.formula / 100.0)) + ri.price
+                  FROM receipt_item ri
+                           INNER JOIN product p on p.id = ri."productId"
+                           INNER JOIN price_template pt on pt.id = p."priceTemplateId"
+                  WHERE ri.id = receipt_item.id),
+               receipt_item."productId"
+        FROM receipt_item
+        WHERE receipt_item."receiptId" = receiptId;
+
+    RETURN new_price_id;
+END
+$$ LANGUAGE plpgsql;
+
+-- SELECT * FROM create_and_fill_price_document_from_receipt(1, 1);

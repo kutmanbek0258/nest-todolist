@@ -50,7 +50,7 @@
 						'formula',
 						{ rules: [{ required: true, message: 'Please input product Description' }] },
 						]"
-                  type="text"
+                  type="number"
                   placeholder="formula"
                   v-model="priceTemplate.formula"/>
             </a-form-item>

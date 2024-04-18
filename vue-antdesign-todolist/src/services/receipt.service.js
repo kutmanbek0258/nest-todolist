@@ -32,6 +32,11 @@ class ReceiptService {
         return api.delete('/receipt/' + id);
     }
 
+    createAndFillReceiptDocumentByReceipt({receiptID}){
+        console.log(receiptID)
+        return api.post('/receipt/create-and-fill-price-by-receipt/' + receiptID);
+    }
+
     addReceiptItem({receiptID, productID, quantity, price}){
         return api.post('/receipt/add-item', {
             receiptID,

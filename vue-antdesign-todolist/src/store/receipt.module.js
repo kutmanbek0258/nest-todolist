@@ -84,6 +84,17 @@ const actions = {
         })
     },
 
+    createAndFillPriceDocumentByReceipt({dispatch, commit}, {receiptID}){
+        console.log(receiptID)
+        ReceiptService.createAndFillReceiptDocumentByReceipt({receiptID}).then(
+            priceID => {
+                router.push('/marketing/update-price/' + priceID.data.priceID);
+            }
+        ).catch(error => {
+            dispatch('alert/error', error.response.data.message, {root: true});
+        });
+    },
+
     addReceiptItem({dispatch, commit}, {receiptID, productID, quantity, price}){
         ReceiptService.addReceiptItem({receiptID, productID, quantity, price}).then(
             receiptItem => {

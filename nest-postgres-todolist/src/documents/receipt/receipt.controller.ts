@@ -49,6 +49,14 @@ export class ReceiptController {
     return this.receiptService.remove(+id);
   }
 
+  @Post('create-and-fill-price-by-receipt/:id')
+  createAndFillPriceDocumentByReceipt(
+    @UserData() user: User,
+    @Param('id') receiptID: string,
+  ) {
+    return this.receiptService.createAndFillPriceFromReceipt(+receiptID, user);
+  }
+
   @Post('add-item')
   addItem(@Body() addReceiptItemDto: AddReceiptItemDto) {
     return this.receiptService.addItem(addReceiptItemDto);

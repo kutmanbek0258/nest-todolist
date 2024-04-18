@@ -48,7 +48,7 @@
 						'formula',
 						{ rules: [{ required: true, message: 'Please input formula' }] },
 						]"
-                type="text"
+                type="number"
                 placeholder="formula"
                 v-model="formula"/>
           </a-form-item>
@@ -84,7 +84,7 @@
       return {
         name: '',
         description: '',
-        formula: '',
+        formula: 1,
       }
 		},
 

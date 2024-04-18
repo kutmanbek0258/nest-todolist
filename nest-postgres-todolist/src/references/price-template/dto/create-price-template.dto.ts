@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export class CreatePriceTemplateDto {
   @IsString()
@@ -9,7 +15,7 @@ export class CreatePriceTemplateDto {
 
   description: string;
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  formula: string;
+  formula: number;
 }
