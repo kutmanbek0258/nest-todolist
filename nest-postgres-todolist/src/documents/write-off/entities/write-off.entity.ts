@@ -10,7 +10,7 @@ import {
 import { Shop } from '../../../references/shop/entities/shop.entity';
 import { Depot } from '../../../references/depot/entities/depot.entity';
 import { User } from '../../../user/entities/user.entity';
-import { WriteOffItem } from './write-off.item';
+import { WriteOffItem } from './write-off.item.entity';
 
 @Entity()
 export class WriteOff {

@@ -46,7 +46,6 @@ const actions = {
     getProductById({dispatch, commit}, {id}){
         ProductService.getProductById({id}).then(
             product => {
-                console.log(product.data);
                 commit('setProduct', product.data);
             }
         ).catch(error => {
@@ -56,7 +55,6 @@ const actions = {
     },
 
     updateProduct({dispatch, commit}, {id, name, description, barcode, groupID, price_templateID}){
-        console.log(id + '\n', name+ '\n', description+ '\n', barcode+ '\n', groupID+ '\n', price_templateID+ '\n');
         ProductService.updateProduct({id, name, description, barcode, groupID, price_templateID}).then(
             product => {
                 commit('setProduct', product.data);
@@ -76,8 +74,8 @@ const actions = {
                 router.go(0);
             }
         ).catch(error => {
-            commit('setProduct', null);
             dispatch('alert/error', error.response.data.message, {root: true});
+            commit('setProduct', null);
         })
     },
 

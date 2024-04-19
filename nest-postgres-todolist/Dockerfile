@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 # Install app dependencies
 COPY package.json /usr/src/app/
 RUN npm install
-#RUN npm rebuild sharp --update-binary
+RUN npm run migration:run
 
 
 # Bundle app source

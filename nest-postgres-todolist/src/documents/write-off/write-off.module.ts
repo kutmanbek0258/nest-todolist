@@ -7,7 +7,7 @@ import { ProductModule } from '../../references/product/product.module';
 import { UserModule } from '../../user/user.module';
 import { ShopModule } from '../../references/shop/shop.module';
 import { DepotModule } from '../../references/depot/depot.module';
-import { WriteOffItem } from './entities/write-off.item';
+import { WriteOffItem } from './entities/write-off.item.entity';
 
 @Module({
   imports: [

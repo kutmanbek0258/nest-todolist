@@ -8,7 +8,7 @@ import {
 import { ProductGroup } from '../../product-group/entities/product-group.entity';
 import { PriceTemplate } from '../../price-template/entities/price-template.entity';
 import { ReceiptItem } from '../../../documents/receipt/entities/receipt-item.entity';
-import { WriteOffItem } from '../../../documents/write-off/entities/write-off.item';
+import { WriteOffItem } from '../../../documents/write-off/entities/write-off.item.entity';
 import { RecountItem } from '../../../documents/recount/entities/recount-item.entity';
 import { PriceItem } from '../../../documents/price/entities/price-item.entity';
 

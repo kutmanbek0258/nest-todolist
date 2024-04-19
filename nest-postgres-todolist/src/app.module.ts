@@ -5,7 +5,6 @@ import { NmailerModule } from './nmailer/nmailer.module';
 import { AppLoggerMiddleware } from './middleware/http-logger.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { DataSource } from './data-source';
 import { ReferencesModule } from './references/references.module';
 import { AuthModule } from './auth/auth.module';
 import { DocumentModule } from './documents/document.module';
@@ -25,7 +24,6 @@ import { ThermalPrinterModule } from './thermal-printer/thermal-printer.module';
         database: configService.get('POSTGRES_DATABASE'),
         synchronize: true,
         autoLoadEntities: true,
-        migrations: [DataSource],
       }),
       inject: [ConfigService],
     }),

@@ -34,7 +34,7 @@ class ProductService{
     }
 
     deleteProduct({id}){
-
+        return api.delete('/product/' + id);
     }
 }
 
