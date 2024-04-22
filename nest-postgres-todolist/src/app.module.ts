@@ -1,7 +1,7 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 
 import { UserModule } from './user/user.module';
-import { NmailerModule } from './nmailer/nmailer.module';
+import { NodeMailerModule } from './nmailer/node-mailer.module';
 import { AppLoggerMiddleware } from './middleware/http-logger.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -29,7 +29,7 @@ import { ThermalPrinterModule } from './thermal-printer/thermal-printer.module';
     }),
     UserModule,
     AuthModule,
-    NmailerModule,
+    NodeMailerModule,
     ReferencesModule,
     DocumentModule,
     ThermalPrinterModule,

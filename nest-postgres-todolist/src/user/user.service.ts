@@ -14,11 +14,11 @@ import { CreateForgotPasswordDto } from './dto/create-forgot-password.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
 import { RefreshAccessTokenDto } from './dto/refresh-access-token.dto';
-import { NMailerService } from 'src/nmailer/n-mailer.service';
+import { NodeMailerService } from 'src/nmailer/node-mailer.service';
 import { MoreThan, Repository } from 'typeorm';
 import { User } from './entities/user.entity';
-import { ForgotPassword } from './entities/forgot-password.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ForgotPassword } from './entities/forgot-password.entity';
 
 @Injectable()
 export class UserService {
@@ -31,7 +31,7 @@ export class UserService {
     @InjectRepository(ForgotPassword)
     private readonly forgotPasswordRepository: Repository<ForgotPassword>,
     private readonly authService: AuthService,
-    private readonly nMailerService: NMailerService,
+    private readonly nMailerService: NodeMailerService,
   ) {}
 
   // ┌─┐┬─┐┌─┐┌─┐┌┬┐┌─┐  ┬ ┬┌─┐┌─┐┬─┐

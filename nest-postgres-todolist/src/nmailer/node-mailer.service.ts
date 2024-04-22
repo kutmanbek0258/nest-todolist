@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 
 @Injectable()
-export class NMailerService {
+export class NodeMailerService {
   private logger = new Logger('EMAIL');
 
   constructor(private readonly mailerService: MailerService) {}

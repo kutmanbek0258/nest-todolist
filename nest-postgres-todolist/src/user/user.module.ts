@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { AuthModule } from 'src/auth/auth.module';
-import { NmailerModule } from 'src/nmailer/nmailer.module';
+import { NodeMailerModule } from 'src/nmailer/node-mailer.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { ForgotPassword } from './entities/forgot-password.entity';
@@ -12,7 +12,7 @@ import { ForgotPassword } from './entities/forgot-password.entity';
     TypeOrmModule.forFeature([User]),
     TypeOrmModule.forFeature([ForgotPassword]),
     AuthModule,
-    NmailerModule,
+    NodeMailerModule,
   ],
   controllers: [UserController],
   providers: [UserService],
