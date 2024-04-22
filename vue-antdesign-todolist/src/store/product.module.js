@@ -11,7 +11,8 @@ const state = {
     selectedProduct: {
         id: null,
         name: '',
-    }
+    },
+    uploadedProducts: null,
 }
 
 const actions = {
@@ -79,6 +80,18 @@ const actions = {
         })
     },
 
+    uploadProductsCsvFile({dispatch, commit}, {file}){
+        console.log(file);
+        ProductService.uploadProductsCsv({file}).then(
+            products => {
+                dispatch('alert/success', 'Uploaded success!', {root: true});
+                commit('setUploadedProducts', products.data);
+            }
+        ).catch(error => {
+            dispatch('alert/error', error.response.data.message, {root: true});
+        })
+    },
+
     setDialogVisibleProduct({dispatch, commit}, {visibility}){
         commit('setDialogVisibleProduct', visibility);
     },
@@ -115,6 +128,10 @@ const mutations = {
 
     setSelectedProduct(state, selectedProduct){
         state.selectedProduct = selectedProduct;
+    },
+
+    setUploadedProducts(state, products){
+        state.uploadedProducts = products;
     }
 }
 

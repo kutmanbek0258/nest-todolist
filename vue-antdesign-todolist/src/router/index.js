@@ -382,6 +382,20 @@ let routes = [
 		layout: "dashboard",
 		component: () => import('../views/marketing/price/UpdatePrice'),
 	},
+
+
+	{
+		path: '/tools',
+		name: 'product',
+		layout: "dashboard",
+		component: () => import('../views/tools/Tools'),
+	},
+	{
+		path: '/tools/upload-product-list',
+		name: 'product',
+		layout: "dashboard",
+		component: () => import('../views/tools/UploadProductsCsv'),
+	},
 ]
 
 // Adding layout property from each route to the meta

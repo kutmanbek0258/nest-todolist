@@ -56,15 +56,19 @@ export class ProductService {
         findAllDto.take,
       );
       const ids = results.map((result) => result.id);
+      console.log(ids);
       if (!ids.length) {
         return {
           products: [],
           total: count,
         };
       }
-      const products = await this.productRepository.find({
-        where: { id: In(ids) },
-      });
+      const products = await Promise.all(
+        ids.map(
+          async (id): Promise<Product> =>
+            await this.productRepository.findOneBy({ id: id }),
+        ),
+      );
       return { total: count, products };
     } else {
       const total = await this.productRepository.count();

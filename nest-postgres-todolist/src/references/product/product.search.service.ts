@@ -118,6 +118,7 @@ export default class ProductSearchService {
       });
     const count = body.hits.total.value;
     const hits = body.hits.hits;
+    console.log(hits);
     const results = hits.map((item) => item._source);
     return {
       count: startId ? separateCount : count,

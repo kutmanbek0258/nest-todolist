@@ -36,6 +36,17 @@ class ProductService{
     deleteProduct({id}){
         return api.delete('/product/' + id);
     }
+
+    uploadProductsCsv({file}){
+        const formData = new FormData();
+        formData.append('file', file);
+        return api.post('/product/upload-products-csv', formData,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+    }
 }
 
 export default new ProductService();
