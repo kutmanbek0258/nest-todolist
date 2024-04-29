@@ -10,5 +10,6 @@ import { PersonModule } from '../person/person.module';
   imports: [TypeOrmModule.forFeature([Salesman]), CompanyModule, PersonModule],
   controllers: [SalesmanController],
   providers: [SalesmanService],
+  exports: [SalesmanService],
 })
 export class SalesmanModule {}

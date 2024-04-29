@@ -6,13 +6,16 @@ import { Sale } from './entities/sale.entity';
 import { ShiftModule } from '../shift/shift.module';
 import { PosModule } from '../../references/pos/pos.module';
 import { SalesmanModule } from '../../references/salesman/salesman.module';
+import { SaleItem } from './entities/sale-item.entity';
+import { ProductModule } from '../../references/product/product.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Sale]),
+    TypeOrmModule.forFeature([Sale, SaleItem]),
     ShiftModule,
     PosModule,
     SalesmanModule,
+    ProductModule,
   ],
   controllers: [SaleController],
   providers: [SaleService],

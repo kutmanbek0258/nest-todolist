@@ -1,15 +1,11 @@
 import { IsNotEmpty, IsNumber } from 'class-validator';
 
-export class CreateSaleDto {
+export class FindAllDto {
   @IsNotEmpty()
   @IsNumber()
-  shiftID: number;
+  skip: number;
 
   @IsNotEmpty()
   @IsNumber()
-  posID: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  salesmanID: number;
+  take: number;
 }

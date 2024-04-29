@@ -60,6 +60,10 @@ export class SalesmanService {
     );
   }
 
+  async findOneShort(id: number) {
+    return await this.salesmanRepository.findOneBy({ id: id });
+  }
+
   async update(id: number, updateSalesmanDto: UpdateSalesmanDto) {
     const company = await this.companyService.findOne(
       updateSalesmanDto.companyID,
