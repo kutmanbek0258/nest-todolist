@@ -11,10 +11,10 @@ import { ReceiptItem } from '../../../documents/receipt/entities/receipt-item.en
 import { WriteOffItem } from '../../../documents/write-off/entities/write-off.item.entity';
 import { RecountItem } from '../../../documents/recount/entities/recount-item.entity';
 import { PriceItem } from '../../../documents/price/entities/price-item.entity';
+import {CheckItem} from "../../../documents/pos-check/entities/check-item.entity";
 
 @Entity()
 export class Product {
-
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -59,4 +59,7 @@ export class Product {
 
   @OneToMany(() => PriceItem, (priceItem) => priceItem.product)
   prices: PriceItem[];
+
+  @OneToMany(() => CheckItem, (checkItem) => checkItem.product)
+  checks: CheckItem[];
 }

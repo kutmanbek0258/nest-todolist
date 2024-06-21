@@ -8,6 +8,7 @@ import {
 import { Shop } from '../../shop/entities/shop.entity';
 import { Pos } from '../../pos/entities/pos.entity';
 import { Shift } from '../../../documents/shift/entities/shift.entity';
+import { PosCheck } from '../../../documents/pos-check/entities/pos-check.entity';
 
 @Entity()
 export class CashRegister {
@@ -28,4 +29,7 @@ export class CashRegister {
 
   @OneToMany(() => Shift, (shift) => shift.cash_register)
   shifts: Shift[];
+
+  @OneToMany(() => PosCheck, (posCheck) => posCheck.cashRegister)
+  checks: PosCheck[];
 }

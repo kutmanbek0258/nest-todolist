@@ -107,6 +107,7 @@ export class SaleService {
       addSaleItemDto.productID,
     );
     const newItem = this.saleItemRepository.create({
+      shift: sale.shift,
       sale,
       product,
       quantity: addSaleItemDto.quantity,

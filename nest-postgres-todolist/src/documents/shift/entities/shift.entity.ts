@@ -11,6 +11,8 @@ import {
 } from 'typeorm';
 import { now } from 'moment';
 import { Sale } from '../../sale/entities/sale.entity';
+import { SaleItem } from '../../sale/entities/sale-item.entity';
+import {PosCheck} from "../../pos-check/entities/pos-check.entity";
 
 @Entity()
 export class Shift {
@@ -47,4 +49,10 @@ export class Shift {
 
   @OneToMany(() => Sale, (sale) => sale.shift)
   sales: Sale[];
+
+  @OneToMany(() => SaleItem, (saleItem) => saleItem.shift)
+  saleItems: SaleItem[];
+
+  @OneToMany(() => PosCheck, (posCheck) => posCheck.shift)
+  checks: PosCheck[];
 }

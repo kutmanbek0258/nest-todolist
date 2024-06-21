@@ -9,9 +9,7 @@ import {
   UseInterceptors,
   BadRequestException,
   UploadedFile,
-  InternalServerErrorException,
   ForbiddenException,
-  HttpStatus,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -19,7 +17,6 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { FindAllDto } from './dto/find-all.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
-import { Product } from './entities/product.entity';
 
 @Controller('product')
 export class ProductController {
