@@ -56,13 +56,14 @@ export class ProductService {
         findAllDto.take,
       );
       const ids = results.map((result) => result.id);
-      console.log(ids);
       if (!ids.length) {
+        console.log('Not found!');
         return {
           products: [],
           total: count,
         };
       }
+      console.log('found!');
       const products = await Promise.all(
         ids.map(
           async (id): Promise<Product> =>

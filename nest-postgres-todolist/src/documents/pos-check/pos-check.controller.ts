@@ -1,7 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { PosCheckService } from './pos-check.service';
 import { CreatePosCheckDto } from './dto/create-pos-check.dto';
 import { UpdatePosCheckDto } from './dto/update-pos-check.dto';
+import { FindAllDto } from './dto/find-all.dto';
+import { AddCheckItemDto } from './dto/add-check-item.dto';
+import { UpdateCheckItemDto } from './dto/update-check-item.dto';
 
 @Controller('pos-check')
 export class PosCheckController {
@@ -12,9 +23,9 @@ export class PosCheckController {
     return this.posCheckService.create(createPosCheckDto);
   }
 
-  @Get()
-  findAll() {
-    return this.posCheckService.findAll();
+  @Post('fina-all')
+  findAll(@Body() findAllDto: FindAllDto) {
+    return this.posCheckService.findAll(findAllDto);
   }
 
   @Get(':id')
@@ -23,12 +34,38 @@ export class PosCheckController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePosCheckDto: UpdatePosCheckDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updatePosCheckDto: UpdatePosCheckDto,
+  ) {
     return this.posCheckService.update(+id, updatePosCheckDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.posCheckService.remove(+id);
+  }
+
+  @Post('add-item')
+  addItem(@Body() addCheckItemDto: AddCheckItemDto) {
+    return this.posCheckService.addItem(addCheckItemDto);
+  }
+
+  @Get('get-all-items/:id')
+  getAllItems(@Param('id') checkID: number) {
+    return this.posCheckService.getAllItems(checkID);
+  }
+
+  @Patch('update-item/:id')
+  updateItem(
+    @Param('id') checkID: number,
+    @Body() updateCheckItemDto: UpdateCheckItemDto,
+  ) {
+    return this.posCheckService.updateItem(checkID, updateCheckItemDto);
+  }
+
+  @Delete('delete-item/:id')
+  deleteItem(@Param('id') itemID: number) {
+    return this.posCheckService.deleteItem(itemID);
   }
 }

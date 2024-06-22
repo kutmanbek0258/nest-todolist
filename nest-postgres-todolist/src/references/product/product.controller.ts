@@ -51,7 +51,7 @@ export class ProductController {
   @UseInterceptors(
     FileInterceptor('file', {
       storage: memoryStorage(),
-      limits: { files: 1, fileSize: 1024 * 1024 * 15 }, // 1 MB you can adjust size here
+      limits: { files: 1, fileSize: 2024 * 2048 * 15 }, // 1 MB you can adjust size here
       fileFilter: (req, file, cb) => {
         const allowedMimeTypes = ['text/csv'];
         if (!allowedMimeTypes.includes(file.mimetype)) {

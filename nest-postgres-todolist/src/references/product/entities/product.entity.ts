@@ -11,7 +11,7 @@ import { ReceiptItem } from '../../../documents/receipt/entities/receipt-item.en
 import { WriteOffItem } from '../../../documents/write-off/entities/write-off.item.entity';
 import { RecountItem } from '../../../documents/recount/entities/recount-item.entity';
 import { PriceItem } from '../../../documents/price/entities/price-item.entity';
-import {CheckItem} from "../../../documents/pos-check/entities/check-item.entity";
+import { CheckItem } from '../../../documents/pos-check/entities/check-item.entity';
 
 @Entity()
 export class Product {

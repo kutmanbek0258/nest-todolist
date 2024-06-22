@@ -98,6 +98,7 @@ export default class ProductSearchService {
                 multi_match: {
                   query: text,
                   fields: ['name', 'description'],
+                  fuzziness: 2,
                 },
               },
               filter: {
