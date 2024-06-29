@@ -9,7 +9,6 @@ import { Pos } from '../../references/pos/entities/pos.entity';
 import { CashRegister } from '../../references/cash-register/entities/cash-register.entity';
 import { FindAllDto } from './dto/find-all.dto';
 import { OpenShiftDto } from './dto/open-shift.dto';
-import { now } from 'moment';
 
 @Injectable()
 export class ShiftService {
@@ -21,34 +20,18 @@ export class ShiftService {
   ) {}
 
   async open(openCloseShiftDto: OpenShiftDto) {
-    const pos: Pos = await this.posService.findOneShort(
-      openCloseShiftDto.posId,
+    return await this.shiftRepository.query(
+      `
+      SELECT * FROM open_shift($1, $2);`,
+      [openCloseShiftDto.posId, openCloseShiftDto.cashRegisterId],
     );
-    const cashRegister: CashRegister =
-      await this.cashRegisterService.findOneShort(
-        openCloseShiftDto.cashRegisterId,
-      );
-    if (pos && cashRegister) {
-      const shift: Shift = this.shiftRepository.create({
-        start_date: openCloseShiftDto.startDate,
-        end_date: openCloseShiftDto.endDate,
-        status: ShiftStatus.Open,
-        pos,
-        cash_register: cashRegister,
-      });
-      return await this.shiftRepository.save(shift);
-    } else {
-      throw new ForbiddenException({ message: 'References not found!' });
-    }
   }
 
-  async close(id: number) {
-    return await this.shiftRepository.update(
-      { id: id },
-      {
-        end_date: now(),
-        status: ShiftStatus.Close,
-      },
+  async close(id: number, salesmanId: number) {
+    return await this.shiftRepository.query(
+      `
+    SELECT * FROM close_shift($1, $2);`,
+      [id, salesmanId],
     );
   }
 
@@ -73,6 +56,20 @@ export class ShiftService {
       INNER JOIN pos p on p.id = shift."posId"
       WHERE shift.id = $1;`,
       [id],
+    );
+  }
+
+  async findCurrentShift(posID: number) {
+    return await this.shiftRepository.query(
+      `
+      SELECT start_date, end_date, status,
+             p.id AS posid, p.name AS posname,
+             cr.id AS cashregisterid
+      FROM shift
+      INNER JOIN cash_register cr on cr.id = shift."cashRegisterId"
+      INNER JOIN pos p on p.id = shift."posId"
+      WHERE shift."posId" = $1 AND shift.status = $2 AND shift.start_date <= NOW() - '1 day'::INTERVAL`,
+      [posID, ShiftStatus.Open],
     );
   }
 

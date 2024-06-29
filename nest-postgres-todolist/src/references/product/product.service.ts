@@ -76,7 +76,7 @@ export class ProductService {
       const products = await this.productRepository.find({
         take: findAllDto.take,
         skip: findAllDto.skip,
-        order: { id: 'DESC' },
+        order: { name: 'ASC' },
       });
       return { total, products };
     }

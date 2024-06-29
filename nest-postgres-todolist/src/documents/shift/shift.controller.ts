@@ -6,13 +6,18 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ShiftService } from './shift.service';
 import { UpdateShiftDto } from './dto/update-shift.dto';
 import { FindAllDto } from './dto/find-all.dto';
 import { OpenShiftDto } from './dto/open-shift.dto';
+import { UserData } from '../../auth/decorators/user.decorator';
+import { User } from '../../user/entities/user.entity';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('shift')
+@UseGuards(AuthGuard('jwt'))
 export class ShiftController {
   constructor(private readonly shiftService: ShiftService) {}
 
@@ -21,8 +26,8 @@ export class ShiftController {
     return this.shiftService.open(openShiftDto);
   }
 
-  close(@Param('id') id: string) {
-    return this.shiftService.close(+id);
+  close(@UserData() user: User, @Param('id') id: string) {
+    return this.shiftService.close(+id, user.id);
   }
 
   @Post('find-all')

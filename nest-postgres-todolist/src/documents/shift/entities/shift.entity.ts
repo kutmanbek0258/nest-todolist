@@ -9,10 +9,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { now } from 'moment';
 import { Sale } from '../../sale/entities/sale.entity';
 import { SaleItem } from '../../sale/entities/sale-item.entity';
-import {PosCheck} from "../../pos-check/entities/pos-check.entity";
+import { PosCheck } from '../../pos-check/entities/pos-check.entity';
 
 @Entity()
 export class Shift {
@@ -22,7 +21,7 @@ export class Shift {
   @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   start_date: Date;
 
-  @Column({ type: 'timestamptz' })
+  @Column({ type: 'timestamptz', nullable: true })
   end_date: Date;
 
   @Column({ type: 'int' })

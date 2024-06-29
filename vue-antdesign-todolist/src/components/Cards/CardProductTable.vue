@@ -97,14 +97,20 @@
       },
 
       onSearch(){
-        this.getAllProducts({query: this.keyword, current: this.current, pageSize: this.pageSize})
+        this.getAllProducts({query: this.keyword, current: 1, pageSize: this.pageSize})
       },
 
       onChange(current) {
+        if(this.keyword !== ""){
+          this.getAllProducts({query: this.keyword, current, pageSize: this.pageSize})
+        }
         this.getAllProducts({current, pageSize: this.pageSize});
       },
 
       onShowSizeChange(current, pageSize) {
+        if(this.keyword !== ""){
+          this.getAllProducts({query: this.keyword, current, pageSize})
+        }
         this.getAllProducts({current, pageSize});
       },
 

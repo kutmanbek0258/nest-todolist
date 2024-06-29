@@ -303,7 +303,6 @@ let routes = [
 	{
 		path: '/sales/pos',
 		name: 'POS',
-		layout: "dashboard",
 		component: () => import('../views/sales/POS'),
 	},
 
